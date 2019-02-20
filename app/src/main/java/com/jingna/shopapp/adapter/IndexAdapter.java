@@ -1,12 +1,14 @@
 package com.jingna.shopapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.pages.GoodsDetailsActivity;
 
 import java.util.List;
 
@@ -33,7 +35,14 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(context, GoodsDetailsActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
