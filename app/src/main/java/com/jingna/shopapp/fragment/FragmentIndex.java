@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
@@ -48,6 +49,10 @@ public class FragmentIndex extends Fragment {
     ImageView ivSaoyisao;
     @BindView(R.id.iv_message)
     ImageView ivMessage;
+    @BindView(R.id.iv_small_search)
+    ImageView ivSmallSearch;
+    @BindView(R.id.tv_search_text)
+    TextView tvSearchText;
 
     private IndexAdapter adapter;
     private List<String> mList;
@@ -84,6 +89,8 @@ public class FragmentIndex extends Fragment {
                     rlMessage.setBackgroundResource(R.drawable.bg_42000000_round);
                     Glide.with(getContext()).load(R.mipmap.saoyisao).into(ivSaoyisao);
                     Glide.with(getContext()).load(R.mipmap.message).into(ivMessage);
+                    Glide.with(getContext()).load(R.mipmap.search).into(ivSmallSearch);
+                    tvSearchText.setTextColor(Color.parseColor("#9C9C9C"));
                 } else if (y > 0 && y <= 888) {
                     float scale = (float) y / 888;
                     float alpha = (255 * scale);
@@ -98,6 +105,8 @@ public class FragmentIndex extends Fragment {
                     rlMessage.setBackgroundResource(R.drawable.bg_ffffff_round);
                     Glide.with(getContext()).load(R.mipmap.saoyisao_dark).into(ivSaoyisao);
                     Glide.with(getContext()).load(R.mipmap.message_dark).into(ivMessage);
+                    Glide.with(getContext()).load(R.mipmap.search_light).into(ivSmallSearch);
+                    tvSearchText.setTextColor(Color.parseColor("#ffffff"));
                 }
             }
         });

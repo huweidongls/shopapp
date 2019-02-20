@@ -203,6 +203,7 @@
             android:layout_height="32dp">
 
             <ImageView
+                android:id="@+id/iv_small_search"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="11dp"
                 android:src="@mipmap/search"
@@ -210,6 +211,7 @@
                 android:layout_height="15dp" />
 
             <TextView
+                android:id="@+id/tv_search_text"
                 android:layout_marginLeft="6dp"
                 android:textColor="#9C9C9C"
                 android:textSize="13sp"
