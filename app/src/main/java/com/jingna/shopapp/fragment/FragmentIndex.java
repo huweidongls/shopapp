@@ -1,6 +1,6 @@
 package com.jingna.shopapp.fragment;
 
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.IndexAdapter;
+import com.jingna.shopapp.pages.LoginActivity;
+import com.jingna.shopapp.pages.SMSLoginActivity;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.widget.ObservableScrollView;
 
@@ -26,6 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2019/2/15.
@@ -141,6 +144,20 @@ public class FragmentIndex extends Fragment {
 
     }
 
+    @OnClick({R.id.ll1, R.id.ll2})
+    public void onClick(View view){
+        Intent intent = new Intent();
+        switch (view.getId()){
+            case R.id.ll1:
+                intent.setClass(getContext(), LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll2:
+                intent.setClass(getContext(), SMSLoginActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
 
     public static void setMargins (View v, int l, int t, int r, int b) {
         if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {

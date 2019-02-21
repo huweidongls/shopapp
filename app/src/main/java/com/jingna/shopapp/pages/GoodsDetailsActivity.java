@@ -35,6 +35,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class GoodsDetailsActivity extends AppCompatActivity {
 
@@ -56,7 +57,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_details);
 
-        StatusBarUtils.setStatusBar(GoodsDetailsActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(GoodsDetailsActivity.this, Color.parseColor("#FBFBFB"));
         ButterKnife.bind(GoodsDetailsActivity.this);
         mFragmentManager = getSupportFragmentManager();
         initData();
@@ -119,4 +120,14 @@ public class GoodsDetailsActivity extends AppCompatActivity {
         ViewPagerHelper.bind(magicIndicator, mViewPager);
 
     }
+
+    @OnClick({R.id.rl_back})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.rl_back:
+                finish();
+                break;
+        }
+    }
+
 }

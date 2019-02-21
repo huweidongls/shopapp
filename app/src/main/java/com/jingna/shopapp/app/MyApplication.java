@@ -3,6 +3,9 @@ package com.jingna.shopapp.app;
 import android.app.Activity;
 import android.app.Application;
 
+import com.jingna.shopapp.util.Const;
+import com.vise.xsnow.http.ViseHttp;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,7 +24,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        ViseHttp.init(this);
+        ViseHttp.CONFIG().baseUrl(Const.BASE_URL);
     }
 
     public synchronized static MyApplication getInstance() {
