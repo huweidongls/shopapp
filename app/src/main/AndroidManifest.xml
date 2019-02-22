@@ -45,7 +45,7 @@
         <activity android:name=".pages.LoginActivity" />
         <activity android:name=".pages.SMSLoginActivity" />
         <activity android:name=".pages.SMSLoginYzmActivity" />
-        <activity android:name=".pages.RegisterActivity"></activity>
+        <activity android:name=".pages.RegisterActivity" />
 
         <receiver android:name=".broadcastreceiver.NetBroadcastReceiver">
             <intent-filter>
@@ -53,6 +53,8 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".pages.RegisterYzmActivity" />
+        <activity android:name=".pages.RegisterSetPwdActivity"></activity>
     </application>
 
 </manifest>

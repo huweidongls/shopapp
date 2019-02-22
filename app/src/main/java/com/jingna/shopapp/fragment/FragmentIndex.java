@@ -20,6 +20,7 @@ import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.IndexAdapter;
 import com.jingna.shopapp.pages.LoginActivity;
 import com.jingna.shopapp.pages.RegisterActivity;
+import com.jingna.shopapp.pages.RegisterYzmActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.widget.ObservableScrollView;
@@ -158,7 +159,7 @@ public class FragmentIndex extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.ll3:
-                intent.setClass(getContext(), RegisterActivity.class);
+                intent.setClass(getContext(), RegisterYzmActivity.class);
                 startActivity(intent);
                 break;
         }

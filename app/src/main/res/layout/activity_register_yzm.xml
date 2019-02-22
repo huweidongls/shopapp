@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_ffffff"
     android:orientation="vertical"
-    tools:context="com.jingna.shopapp.pages.RegisterActivity">
+    android:background="@color/white_ffffff"
+    tools:context="com.jingna.shopapp.pages.RegisterYzmActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,60 +29,78 @@
             android:layout_centerInParent="true"
             android:textColor="#222222"
             android:textSize="18sp"
-            android:text="手机快速注册"
+            android:text="新用户注册"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </RelativeLayout>
 
-    <LinearLayout
+    <ImageView
+        android:layout_marginTop="18dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/fushi"
+        android:layout_width="99dp"
+        android:layout_height="81dp" />
+
+    <TextView
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="30dp"
+        android:textColor="@color/black_333333"
+        android:textSize="16sp"
+        android:text="我们将以短信或电话的形式将验证码发送给您， 请注意接听0575/025/0592/010等开头的电话 或短"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="42dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:textColor="@color/black_333333"
-                android:textSize="16sp"
-                android:text="+86"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <com.jingna.shopapp.widget.EditTextWithDel
-                android:id="@+id/et_number"
+            <EditText
+                android:id="@+id/et_code"
                 android:inputType="number"
+                android:hint="请输入验证码"
                 android:textColor="@color/black_333333"
                 android:textColorHint="#999999"
                 android:textSize="16sp"
-                android:hint="请输入手机号"
-                android:layout_marginLeft="14dp"
                 android:background="@null"
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tv_get_code"
+                android:layout_alignParentRight="true"
+                android:textSize="16sp"
+                android:textColor="#FF0004"
+                android:text="获取验证码"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
 
         <View
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="15dp"
             android:background="#E4E4E4"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
     </LinearLayout>
-    
+
     <Button
         android:id="@+id/btn_next"
+        android:background="@drawable/bg_ff4d16_25dp"
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp"
-        android:background="@drawable/bg_ff4d16_25dp"
         android:textColor="@color/white_ffffff"
+        android:textSize="15sp"
         android:text="下一步"
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"

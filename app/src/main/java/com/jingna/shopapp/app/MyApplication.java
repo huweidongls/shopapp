@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.jingna.shopapp.util.Const;
+import com.jingna.shopapp.util.FTPTimeCount;
 import com.vise.xsnow.http.ViseHttp;
 
 import java.util.LinkedList;
@@ -17,6 +18,8 @@ public class MyApplication extends Application {
 
     private static MyApplication instance;
     private List<Activity> mList = new LinkedList<Activity>();
+    // 修改密码获取验证码倒计时
+    public static FTPTimeCount ftptimecount;
 
     public MyApplication() {
     }
@@ -26,6 +29,7 @@ public class MyApplication extends Application {
         super.onCreate();
         ViseHttp.init(this);
         ViseHttp.CONFIG().baseUrl(Const.BASE_URL);
+        ftptimecount = new FTPTimeCount(60000, 1000);
     }
 
     public synchronized static MyApplication getInstance() {
