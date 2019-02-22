@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.IndexAdapter;
 import com.jingna.shopapp.pages.LoginActivity;
+import com.jingna.shopapp.pages.RegisterActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.widget.ObservableScrollView;
@@ -144,7 +145,7 @@ public class FragmentIndex extends Fragment {
 
     }
 
-    @OnClick({R.id.ll1, R.id.ll2})
+    @OnClick({R.id.ll1, R.id.ll2, R.id.ll3})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -154,6 +155,10 @@ public class FragmentIndex extends Fragment {
                 break;
             case R.id.ll2:
                 intent.setClass(getContext(), SMSLoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll3:
+                intent.setClass(getContext(), RegisterActivity.class);
                 startActivity(intent);
                 break;
         }

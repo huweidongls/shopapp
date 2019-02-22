@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_ffffff_9dp">
+
+    <LinearLayout
+        android:background="@drawable/bg_ffffff_9dp"
+        android:orientation="vertical"
+        android:layout_width="315dp"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:textColor="@color/black_333333"
+                android:text="注册协议及隐私政策"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:lineSpacingMultiplier="1.5"
+                android:layout_marginRight="22dp"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="14dp"
+                android:textStyle="bold"
+                android:textColor="@color/black_333333"
+                android:textSize="14sp"
+                android:text="在您注册成为用户的过程中，您需要完成我们的注册流程并通过点击同意的形式在线签署以下协议，请您务必仔细阅读、充分理解协议中的条款内容后再点击同意（尤其是以粗体并下划线表示的条款，因为这些条款可能会明确您应履行的义务或对您的权利有所限制）： 《用户注册协议》 《隐私政策》"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_marginTop="15dp"
+                android:background="#e4e4e4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <TextView
+                android:lineSpacingMultiplier="1.2"
+                android:layout_marginRight="22dp"
+                android:layout_marginLeft="22dp"
+                android:textStyle="bold"
+                android:textColor="@color/black_333333"
+                android:textSize="13sp"
+                android:layout_marginTop="11dp"
+                android:text="点击同意即表示您已阅读并同意《用户注册协议》与《隐私政策》并将您的订单信息共享给为完成此订单必须的第三方合作方。关于《订单共享与安全》"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_marginTop="15dp"
+                android:background="#e4e4e4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:background="@drawable/bg_ffffff_bottom_left_9dp"
+                android:id="@+id/tv_cancel"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@color/black_333333"
+                android:text="取消"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:background="@drawable/bg_ff4f16_bottom_right_9dp"
+                android:id="@+id/tv_sure"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@color/white_ffffff"
+                android:text="确定"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

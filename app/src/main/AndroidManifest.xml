@@ -44,7 +44,15 @@
         <activity android:name=".pages.GoodsDetailsActivity" />
         <activity android:name=".pages.LoginActivity" />
         <activity android:name=".pages.SMSLoginActivity" />
-        <activity android:name=".pages.SMSLoginYzmActivity"></activity>
+        <activity android:name=".pages.SMSLoginYzmActivity" />
+        <activity android:name=".pages.RegisterActivity"></activity>
+
+        <receiver android:name=".broadcastreceiver.NetBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

@@ -3,17 +3,17 @@ package com.jingna.shopapp.pages;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.util.StatusBarUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SMSLoginActivity extends AppCompatActivity {
+public class SMSLoginActivity extends BaseActivity {
 
     private Context context = SMSLoginActivity.this;
 

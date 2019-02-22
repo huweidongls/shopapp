@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.GoodsDetailsViewpagerAdapter;
+import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.customview.ScaleTransitionPagerTitleView;
 import com.jingna.shopapp.fragment.FragmentComment;
 import com.jingna.shopapp.fragment.FragmentEvaluation;
@@ -37,7 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class GoodsDetailsActivity extends AppCompatActivity {
+public class GoodsDetailsActivity extends BaseActivity {
 
     private Context context = GoodsDetailsActivity.this;
 
