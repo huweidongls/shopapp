@@ -55,7 +55,7 @@ public class RegisterYzmActivity extends BaseActivity {
 
     private void initData() {
 
-
+        MyApplication.ftptimecount.start();
 
     }
 
@@ -70,9 +70,41 @@ public class RegisterYzmActivity extends BaseActivity {
                 next();
                 break;
             case R.id.tv_get_code:
-                MyApplication.ftptimecount.start();
+                getCode();
                 break;
         }
+    }
+
+    /**
+     * 根据手机号获取验证码
+     */
+    private void getCode() {
+
+        String url = "/MemUser/sendMessage?phone="+phoneNumber;
+        Log.e("123123", phoneNumber);
+        ViseHttp.GET(url)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            Log.e("123123", data);
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                ToastUtil.showShort(context, "短信验证码发送成功");
+                            }else {
+                                ToastUtil.showShort(context, "短信验证码发送失败");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+                        Log.e("123123", errMsg);
+                    }
+                });
+
     }
 
     /**

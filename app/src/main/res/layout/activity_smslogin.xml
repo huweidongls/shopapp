@@ -80,7 +80,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <com.jingna.shopapp.widget.EditTextWithDel
+                    android:inputType="number"
+                    android:id="@+id/et_phonenum"
                     android:textColor="@color/black_333333"
                     android:textColorHint="#999999"
                     android:textSize="16sp"
@@ -118,6 +120,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_pwd_login"
                 android:textColor="#797979"
                 android:textSize="14sp"
                 android:text="账号密码登录"

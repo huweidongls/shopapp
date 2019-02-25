@@ -54,7 +54,8 @@
         </receiver>
 
         <activity android:name=".pages.RegisterYzmActivity" />
-        <activity android:name=".pages.RegisterSetPwdActivity"></activity>
+        <activity android:name=".pages.RegisterSetPwdActivity" />
+        <activity android:name=".pages.ForgotPwd1Activity"></activity>
     </application>
 
 </manifest>

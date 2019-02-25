@@ -59,15 +59,11 @@
 
             </LinearLayout>
 
-            <TextView
-                android:background="@drawable/bg_bord_dadada_12dp"
-                android:gravity="center"
-                android:textSize="11sp"
-                android:textColor="#6C6C6C"
-                android:text="看相似"
+            <ImageView
+                android:src="@mipmap/gouwuche_g"
                 android:layout_alignParentRight="true"
-                android:layout_width="50dp"
-                android:layout_height="23dp" />
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
 
         </RelativeLayout>
 
