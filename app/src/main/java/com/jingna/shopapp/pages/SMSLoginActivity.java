@@ -27,7 +27,7 @@ public class SMSLoginActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.btn_yzm})
+    @OnClick({R.id.rl_back, R.id.btn_yzm})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
