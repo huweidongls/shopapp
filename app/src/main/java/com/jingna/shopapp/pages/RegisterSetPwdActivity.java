@@ -12,8 +12,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.base.BaseActivity;
+import com.jingna.shopapp.bean.LoginBean;
+import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
 import com.vise.xsnow.http.ViseHttp;
@@ -85,7 +88,7 @@ public class RegisterSetPwdActivity extends BaseActivity {
         }else if(pwd.length()<6||pwd.length()>20){
             ToastUtil.showShort(context, "密码长度为6-20位，请重新设置密码");
         }else {
-            String url = "/MemUser/updatePassword?phone="+phoneNumber+"&password="+pwd;
+            String url = "/MemUser/addMember?phone="+phoneNumber+"&password="+pwd;
             ViseHttp.GET(url)
                     .request(new ACallback<String>() {
                         @Override
@@ -95,6 +98,11 @@ public class RegisterSetPwdActivity extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(data);
                                 if(jsonObject.optString("status").equals("200")){
                                     ToastUtil.showShort(context, "注册成功");
+                                    Gson gson = new Gson();
+                                    LoginBean loginBean = gson.fromJson(data, LoginBean.class);
+                                    SpUtils.setUserId(context, loginBean.getData().getUserId()+"");
+                                    SpUtils.setToken(context, loginBean.getData().getToken());
+                                    SpUtils.setPhoneNum(context, phoneNumber);
                                     finish();
                                 }
                             } catch (JSONException e) {

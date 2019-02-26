@@ -10,9 +10,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.app.MyApplication;
 import com.jingna.shopapp.base.BaseActivity;
+import com.jingna.shopapp.bean.LoginBean;
+import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
 import com.vise.xsnow.http.ViseHttp;
@@ -94,6 +97,11 @@ public class SMSLoginYzmActivity extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(data);
                                 if(jsonObject.optString("status").equals("200")){
                                     ToastUtil.showShort(context, "登录成功");
+                                    Gson gson = new Gson();
+                                    LoginBean loginBean = gson.fromJson(data, LoginBean.class);
+                                    SpUtils.setUserId(context, loginBean.getData().getUserId()+"");
+                                    SpUtils.setToken(context, loginBean.getData().getToken());
+                                    SpUtils.setPhoneNum(context, phoneNum);
                                     finish();
                                 }else {
                                     ToastUtil.showShort(context, "验证码不正确");

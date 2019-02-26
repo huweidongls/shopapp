@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.bean.LoginBean;
+import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
 import com.vise.xsnow.http.ViseHttp;
@@ -74,7 +75,7 @@ public class LoginActivity extends BaseActivity {
 
     private void login() {
 
-        String name = etName.getText().toString();
+        final String name = etName.getText().toString();
         String pwd = etPwd.getText().toString();
         if(TextUtils.isEmpty(name)||TextUtils.isEmpty(pwd)){
             ToastUtil.showShort(context, "手机号或密码不能为空");
@@ -88,9 +89,12 @@ public class LoginActivity extends BaseActivity {
                             try {
                                 JSONObject jsonObject = new JSONObject(data);
                                 if(jsonObject.optString("status").equals("200")){
+                                    ToastUtil.showShort(context, "登录成功");
                                     Gson gson = new Gson();
                                     LoginBean loginBean = gson.fromJson(data, LoginBean.class);
-                                    ToastUtil.showShort(context, "登录成功");
+                                    SpUtils.setUserId(context, loginBean.getData().getUserId()+"");
+                                    SpUtils.setToken(context, loginBean.getData().getToken());
+                                    SpUtils.setPhoneNum(context, name);
                                     finish();
                                 }else {
                                     ToastUtil.showShort(context, jsonObject.optString("errorMsg"));

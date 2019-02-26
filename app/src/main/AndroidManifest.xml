@@ -57,7 +57,8 @@
         <activity android:name=".pages.RegisterSetPwdActivity" />
         <activity android:name=".pages.ForgotPwd1Activity" />
         <activity android:name=".pages.ForgotPwd2Activity" />
-        <activity android:name=".pages.ForgotPwd3Activity"></activity>
+        <activity android:name=".pages.ForgotPwd3Activity" />
+        <activity android:name=".pages.PersonInformationActivity"></activity>
     </application>
 
 </manifest>

@@ -174,12 +174,13 @@
     <RelativeLayout
         android:id="@+id/rl_search"
         android:layout_width="match_parent"
-        android:layout_height="42dp">
+        android:layout_height="62dp">
 
         <RelativeLayout
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="2.5dp"
             android:id="@+id/rl_saoyisao"
             android:layout_marginLeft="8dp"
-            android:layout_centerVertical="true"
             android:background="@drawable/bg_42000000_round"
             android:layout_width="37dp"
             android:layout_height="37dp">
@@ -194,13 +195,14 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentBottom="true"
             android:id="@+id/ll_search"
             android:orientation="horizontal"
             android:layout_marginLeft="11dp"
             android:layout_marginRight="11dp"
             android:layout_toLeftOf="@+id/rl_message"
             android:layout_toRightOf="@+id/rl_saoyisao"
-            android:layout_centerVertical="true"
             android:background="@drawable/bg_index_search"
             android:layout_width="match_parent"
             android:layout_height="32dp">
@@ -226,10 +228,11 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="2.5dp"
             android:id="@+id/rl_message"
             android:layout_marginRight="8dp"
             android:background="@drawable/bg_42000000_round"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_width="37dp"
             android:layout_height="37dp">

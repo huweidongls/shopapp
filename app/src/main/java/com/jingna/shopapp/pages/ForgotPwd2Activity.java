@@ -32,6 +32,8 @@ public class ForgotPwd2Activity extends BaseActivity {
     EditText etCode;
     @BindView(R.id.tv_get_code)
     TextView tvGetCode;
+    @BindView(R.id.tv_phonenum)
+    TextView tvPhoneNum;
 
     private String phoneNum = "";
 
@@ -55,6 +57,8 @@ public class ForgotPwd2Activity extends BaseActivity {
     private void initData() {
 
         MyApplication.forgotTimeCount.start();
+        String showNum = phoneNum.substring(0, 3)+"****"+phoneNum.substring(7, 11);
+        tvPhoneNum.setText(showNum);
 
     }
 

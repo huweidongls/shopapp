@@ -68,6 +68,7 @@ public class FragmentIndex extends Fragment {
         View view = inflater.inflate(R.layout.fragment_index, null);
 
         StatusBarUtils.setStatusBarTransparent(getActivity());
+        getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         ButterKnife.bind(this, view);
         initView();
 
@@ -76,19 +77,19 @@ public class FragmentIndex extends Fragment {
 
     private void initView() {
 
-        int result = 0;
-        int resourceId = getContext().getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getContext().getResources().getDimensionPixelSize(resourceId);
-        }
-        setMargins(rlSearch, 0, result, 0, 0);
+//        int result = 0;
+//        int resourceId = getContext().getResources().getIdentifier("status_bar_height", "dimen", "android");
+//        if (resourceId > 0) {
+//            result = getContext().getResources().getDimensionPixelSize(resourceId);
+//        }
+//        setMargins(rlSearch, 0, result, 0, 0);
 
         scrollView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
             @Override
             public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
                 if (y <= 0) {
                     rlSearch.setBackgroundColor(Color.argb((int) 0, 255, 255, 255));//AGB由相关工具获得，或者美工提供
-                    StatusBarUtils.setStatusBarTransparent(getActivity());
+//                    StatusBarUtils.setStatusBarTransparent(getActivity());
                     llSearch.setBackgroundResource(R.drawable.bg_index_search);
                     rlSaoyisao.setBackgroundResource(R.drawable.bg_42000000_round);
                     rlMessage.setBackgroundResource(R.drawable.bg_42000000_round);
@@ -101,10 +102,10 @@ public class FragmentIndex extends Fragment {
                     float alpha = (255 * scale);
                     // 只是layout背景透明
                     rlSearch.setBackgroundColor(Color.argb((int) alpha, 255, 255, 255));
-                    StatusBarUtils.setStatusBar(getActivity(), Color.argb((int) alpha, 255, 255, 255));
+//                    StatusBarUtils.setStatusBar(getActivity(), Color.argb((int) alpha, 255, 255, 255));
                 } else {
                     rlSearch.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
-                    StatusBarUtils.setStatusBar(getActivity(), Color.argb((int) 255, 255, 255, 255));
+//                    StatusBarUtils.setStatusBar(getActivity(), Color.argb((int) 255, 255, 255, 255));
                     llSearch.setBackgroundResource(R.drawable.bg_index_search_dark);
                     rlSaoyisao.setBackgroundResource(R.drawable.bg_ffffff_round);
                     rlMessage.setBackgroundResource(R.drawable.bg_ffffff_round);
@@ -146,6 +147,17 @@ public class FragmentIndex extends Fragment {
 
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(hidden){
+
+        }else {
+            StatusBarUtils.setStatusBarTransparent(getActivity());
+            getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+    }
+
     @OnClick({R.id.ll1, R.id.ll2, R.id.ll3})
     public void onClick(View view){
         Intent intent = new Intent();
@@ -165,12 +177,12 @@ public class FragmentIndex extends Fragment {
         }
     }
 
-    public static void setMargins (View v, int l, int t, int r, int b) {
-        if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
-            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            p.setMargins(l, t, r, b);
-            v.requestLayout();
-        }
-    }
+//    public static void setMargins (View v, int l, int t, int r, int b) {
+//        if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+//            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+//            p.setMargins(l, t, r, b);
+//            v.requestLayout();
+//        }
+//    }
 
 }
