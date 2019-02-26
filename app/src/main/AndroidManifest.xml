@@ -55,7 +55,9 @@
 
         <activity android:name=".pages.RegisterYzmActivity" />
         <activity android:name=".pages.RegisterSetPwdActivity" />
-        <activity android:name=".pages.ForgotPwd1Activity"></activity>
+        <activity android:name=".pages.ForgotPwd1Activity" />
+        <activity android:name=".pages.ForgotPwd2Activity" />
+        <activity android:name=".pages.ForgotPwd3Activity"></activity>
     </application>
 
 </manifest>

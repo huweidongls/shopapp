@@ -66,6 +66,7 @@ public class SMSLoginYzmActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_get_code:
+                MyApplication.smsCodeTimeCount.start();
                 getCode();
                 break;
             case R.id.btn_login:
@@ -83,7 +84,7 @@ public class SMSLoginYzmActivity extends BaseActivity {
         if(TextUtils.isEmpty(code)){
             ToastUtil.showShort(context, "验证码不能为空");
         }else {
-            String url = "/MemUser/login?username="+phoneNum+"&code="+code;
+            String url = "/MemUser/loginAPP?phoneNum="+phoneNum+"&code="+code;
             ViseHttp.GET(url)
                     .request(new ACallback<String>() {
                         @Override
@@ -94,6 +95,8 @@ public class SMSLoginYzmActivity extends BaseActivity {
                                 if(jsonObject.optString("status").equals("200")){
                                     ToastUtil.showShort(context, "登录成功");
                                     finish();
+                                }else {
+                                    ToastUtil.showShort(context, "验证码不正确");
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

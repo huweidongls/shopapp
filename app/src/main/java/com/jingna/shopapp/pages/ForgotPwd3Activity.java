@@ -26,9 +26,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RegisterSetPwdActivity extends BaseActivity {
+public class ForgotPwd3Activity extends BaseActivity {
 
-    private Context context = RegisterSetPwdActivity.this;
+    private Context context = ForgotPwd3Activity.this;
 
     @BindView(R.id.et_pwd)
     EditText etPwd;
@@ -41,11 +41,11 @@ public class RegisterSetPwdActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_set_pwd);
+        setContentView(R.layout.activity_forgot_pwd3);
 
-        phoneNumber = getIntent().getStringExtra("number");
-        StatusBarUtils.setStatusBar(RegisterSetPwdActivity.this, Color.parseColor("#ffffff"));
-        ButterKnife.bind(RegisterSetPwdActivity.this);
+        phoneNumber = getIntent().getStringExtra("phone");
+        StatusBarUtils.setStatusBar(ForgotPwd3Activity.this, Color.parseColor("#FBFBFB"));
+        ButterKnife.bind(ForgotPwd3Activity.this);
 
     }
 
@@ -85,8 +85,10 @@ public class RegisterSetPwdActivity extends BaseActivity {
         }else if(pwd.length()<6||pwd.length()>20){
             ToastUtil.showShort(context, "密码长度为6-20位，请重新设置密码");
         }else {
-            String url = "/MemUser/updatePassword?phone="+phoneNumber+"&password="+pwd;
-            ViseHttp.GET(url)
+            String url = "/MemUser/retrievePassword";
+            ViseHttp.POST(url)
+                    .addParam("phone", phoneNumber)
+                    .addParam("newPassword", pwd)
                     .request(new ACallback<String>() {
                         @Override
                         public void onSuccess(String data) {
@@ -94,7 +96,7 @@ public class RegisterSetPwdActivity extends BaseActivity {
                                 Log.e("123123", data);
                                 JSONObject jsonObject = new JSONObject(data);
                                 if(jsonObject.optString("status").equals("200")){
-                                    ToastUtil.showShort(context, "注册成功");
+                                    ToastUtil.showShort(context, "密码修改成功");
                                     finish();
                                 }
                             } catch (JSONException e) {

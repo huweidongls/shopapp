@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -43,7 +44,7 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.btn_login, R.id.tv_code_login})
+    @OnClick({R.id.rl_back, R.id.btn_login, R.id.tv_code_login, R.id.tv_register, R.id.tv_forgot_pwd})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -58,6 +59,16 @@ public class LoginActivity extends BaseActivity {
                 startActivity(intent);
                 finish();
                 break;
+            case R.id.tv_register:
+                intent.setClass(context, RegisterActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.tv_forgot_pwd:
+                intent.setClass(context, ForgotPwd1Activity.class);
+                startActivity(intent);
+                finish();
+                break;
         }
     }
 
@@ -68,11 +79,12 @@ public class LoginActivity extends BaseActivity {
         if(TextUtils.isEmpty(name)||TextUtils.isEmpty(pwd)){
             ToastUtil.showShort(context, "手机号或密码不能为空");
         }else {
-            String url = "/MemUser/login?username="+name+"&password="+pwd;
+            String url = "/MemUser/loginAPP?phoneNum="+name+"&password="+pwd;
             ViseHttp.GET(url)
                     .request(new ACallback<String>() {
                         @Override
                         public void onSuccess(String data) {
+                            Log.e("123123", data);
                             try {
                                 JSONObject jsonObject = new JSONObject(data);
                                 if(jsonObject.optString("status").equals("200")){
@@ -80,6 +92,8 @@ public class LoginActivity extends BaseActivity {
                                     LoginBean loginBean = gson.fromJson(data, LoginBean.class);
                                     ToastUtil.showShort(context, "登录成功");
                                     finish();
+                                }else {
+                                    ToastUtil.showShort(context, jsonObject.optString("errorMsg"));
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

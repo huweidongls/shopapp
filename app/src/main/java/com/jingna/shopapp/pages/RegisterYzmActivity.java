@@ -70,6 +70,7 @@ public class RegisterYzmActivity extends BaseActivity {
                 next();
                 break;
             case R.id.tv_get_code:
+                MyApplication.ftptimecount.start();
                 getCode();
                 break;
         }

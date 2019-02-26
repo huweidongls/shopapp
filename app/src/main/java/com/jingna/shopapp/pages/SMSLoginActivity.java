@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -40,7 +41,7 @@ public class SMSLoginActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.btn_yzm, R.id.tv_pwd_login})
+    @OnClick({R.id.rl_back, R.id.btn_yzm, R.id.tv_pwd_login, R.id.tv_register})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -52,6 +53,11 @@ public class SMSLoginActivity extends BaseActivity {
                 break;
             case R.id.tv_pwd_login:
                 intent.setClass(context, LoginActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.tv_register:
+                intent.setClass(context, RegisterActivity.class);
                 startActivity(intent);
                 finish();
                 break;
@@ -74,6 +80,7 @@ public class SMSLoginActivity extends BaseActivity {
                     .request(new ACallback<String>() {
                         @Override
                         public void onSuccess(String data) {
+                            Log.e("123123", data);
                             try {
                                 JSONObject jsonObject = new JSONObject(data);
                                 if(jsonObject.optString("status").equals("200")){
