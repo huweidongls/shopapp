@@ -44,4 +44,9 @@ public class SpUtils {
         return spCache.get(USER_ID, "0");
     }
 
+    public static void clear(Context context){
+        spCache = new SpCache(context, "user_info");
+        spCache.clear();
+    }
+
 }

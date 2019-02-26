@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,8 +62,11 @@ public class FragmentWode extends Fragment {
         return view;
     }
 
-    private void initData() {
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.e("123123", userId);
+        userId = SpUtils.getUserId(getContext());
         if(userId.equals("0")){
             tvName.setVisibility(View.GONE);
             llNum.setVisibility(View.GONE);
@@ -72,6 +76,9 @@ public class FragmentWode extends Fragment {
             llNum.setVisibility(View.VISIBLE);
             llLogin.setVisibility(View.GONE);
         }
+    }
+
+    private void initData() {
 
         mList = new ArrayList<>();
         mList.add("");
@@ -139,6 +146,9 @@ public class FragmentWode extends Fragment {
                 if(userId.equals("0")){
                     intent.setClass(getContext(), SMSLoginActivity.class);
                     startActivity(intent);
+                }else {
+                    SpUtils.clear(getContext());
+                    onStart();
                 }
                 break;
             case R.id.iv_avatar:

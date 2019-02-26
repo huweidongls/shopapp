@@ -48,6 +48,7 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/rl_avatar"
             android:layout_width="match_parent"
             android:layout_height="73dp">
 
@@ -60,7 +61,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_marginRight="40dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/iv_avatar"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
 
+            <ImageView
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/right_b"
+                android:layout_width="3dp"
+                android:layout_height="8dp" />
 
         </RelativeLayout>
 

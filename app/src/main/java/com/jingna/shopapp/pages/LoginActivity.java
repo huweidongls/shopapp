@@ -92,6 +92,7 @@ public class LoginActivity extends BaseActivity {
                                     ToastUtil.showShort(context, "登录成功");
                                     Gson gson = new Gson();
                                     LoginBean loginBean = gson.fromJson(data, LoginBean.class);
+                                    Log.e("123123", loginBean.getData().getUserId()+"");
                                     SpUtils.setUserId(context, loginBean.getData().getUserId()+"");
                                     SpUtils.setToken(context, loginBean.getData().getToken());
                                     SpUtils.setPhoneNum(context, name);
