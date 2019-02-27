@@ -53,13 +53,13 @@ public class InsertReceiveActivity extends BaseActivity {
     }
 
     @OnClick({R.id.rl_back, R.id.ll_city})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.rl_back:
                 finish();
                 break;
             case R.id.ll_city:
-                                OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+                OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         //返回的分别是三个级别的选中位置

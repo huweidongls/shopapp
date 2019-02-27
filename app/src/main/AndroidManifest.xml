@@ -85,7 +85,8 @@
         <activity android:name=".pages.AddressActivity" />
         <activity android:name=".pages.EditReceiveActivity" />
         <activity android:name=".pages.InsertReceiveActivity" />
-        <activity android:name=".pages.EditPwdActivity"></activity>
+        <activity android:name=".pages.EditPwdActivity" />
+        <activity android:name=".pages.EditPwd2Activity"></activity>
     </application>
 
 </manifest>

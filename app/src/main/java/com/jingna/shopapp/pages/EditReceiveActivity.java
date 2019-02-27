@@ -53,8 +53,8 @@ public class EditReceiveActivity extends BaseActivity {
     }
 
     @OnClick({R.id.rl_back, R.id.ll_city})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.rl_back:
                 finish();
                 break;

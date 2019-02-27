@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.jingna.shopapp.util.Const;
+import com.jingna.shopapp.util.EditPwdTimeCount;
 import com.jingna.shopapp.util.FTPTimeCount;
 import com.jingna.shopapp.util.ForgotTimeCount;
 import com.jingna.shopapp.util.SMSCodeTimeCount;
@@ -24,6 +25,7 @@ public class MyApplication extends Application {
     public static FTPTimeCount ftptimecount;
     public static SMSCodeTimeCount smsCodeTimeCount;
     public static ForgotTimeCount forgotTimeCount;
+    public static EditPwdTimeCount editPwdTimeCount;
 
     public MyApplication() {
     }
@@ -36,6 +38,7 @@ public class MyApplication extends Application {
         ftptimecount = new FTPTimeCount(60000, 1000);
         smsCodeTimeCount = new SMSCodeTimeCount(60000, 1000);
         forgotTimeCount = new ForgotTimeCount(60000, 1000);
+        editPwdTimeCount = new EditPwdTimeCount(60000, 1000);
     }
 
     public synchronized static MyApplication getInstance() {

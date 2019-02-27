@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.base.BaseActivity;
+import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
 import com.vise.xsnow.http.ViseHttp;
@@ -26,9 +27,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ForgotPwd3Activity extends BaseActivity {
+public class EditPwd2Activity extends BaseActivity {
 
-    private Context context = ForgotPwd3Activity.this;
+    private Context context = EditPwd2Activity.this;
 
     @BindView(R.id.et_pwd)
     EditText etPwd;
@@ -36,16 +37,16 @@ public class ForgotPwd3Activity extends BaseActivity {
     ImageView ivIsShow;
 
     private boolean isShowPwd = false;
-    private String phoneNumber = "";
+    private String phoneNum = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgot_pwd3);
+        setContentView(R.layout.activity_edit_pwd2);
 
-        phoneNumber = getIntent().getStringExtra("phone");
-        StatusBarUtils.setStatusBar(ForgotPwd3Activity.this, Color.parseColor("#FBFBFB"));
-        ButterKnife.bind(ForgotPwd3Activity.this);
+        phoneNum = SpUtils.getPhoneNum(context);
+        StatusBarUtils.setStatusBar(EditPwd2Activity.this, Color.parseColor("#ffffff"));
+        ButterKnife.bind(EditPwd2Activity.this);
 
     }
 
@@ -87,7 +88,7 @@ public class ForgotPwd3Activity extends BaseActivity {
         }else {
             String url = "/MemUser/retrievePassword";
             ViseHttp.POST(url)
-                    .addParam("phone", phoneNumber)
+                    .addParam("phone", phoneNum)
                     .addParam("newPassword", pwd)
                     .request(new ACallback<String>() {
                         @Override

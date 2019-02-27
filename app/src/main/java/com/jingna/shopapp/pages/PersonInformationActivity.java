@@ -14,10 +14,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
+import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.base.BaseActivity;
+import com.jingna.shopapp.bean.GetOneBean;
 import com.jingna.shopapp.dialog.InformationNicknameDialog;
 import com.jingna.shopapp.dialog.InformationSexDialog;
+import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
@@ -66,6 +69,41 @@ public class PersonInformationActivity extends BaseActivity {
 
         StatusBarUtils.setStatusBar(PersonInformationActivity.this, Color.parseColor("#ffffff"));
         ButterKnife.bind(PersonInformationActivity.this);
+        initData();
+
+    }
+
+    private void initData() {
+
+        String url = "/MemUser/getOne?id="+SpUtils.getUserId(context);
+        ViseHttp.GET(url)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                GetOneBean bean = gson.fromJson(data, GetOneBean.class);
+                                Glide.with(context).load(Const.BASE_URL+bean.getData().getHeadPhoto()).into(ivAvatar);
+                                tvNickname.setText(bean.getData().getMemName());
+                                if(bean.getData().getGender().equals("0")){
+                                    tvSex.setText("男");
+                                }else {
+                                    tvSex.setText("女");
+                                }
+                                tvBirthday.setText(bean.getData().getMemBirthday());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 
