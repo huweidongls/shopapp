@@ -1,6 +1,7 @@
 package com.jingna.shopapp.pages;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -63,11 +64,16 @@ public class AddressActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back})
+    @OnClick({R.id.rl_back, R.id.btn_insert_address})
     public void onClick(View view){
+        Intent intent = new Intent();
         switch (view.getId()){
             case R.id.rl_back:
                 finish();
+                break;
+            case R.id.btn_insert_address:
+                intent.setClass(context, InsertReceiveActivity.class);
+                startActivity(intent);
                 break;
         }
     }
