@@ -58,15 +58,15 @@
         <activity android:name=".pages.ForgotPwd1Activity" />
         <activity android:name=".pages.ForgotPwd2Activity" />
         <activity android:name=".pages.ForgotPwd3Activity" />
-        <activity android:name=".pages.PersonInformationActivity"/>
-        <activity android:name="com.donkingliang.imageselector.ImageSelectorActivity"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        android:configChanges="orientation|keyboardHidden|screenSize"/>
-
-        <activity android:name="com.donkingliang.imageselector.PreviewActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
-
+        <activity android:name=".pages.PersonInformationActivity" />
+        <activity
+            android:name="com.donkingliang.imageselector.ImageSelectorActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.donkingliang.imageselector.PreviewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="com.donkingliang.imageselector.ClipImageActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -81,6 +81,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <activity android:name=".pages.AddressActivity" />
+        <activity android:name=".pages.EditReceiveActivity" />
+        <activity android:name=".pages.InsertReceiveActivity"></activity>
     </application>
 
 </manifest>

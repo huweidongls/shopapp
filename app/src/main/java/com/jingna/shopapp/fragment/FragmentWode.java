@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.FragmentMyTuijianAdapter;
+import com.jingna.shopapp.pages.AddressActivity;
 import com.jingna.shopapp.pages.PersonInformationActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
 import com.jingna.shopapp.util.SpUtils;
@@ -121,6 +122,9 @@ public class FragmentWode extends Fragment {
             case R.id.rl1:
                 if(userId.equals("0")){
                     intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), AddressActivity.class);
                     startActivity(intent);
                 }
                 break;
