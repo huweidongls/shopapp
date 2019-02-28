@@ -59,13 +59,13 @@ public class EditPhoneNum1Activity extends BaseActivity {
 
     private void initData() {
 
-        tvPhone.setText("请输入"+phoneNum+"收到的短信验证码");
+        tvPhone.setText("请输入" + phoneNum + "收到的短信验证码");
 
     }
 
     @OnClick({R.id.rl_back, R.id.btn_get_code, R.id.btn_next})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.rl_back:
                 finish();
                 break;
@@ -83,38 +83,42 @@ public class EditPhoneNum1Activity extends BaseActivity {
      */
     private void next() {
 
-        String code = etCode.getText().toString();
-        if(TextUtils.isEmpty(code)){
-            ToastUtil.showShort(context, "验证码不能为空");
-        }else {
-            String url = "/MemUser/matchCode?phone="+phoneNum+"&code="+code;
-            ViseHttp.GET(url)
-                    .request(new ACallback<String>() {
-                        @Override
-                        public void onSuccess(String data) {
-                            Log.e("123123", data);
-                            try {
-                                JSONObject jsonObject = new JSONObject(data);
-                                if(jsonObject.optString("status").equals("200")){
-                                    Intent intent = new Intent();
-                                    intent.setClass(context, EditPhoneNum2Activity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }else {
-                                    ToastUtil.showShort(context, "验证码错误");
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
+        Intent intent = new Intent();
+        intent.setClass(context, EditPhoneNum2Activity.class);
+        startActivity(intent);
+        finish();
 
-                        @Override
-                        public void onFail(int errCode, String errMsg) {
-
-                        }
-                    });
-        }
-
+//        String code = etCode.getText().toString();
+//        if(TextUtils.isEmpty(code)){
+//            ToastUtil.showShort(context, "验证码不能为空");
+//        }else {
+//            String url = "/MemUser/matchCode?phone="+phoneNum+"&code="+code;
+//            ViseHttp.GET(url)
+//                    .request(new ACallback<String>() {
+//                        @Override
+//                        public void onSuccess(String data) {
+//                            Log.e("123123", data);
+//                            try {
+//                                JSONObject jsonObject = new JSONObject(data);
+//                                if(jsonObject.optString("status").equals("200")){
+//                                    Intent intent = new Intent();
+//                                    intent.setClass(context, EditPhoneNum2Activity.class);
+//                                    startActivity(intent);
+//                                    finish();
+//                                }else {
+//                                    ToastUtil.showShort(context, "验证码错误");
+//                                }
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFail(int errCode, String errMsg) {
+//
+//                        }
+//                    });
+//    }
     }
 
     /**
@@ -123,28 +127,28 @@ public class EditPhoneNum1Activity extends BaseActivity {
     private void getCode() {
 
         MyApplication.editPhoneNumTimeCount.start();
-        String url = "/MemUser/sendMessage?phone="+phoneNum;
-        ViseHttp.GET(url)
-                .request(new ACallback<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.optString("status").equals("200")){
-                                ToastUtil.showShort(context, "验证码发送成功");
-                            }else {
-                                ToastUtil.showShort(context, "验证码发送失败");
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFail(int errCode, String errMsg) {
-
-                    }
-                });
+//        String url = "/MemUser/sendMessage?phone="+phoneNum;
+//        ViseHttp.GET(url)
+//                .request(new ACallback<String>() {
+//                    @Override
+//                    public void onSuccess(String data) {
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(data);
+//                            if(jsonObject.optString("status").equals("200")){
+//                                ToastUtil.showShort(context, "验证码发送成功");
+//                            }else {
+//                                ToastUtil.showShort(context, "验证码发送失败");
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFail(int errCode, String errMsg) {
+//
+//                    }
+//                });
 
     }
 

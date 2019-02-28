@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.jingna.shopapp.util.Const;
+import com.jingna.shopapp.util.EditPhoneNum2TimeCount;
 import com.jingna.shopapp.util.EditPhoneNumTimeCount;
 import com.jingna.shopapp.util.EditPwdTimeCount;
 import com.jingna.shopapp.util.FTPTimeCount;
@@ -28,6 +29,7 @@ public class MyApplication extends Application {
     public static ForgotTimeCount forgotTimeCount;
     public static EditPwdTimeCount editPwdTimeCount;
     public static EditPhoneNumTimeCount editPhoneNumTimeCount;
+    public static EditPhoneNum2TimeCount editPhoneNum2TimeCount;
 
     public MyApplication() {
     }
@@ -42,6 +44,7 @@ public class MyApplication extends Application {
         forgotTimeCount = new ForgotTimeCount(60000, 1000);
         editPwdTimeCount = new EditPwdTimeCount(60000, 1000);
         editPhoneNumTimeCount = new EditPhoneNumTimeCount(60000, 1000);
+        editPhoneNum2TimeCount = new EditPhoneNum2TimeCount(60000, 1000);
     }
 
     public synchronized static MyApplication getInstance() {

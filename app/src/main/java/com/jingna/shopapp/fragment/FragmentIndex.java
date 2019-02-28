@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.IndexAdapter;
+import com.jingna.shopapp.pages.GoodsListActivity;
 import com.jingna.shopapp.pages.LoginActivity;
 import com.jingna.shopapp.pages.RegisterActivity;
 import com.jingna.shopapp.pages.RegisterYzmActivity;
@@ -163,16 +164,14 @@ public class FragmentIndex extends Fragment {
         Intent intent = new Intent();
         switch (view.getId()){
             case R.id.ll1:
-                intent.setClass(getContext(), LoginActivity.class);
+                intent.setClass(getContext(), GoodsListActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll2:
-                intent.setClass(getContext(), SMSLoginActivity.class);
-                startActivity(intent);
+
                 break;
             case R.id.ll3:
-                intent.setClass(getContext(), RegisterYzmActivity.class);
-                startActivity(intent);
+
                 break;
         }
     }

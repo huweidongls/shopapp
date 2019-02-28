@@ -14,15 +14,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.FragmentMyTuijianAdapter;
+import com.jingna.shopapp.bean.GetOneBean;
 import com.jingna.shopapp.pages.AddressActivity;
 import com.jingna.shopapp.pages.EditPhoneNum1Activity;
 import com.jingna.shopapp.pages.EditPwdActivity;
 import com.jingna.shopapp.pages.PersonInformationActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
+import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,11 +83,36 @@ public class FragmentWode extends Fragment {
             tvName.setVisibility(View.GONE);
             llNum.setVisibility(View.GONE);
             llLogin.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(R.mipmap.weidenglu_avatar).into(ivAvatar);
         }else {
             tvName.setVisibility(View.VISIBLE);
             llNum.setVisibility(View.VISIBLE);
             llLogin.setVisibility(View.GONE);
         }
+        String url = "/MemUser/getOne?id="+userId;
+        ViseHttp.GET(url)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            Log.e("123123", data);
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                GetOneBean bean = gson.fromJson(data, GetOneBean.class);
+                                Glide.with(getContext()).load(Const.BASE_URL+bean.getData().getHeadPhoto()).into(ivAvatar);
+                                tvName.setText(bean.getData().getMemName());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
     }
 
     private void initData() {
