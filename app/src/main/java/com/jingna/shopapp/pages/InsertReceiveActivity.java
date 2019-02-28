@@ -3,20 +3,31 @@ package com.jingna.shopapp.pages;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.bean.JsonBean;
 import com.jingna.shopapp.util.GetJsonDataUtil;
+import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
+import com.jingna.shopapp.util.StringUtils;
+import com.jingna.shopapp.util.ToastUtil;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -30,16 +41,29 @@ public class InsertReceiveActivity extends BaseActivity {
 
     @BindView(R.id.tv_city)
     TextView tvCity;
+    @BindView(R.id.et_name)
+    EditText etName;
+    @BindView(R.id.et_phonenum)
+    EditText etPhoneNum;
+    @BindView(R.id.et_address)
+    EditText etAddress;
+    @BindView(R.id.iv_set)
+    ImageView ivSet;
 
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
+
+    private String acquiescentAdress = "0";
+
+    private String userId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_receive);
 
+        userId = SpUtils.getUserId(context);
         StatusBarUtils.setStatusBar(InsertReceiveActivity.this, Color.parseColor("#ffffff"));
         ButterKnife.bind(InsertReceiveActivity.this);
         initData();
@@ -52,7 +76,7 @@ public class InsertReceiveActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.ll_city})
+    @OnClick({R.id.rl_back, R.id.ll_city, R.id.btn_save, R.id.iv_set})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_back:
@@ -80,7 +104,60 @@ public class InsertReceiveActivity extends BaseActivity {
                 pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
                 pvOptions.show();
                 break;
+            case R.id.btn_save:
+                save();
+                break;
+            case R.id.iv_set:
+                if(acquiescentAdress.equals("0")){
+                    Glide.with(context).load(R.mipmap.address_on).into(ivSet);
+                    acquiescentAdress = "1";
+                }else {
+                    Glide.with(context).load(R.mipmap.address_off).into(ivSet);
+                    acquiescentAdress = "0";
+                }
+                break;
         }
+    }
+
+    private void save() {
+
+        String name = etName.getText().toString();
+        String phoneNum = etPhoneNum.getText().toString();
+        String city = tvCity.getText().toString();
+        String address = etAddress.getText().toString();
+        if(TextUtils.isEmpty(name)||TextUtils.isEmpty(phoneNum)||TextUtils.isEmpty(city)||TextUtils.isEmpty(address)){
+            ToastUtil.showShort(context, "请完善收货信息");
+        }else if(!StringUtils.isPhoneNumberValid(phoneNum)){
+            ToastUtil.showShort(context, "请输入正确的手机号码");
+        }else  {
+            ViseHttp.POST("/MemAdress/toUpdate")
+                    .addParam("memberId", userId)
+                    .addParam("consignee", name)
+                    .addParam("consigneeTel", phoneNum)
+                    .addParam("location", city)
+                    .addParam("adress", address)
+                    .addParam("acquiescentAdress", acquiescentAdress)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if(jsonObject.optString("status").equals("200")){
+                                    ToastUtil.showShort(context, "保存成功");
+                                    finish();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+        }
+
     }
 
     private void initJsonData() {//解析数据

@@ -5,20 +5,29 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.MyAddressAdapter;
 import com.jingna.shopapp.base.BaseActivity;
+import com.jingna.shopapp.bean.AddressBean;
+import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,32 +44,86 @@ public class AddressActivity extends BaseActivity {
     SwipeMenuRecyclerView recyclerView;
 
     private MyAddressAdapter adapter;
-    private List<String> mList;
+    private List<AddressBean.DataBean> mList;
+
+    private String userId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
 
+        userId = SpUtils.getUserId(context);
         StatusBarUtils.setStatusBar(AddressActivity.this, Color.parseColor("#ffffff"));
         ButterKnife.bind(AddressActivity.this);
         initData();
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(mList != null){
+            String url = "/MemAdress/queryList?memberId="+ userId;
+            ViseHttp.GET(url)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                Log.e("123123", data);
+                                JSONObject jsonObject = new JSONObject(data);
+                                if(jsonObject.optString("status").equals("200")){
+                                    Gson gson = new Gson();
+                                    AddressBean bean = gson.fromJson(data, AddressBean.class);
+                                    mList.clear();
+                                    mList.addAll(bean.getData());
+                                    adapter.notifyDataSetChanged();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+        }
+    }
+
     private void initData() {
 
-        mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        adapter = new MyAddressAdapter(mList);
-        LinearLayoutManager manager = new LinearLayoutManager(context);
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
-        recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
-        recyclerView.setAdapter(adapter);
+        String url = "/MemAdress/queryList?memberId="+ userId;
+        ViseHttp.GET(url)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            Log.e("123123", data);
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                AddressBean bean = gson.fromJson(data, AddressBean.class);
+                                mList = bean.getData();
+                                adapter = new MyAddressAdapter(mList);
+                                LinearLayoutManager manager = new LinearLayoutManager(context);
+                                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                                recyclerView.setLayoutManager(manager);
+                                recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
+                                recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
+                                recyclerView.setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 
@@ -122,11 +185,62 @@ public class AddressActivity extends BaseActivity {
                 switch (menuPosition){
                     case 0:
                         //设为默认
-                        ToastUtil.showShort(context, "0");
+                        String url = "/MemAdress/setDefault";
+                        ViseHttp.POST(url)
+                                .addParam("id", mList.get(adapterPosition).getId()+"")
+                                .addParam("memberId", userId)
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if(jsonObject.optString("status").equals("200")){
+                                                ToastUtil.showShort(context, "设置成功");
+                                                for (int i = 0; i<mList.size(); i++){
+                                                    if(i == adapterPosition){
+                                                        mList.get(i).setAcquiescentAdress("1");
+                                                    }else {
+                                                        mList.get(i).setAcquiescentAdress("0");
+                                                    }
+                                                }
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
                         break;
                     case 1:
                         //删除
-                        ToastUtil.showShort(context, "1");
+                        String url1 = "/MemAdress/toDelete";
+                        ViseHttp.POST(url1)
+                                .addParam("id", mList.get(adapterPosition).getId()+"")
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if(jsonObject.optString("status").equals("200")){
+                                                ToastUtil.showShort(context, "删除成功");
+                                                mList.remove(adapterPosition);
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
                         break;
                 }
             } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {

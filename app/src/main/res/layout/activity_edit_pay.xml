@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F8F8FA"
+    tools:context="com.jingna.shopapp.pages.EditPayActivity">
+    
+    <RelativeLayout
+        android:background="@color/white_ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="42dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/back_b"
+                android:layout_width="9dp"
+                android:layout_height="16dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:textColor="#232325"
+            android:textSize="18sp"
+            android:text="支付密码"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:background="@drawable/selector_fragment_my_bg"
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:textColor="#797979"
+                android:textSize="16sp"
+                android:text="设置6位数字支付密"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            
+            <ImageView
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/right_gray"
+                android:layout_width="5dp"
+                android:layout_height="10dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_marginLeft="15dp"
+            android:background="#F0F0F0"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <RelativeLayout
+            android:background="@drawable/selector_fragment_my_bg"
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:textColor="#797979"
+                android:textSize="16sp"
+                android:text="修改6位数字支付密"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/right_gray"
+                android:layout_width="5dp"
+                android:layout_height="10dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_marginLeft="15dp"
+            android:background="#F0F0F0"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <RelativeLayout
+            android:background="@drawable/selector_fragment_my_bg"
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:textColor="#797979"
+                android:textSize="16sp"
+                android:text="忘记6位数字支付密"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/right_gray"
+                android:layout_width="5dp"
+                android:layout_height="10dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

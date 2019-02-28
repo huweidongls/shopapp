@@ -60,6 +60,7 @@
                 android:layout_height="wrap_content" />
 
             <com.jingna.shopapp.widget.EditTextWithDel
+                android:id="@+id/et_name"
                 android:textColor="@color/black_333333"
                 android:layout_marginRight="15dp"
                 android:layout_gravity="center_vertical"
@@ -93,6 +94,8 @@
                 android:layout_height="wrap_content" />
 
             <com.jingna.shopapp.widget.EditTextWithDel
+                android:id="@+id/et_phonenum"
+                android:inputType="number"
                 android:textColor="@color/black_333333"
                 android:layout_marginRight="15dp"
                 android:layout_gravity="center_vertical"
@@ -160,6 +163,7 @@
                 android:layout_height="wrap_content" />
 
             <com.jingna.shopapp.widget.EditTextWithDel
+                android:id="@+id/et_address"
                 android:layout_marginTop="15dp"
                 android:textColor="@color/black_333333"
                 android:layout_marginRight="15dp"
@@ -222,6 +226,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_save"
         android:background="@drawable/bg_ff4d16_20dp"
         android:textColor="@color/white_ffffff"
         android:text="保存"

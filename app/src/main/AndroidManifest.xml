@@ -89,7 +89,8 @@
         <activity android:name=".pages.EditPwd2Activity" />
         <activity android:name=".pages.EditPhoneNum1Activity" />
         <activity android:name=".pages.EditPhoneNum2Activity" />
-        <activity android:name=".pages.GoodsListActivity"></activity>
+        <activity android:name=".pages.GoodsListActivity" />
+        <activity android:name=".pages.EditPayActivity"></activity>
     </application>
 
 </manifest>
