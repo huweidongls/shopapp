@@ -63,6 +63,7 @@
             android:layout_height="wrap_content" />
 
         <com.jingna.shopapp.widget.EditTextWithDel
+            android:id="@+id/et_phonenum"
             android:inputType="number"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="20dp"

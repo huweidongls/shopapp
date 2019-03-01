@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F8FA"
+    android:orientation="vertical"
+    tools:context="com.jingna.shopapp.pages.SetPayPwdActivity">
+
+    <RelativeLayout
+        android:background="@color/white_ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="42dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/back_b"
+                android:layout_width="9dp"
+                android:layout_height="16dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:textColor="#232325"
+            android:textSize="18sp"
+            android:text="设置支付密码"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="137dp"
+        android:textColor="#797979"
+        android:textSize="16sp"
+        android:text="设置6位数字支付密码"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.jingna.shopapp.widget.PasswordEditText
+        android:id="@+id/et_pwd"
+        android:layout_marginRight="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:background="@drawable/bg_ff0004_4dp"
+        android:textColor="@color/white_ffffff"
+        android:textSize="20sp"
+        android:text="完成"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="58dp" />
+
+</LinearLayout>

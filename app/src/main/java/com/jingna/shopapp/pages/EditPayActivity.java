@@ -27,12 +27,16 @@ public class EditPayActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back})
+    @OnClick({R.id.rl_back, R.id.rl_set_pwd})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
             case R.id.rl_back:
                 finish();
+                break;
+            case R.id.rl_set_pwd:
+                intent.setClass(context, SetPayPwdActivity.class);
+                startActivity(intent);
                 break;
         }
     }

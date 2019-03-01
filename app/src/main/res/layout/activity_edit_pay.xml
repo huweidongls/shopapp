@@ -43,6 +43,7 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/rl_set_pwd"
             android:background="@drawable/selector_fragment_my_bg"
             android:layout_width="match_parent"
             android:layout_height="56dp">
