@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.bean.FeileiLeftListBean;
 
 import java.util.List;
 
@@ -22,10 +23,10 @@ import java.util.List;
 public class FenleiLeftAdapter extends RecyclerView.Adapter<FenleiLeftAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<FeileiLeftListBean.DataBean> data;
     private int select = 0;
 
-    public FenleiLeftAdapter(List<String> data) {
+    public FenleiLeftAdapter(List<FeileiLeftListBean.DataBean> data) {
         this.data = data;
     }
 
@@ -52,7 +53,7 @@ public class FenleiLeftAdapter extends RecyclerView.Adapter<FenleiLeftAdapter.Vi
             paint.setFakeBoldText(false);
             holder.itemView.setBackgroundColor(Color.parseColor("#f6f6f6"));
         }
-        holder.tv.setText(data.get(position));
+        holder.tv.setText(data.get(position).getCategoryName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

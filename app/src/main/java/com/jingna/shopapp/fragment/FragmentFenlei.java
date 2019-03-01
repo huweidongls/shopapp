@@ -12,10 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.FenleiLeftAdapter;
 import com.jingna.shopapp.adapter.FenleiTuijianAdapter;
+import com.jingna.shopapp.bean.FeileiLeftListBean;
 import com.jingna.shopapp.util.StatusBarUtils;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +44,7 @@ public class FragmentFenlei extends Fragment {
     RecyclerView rvTuijian;
 
     private FenleiLeftAdapter leftAdapter;
-    private List<String> mList;
+    private List<FeileiLeftListBean.DataBean> mList;
     private FenleiTuijianAdapter tuijianAdapter;
     private List<String> mList1;
 
@@ -60,34 +67,33 @@ public class FragmentFenlei extends Fragment {
             result = getContext().getResources().getDimensionPixelSize(resourceId);
         }
         setMargins(rlSearch, 0, result, 0, 0);
-        mList = new ArrayList<>();
-        mList.add("推荐分类");
-        mList.add("百货超市");
-        mList.add("男装");
-        mList.add("女装");
-        mList.add("男鞋");
-        mList.add("女鞋");
-        mList.add("内衣配饰");
-        mList.add("食品生鲜");
-        mList.add("酒水饮料");
-        mList.add("家居厨具");
-        mList.add("家具家装");
-        mList.add("推荐分类");
-        mList.add("百货超市");
-        mList.add("男装");
-        mList.add("女装");
-        mList.add("男鞋");
-        mList.add("女鞋");
-        mList.add("内衣配饰");
-        mList.add("食品生鲜");
-        mList.add("酒水饮料");
-        mList.add("家居厨具");
-        mList.add("家具家装");
-        leftAdapter = new FenleiLeftAdapter(mList);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        rvFenlei.setLayoutManager(manager);
-        rvFenlei.setAdapter(leftAdapter);
+
+        ViseHttp.GET("/AppShopCategory/queryList")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                FeileiLeftListBean leftListBean = gson.fromJson(data, FeileiLeftListBean.class);
+                                mList = leftListBean.getData();
+                                leftAdapter = new FenleiLeftAdapter(mList);
+                                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                                rvFenlei.setLayoutManager(manager);
+                                rvFenlei.setAdapter(leftAdapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
         mList1 = new ArrayList<>();
         mList1.add("");
