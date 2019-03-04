@@ -6,6 +6,6 @@ package com.jingna.shopapp.util;
 
 public class Const {
 
-    public static final String BASE_URL = "http://192.168.2.36:8080/";
+    public static final String BASE_URL = "http://192.168.2.37:8080/";
 
 }

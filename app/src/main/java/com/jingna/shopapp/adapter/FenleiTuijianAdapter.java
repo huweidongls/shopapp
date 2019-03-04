@@ -5,8 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.bean.ZhuanchangTuijianBean;
+import com.jingna.shopapp.util.Const;
 
 import java.util.List;
 
@@ -17,9 +22,9 @@ import java.util.List;
 public class FenleiTuijianAdapter extends RecyclerView.Adapter<FenleiTuijianAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<ZhuanchangTuijianBean.DataBean> data;
 
-    public FenleiTuijianAdapter(List<String> data) {
+    public FenleiTuijianAdapter(List<ZhuanchangTuijianBean.DataBean> data) {
         this.data = data;
     }
 
@@ -33,7 +38,8 @@ public class FenleiTuijianAdapter extends RecyclerView.Adapter<FenleiTuijianAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        Glide.with(context).load(Const.BASE_URL+data.get(position).getCategoryPic()).into(holder.iv);
+        holder.tv.setText(data.get(position).getCategoryName());
     }
 
     @Override
@@ -43,8 +49,13 @@ public class FenleiTuijianAdapter extends RecyclerView.Adapter<FenleiTuijianAdap
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
+        private ImageView iv;
+        private TextView tv;
+
         public ViewHolder(View itemView) {
             super(itemView);
+            iv = itemView.findViewById(R.id.iv);
+            tv = itemView.findViewById(R.id.tv);
         }
     }
 

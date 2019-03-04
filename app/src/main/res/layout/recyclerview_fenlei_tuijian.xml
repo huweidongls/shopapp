@@ -9,6 +9,7 @@
         android:layout_height="90dp">
 
         <ImageView
+            android:id="@+id/iv"
             android:layout_marginTop="7dp"
             android:layout_gravity="center_horizontal"
             android:src="@mipmap/shengxian"
@@ -16,6 +17,7 @@
             android:layout_height="64dp" />
 
         <TextView
+            android:id="@+id/tv"
             android:textSize="10sp"
             android:textColor="@color/black_333333"
             android:layout_marginTop="5dp"

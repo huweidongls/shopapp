@@ -17,6 +17,7 @@ import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.FenleiLeftAdapter;
 import com.jingna.shopapp.adapter.FenleiTuijianAdapter;
 import com.jingna.shopapp.bean.FeileiLeftListBean;
+import com.jingna.shopapp.bean.ZhuanchangTuijianBean;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -46,7 +47,7 @@ public class FragmentFenlei extends Fragment {
     private FenleiLeftAdapter leftAdapter;
     private List<FeileiLeftListBean.DataBean> mList;
     private FenleiTuijianAdapter tuijianAdapter;
-    private List<String> mList1;
+    private List<ZhuanchangTuijianBean.DataBean> mList1;
 
     @Nullable
     @Override
@@ -95,36 +96,37 @@ public class FragmentFenlei extends Fragment {
                     }
                 });
 
-        mList1 = new ArrayList<>();
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        mList1.add("");
-        tuijianAdapter = new FenleiTuijianAdapter(mList1);
-        GridLayoutManager manager1 = new GridLayoutManager(getContext(), 3){
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        rvTuijian.setLayoutManager(manager1);
-        rvTuijian.setAdapter(tuijianAdapter);
+        ViseHttp.GET("/AppShopCategory/queryChildList")
+                .addParam("pid", "1")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                ZhuanchangTuijianBean tuijianBean = gson.fromJson(data, ZhuanchangTuijianBean.class);
+                                mList1 = tuijianBean.getData();
+                                tuijianAdapter = new FenleiTuijianAdapter(mList1);
+                                GridLayoutManager manager1 = new GridLayoutManager(getContext(), 3){
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                };
+                                rvTuijian.setLayoutManager(manager1);
+                                rvTuijian.setAdapter(tuijianAdapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 
