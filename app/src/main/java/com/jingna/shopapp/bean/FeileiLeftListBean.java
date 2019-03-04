@@ -10,7 +10,7 @@ public class FeileiLeftListBean {
 
     /**
      * status : 200
-     * data : [{"id":2,"categoryName":"分类名称"},{"id":3,"categoryName":"分类名称"}]
+     * data : [{"id":2,"categoryName":"分类名称","categoryPic":"/upload/0c8fbb037e6941aaab2e659ec4a869f8.jpg","homeType":1},{"id":3,"categoryName":"分类名称","categoryPic":"/upload/0c8fbb037e6941aaab2e659ec4a869f8.jpg","homeType":0},{"id":4,"categoryName":"分类名称","categoryPic":"/upload/0c8fbb037e6941aaab2e659ec4a869f8.jpg","homeType":0}]
      */
 
     private String status;
@@ -36,10 +36,14 @@ public class FeileiLeftListBean {
         /**
          * id : 2
          * categoryName : 分类名称
+         * categoryPic : /upload/0c8fbb037e6941aaab2e659ec4a869f8.jpg
+         * homeType : 1
          */
 
         private int id;
         private String categoryName;
+        private String categoryPic;
+        private int homeType;
 
         public int getId() {
             return id;
@@ -55,6 +59,22 @@ public class FeileiLeftListBean {
 
         public void setCategoryName(String categoryName) {
             this.categoryName = categoryName;
+        }
+
+        public String getCategoryPic() {
+            return categoryPic;
+        }
+
+        public void setCategoryPic(String categoryPic) {
+            this.categoryPic = categoryPic;
+        }
+
+        public int getHomeType() {
+            return homeType;
+        }
+
+        public void setHomeType(int homeType) {
+            this.homeType = homeType;
         }
     }
 }

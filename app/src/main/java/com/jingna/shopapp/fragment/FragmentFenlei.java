@@ -10,14 +10,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.adapter.FenleiChangyongAdapter;
 import com.jingna.shopapp.adapter.FenleiLeftAdapter;
 import com.jingna.shopapp.adapter.FenleiTuijianAdapter;
 import com.jingna.shopapp.bean.FeileiLeftListBean;
 import com.jingna.shopapp.bean.ZhuanchangTuijianBean;
+import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -43,11 +47,17 @@ public class FragmentFenlei extends Fragment {
     RecyclerView rvFenlei;
     @BindView(R.id.rv_tuijian)
     RecyclerView rvTuijian;
+    @BindView(R.id.rv_changyong)
+    RecyclerView rvChangyong;
+    @BindView(R.id.iv_title)
+    ImageView ivTitle;
 
     private FenleiLeftAdapter leftAdapter;
     private List<FeileiLeftListBean.DataBean> mList;
     private FenleiTuijianAdapter tuijianAdapter;
-    private List<ZhuanchangTuijianBean.DataBean> mList1;
+    private List<ZhuanchangTuijianBean.DataBean.CommonlyBean> mList2;
+    private FenleiChangyongAdapter changyongAdapter;
+    private List<ZhuanchangTuijianBean.DataBean.RecommendBean> mList1;
 
     @Nullable
     @Override
@@ -61,6 +71,9 @@ public class FragmentFenlei extends Fragment {
     }
 
     private void initData() {
+
+        mList1 = new ArrayList<>();
+        mList2 = new ArrayList<>();
 
         int result = 0;
         int resourceId = getContext().getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -84,6 +97,15 @@ public class FragmentFenlei extends Fragment {
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                                 rvFenlei.setLayoutManager(manager);
                                 rvFenlei.setAdapter(leftAdapter);
+                                Glide.with(getContext()).load(Const.BASE_URL+mList.get(0).getCategoryPic()).into(ivTitle);
+                                getRight(mList.get(0).getId()+"");
+                                leftAdapter.setListener(new FenleiLeftAdapter.ItemClickListener() {
+                                    @Override
+                                    public void onItemClick(int i) {
+                                        Glide.with(getContext()).load(Const.BASE_URL+mList.get(i).getCategoryPic()).into(ivTitle);
+                                        getRight(mList.get(i).getId()+"");
+                                    }
+                                });
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -96,8 +118,16 @@ public class FragmentFenlei extends Fragment {
                     }
                 });
 
+    }
+
+    /**
+     * 获取右侧列表数据
+     * @param pid
+     */
+    private void getRight(String pid) {
+
         ViseHttp.GET("/AppShopCategory/queryChildList")
-                .addParam("pid", "1")
+                .addParam("pid", pid)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -106,8 +136,20 @@ public class FragmentFenlei extends Fragment {
                             if(jsonObject.optString("status").equals("200")){
                                 Gson gson = new Gson();
                                 ZhuanchangTuijianBean tuijianBean = gson.fromJson(data, ZhuanchangTuijianBean.class);
-                                mList1 = tuijianBean.getData();
-                                tuijianAdapter = new FenleiTuijianAdapter(mList1);
+                                mList1.clear();
+                                mList1.addAll(tuijianBean.getData().getRecommend());
+                                changyongAdapter = new FenleiChangyongAdapter(mList1);
+                                GridLayoutManager manager2 = new GridLayoutManager(getContext(), 3){
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                };
+                                rvChangyong.setLayoutManager(manager2);
+                                rvChangyong.setAdapter(changyongAdapter);
+                                mList2.clear();
+                                mList2.addAll(tuijianBean.getData().getCommonly());
+                                tuijianAdapter = new FenleiTuijianAdapter(mList2);
                                 GridLayoutManager manager1 = new GridLayoutManager(getContext(), 3){
                                     @Override
                                     public boolean canScrollVertically() {

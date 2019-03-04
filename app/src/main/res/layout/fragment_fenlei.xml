@@ -86,28 +86,29 @@
             android:layout_height="match_parent"/>
 
         <ScrollView
+            android:background="@color/white_ffffff"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:background="@color/white_ffffff"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/iv_title"
+                    android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/fushi"
                     android:layout_margin="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="115dp" />
+                    android:layout_height="wrap_content" />
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="119dp">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:layout_marginLeft="8dp"
@@ -118,85 +119,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <LinearLayout
-                        android:elevation="4dp"
-                        android:orientation="horizontal"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:descendantFocusability="blocksDescendants">
 
-                        <LinearLayout
-                            android:layout_marginTop="8dp"
-                            android:orientation="vertical"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent">
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_changyong"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
 
-                            <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:src="@mipmap/lvxing"
-                                android:layout_width="58dp"
-                                android:layout_height="65dp" />
-
-                            <TextView
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="4dp"
-                                android:textColor="@color/black_333333"
-                                android:textSize="10sp"
-                                android:text="滚筒洗衣机"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_marginTop="8dp"
-                            android:orientation="vertical"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:src="@mipmap/lvxing"
-                                android:layout_width="58dp"
-                                android:layout_height="65dp" />
-
-                            <TextView
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="4dp"
-                                android:textColor="@color/black_333333"
-                                android:textSize="10sp"
-                                android:text="滚筒洗衣机"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_marginTop="8dp"
-                            android:orientation="vertical"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:src="@mipmap/lvxing"
-                                android:layout_width="58dp"
-                                android:layout_height="65dp" />
-
-                            <TextView
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="4dp"
-                                android:textColor="@color/black_333333"
-                                android:textSize="10sp"
-                                android:text="滚筒洗衣机"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
+                    </RelativeLayout>
 
                 </LinearLayout>
 

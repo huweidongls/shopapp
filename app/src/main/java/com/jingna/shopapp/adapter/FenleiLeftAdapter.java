@@ -25,6 +25,11 @@ public class FenleiLeftAdapter extends RecyclerView.Adapter<FenleiLeftAdapter.Vi
     private Context context;
     private List<FeileiLeftListBean.DataBean> data;
     private int select = 0;
+    private ItemClickListener listener;
+
+    public void setListener(ItemClickListener listener) {
+        this.listener = listener;
+    }
 
     public FenleiLeftAdapter(List<FeileiLeftListBean.DataBean> data) {
         this.data = data;
@@ -59,6 +64,7 @@ public class FenleiLeftAdapter extends RecyclerView.Adapter<FenleiLeftAdapter.Vi
             public void onClick(View v) {
                 select = position;
                 notifyDataSetChanged();
+                listener.onItemClick(position);
             }
         });
     }
@@ -78,6 +84,10 @@ public class FenleiLeftAdapter extends RecyclerView.Adapter<FenleiLeftAdapter.Vi
             iv = itemView.findViewById(R.id.iv_left);
             tv = itemView.findViewById(R.id.tv);
         }
+    }
+
+    public interface ItemClickListener{
+        void onItemClick(int i);
     }
 
 }

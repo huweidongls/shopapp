@@ -10,11 +10,11 @@ public class ZhuanchangTuijianBean {
 
     /**
      * status : 200
-     * data : [{"id":2,"categoryName":"分类名称","categoryPic":"E:\\jnkjupload/sysBanner/2019-02-26/d13650facbbf4a85ae9db619e7402645.jpg"},{"id":3,"categoryName":"分类名称","categoryPic":"E:\\jnkjupload/sysBanner/2019-02-26/d13650facbbf4a85ae9db619e7402645.jpg"},{"id":4,"categoryName":"分类名称","categoryPic":"E:\\jnkjupload/sysBanner/2019-02-26/d13650facbbf4a85ae9db619e7402645.jpg"}]
+     * data : {"Recommend":[{"id":2,"categoryName":"分类名称","categoryPic":"/upload/0c8fbb037e6941aaab2e659ec4a869f8.jpg","oftenType":0},{"id":4,"categoryName":"分类名称","categoryPic":"/upload/0c8fbb037e6941aaab2e659ec4a869f8.jpg","oftenType":0}],"Commonly":[{"id":3,"categoryName":"分类名称","categoryPic":"/upload/0c8fbb037e6941aaab2e659ec4a869f8.jpg","oftenType":1}]}
      */
 
     private String status;
-    private List<DataBean> data;
+    private DataBean data;
 
     public String getStatus() {
         return status;
@@ -24,47 +24,124 @@ public class ZhuanchangTuijianBean {
         this.status = status;
     }
 
-    public List<DataBean> getData() {
+    public DataBean getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(DataBean data) {
         this.data = data;
     }
 
     public static class DataBean {
-        /**
-         * id : 2
-         * categoryName : 分类名称
-         * categoryPic : E:\jnkjupload/sysBanner/2019-02-26/d13650facbbf4a85ae9db619e7402645.jpg
-         */
+        private List<RecommendBean> Recommend;
+        private List<CommonlyBean> Commonly;
 
-        private int id;
-        private String categoryName;
-        private String categoryPic;
-
-        public int getId() {
-            return id;
+        public List<RecommendBean> getRecommend() {
+            return Recommend;
         }
 
-        public void setId(int id) {
-            this.id = id;
+        public void setRecommend(List<RecommendBean> Recommend) {
+            this.Recommend = Recommend;
         }
 
-        public String getCategoryName() {
-            return categoryName;
+        public List<CommonlyBean> getCommonly() {
+            return Commonly;
         }
 
-        public void setCategoryName(String categoryName) {
-            this.categoryName = categoryName;
+        public void setCommonly(List<CommonlyBean> Commonly) {
+            this.Commonly = Commonly;
         }
 
-        public String getCategoryPic() {
-            return categoryPic;
+        public static class RecommendBean {
+            /**
+             * id : 2
+             * categoryName : 分类名称
+             * categoryPic : /upload/0c8fbb037e6941aaab2e659ec4a869f8.jpg
+             * oftenType : 0
+             */
+
+            private int id;
+            private String categoryName;
+            private String categoryPic;
+            private int oftenType;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getCategoryName() {
+                return categoryName;
+            }
+
+            public void setCategoryName(String categoryName) {
+                this.categoryName = categoryName;
+            }
+
+            public String getCategoryPic() {
+                return categoryPic;
+            }
+
+            public void setCategoryPic(String categoryPic) {
+                this.categoryPic = categoryPic;
+            }
+
+            public int getOftenType() {
+                return oftenType;
+            }
+
+            public void setOftenType(int oftenType) {
+                this.oftenType = oftenType;
+            }
         }
 
-        public void setCategoryPic(String categoryPic) {
-            this.categoryPic = categoryPic;
+        public static class CommonlyBean {
+            /**
+             * id : 3
+             * categoryName : 分类名称
+             * categoryPic : /upload/0c8fbb037e6941aaab2e659ec4a869f8.jpg
+             * oftenType : 1
+             */
+
+            private int id;
+            private String categoryName;
+            private String categoryPic;
+            private int oftenType;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getCategoryName() {
+                return categoryName;
+            }
+
+            public void setCategoryName(String categoryName) {
+                this.categoryName = categoryName;
+            }
+
+            public String getCategoryPic() {
+                return categoryPic;
+            }
+
+            public void setCategoryPic(String categoryPic) {
+                this.categoryPic = categoryPic;
+            }
+
+            public int getOftenType() {
+                return oftenType;
+            }
+
+            public void setOftenType(int oftenType) {
+                this.oftenType = oftenType;
+            }
         }
     }
 }

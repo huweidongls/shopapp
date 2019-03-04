@@ -19,12 +19,12 @@ import java.util.List;
  * Created by Administrator on 2019/2/20.
  */
 
-public class FenleiTuijianAdapter extends RecyclerView.Adapter<FenleiTuijianAdapter.ViewHolder> {
+public class FenleiChangyongAdapter extends RecyclerView.Adapter<FenleiChangyongAdapter.ViewHolder> {
 
     private Context context;
-    private List<ZhuanchangTuijianBean.DataBean.CommonlyBean> data;
+    private List<ZhuanchangTuijianBean.DataBean.RecommendBean> data;
 
-    public FenleiTuijianAdapter(List<ZhuanchangTuijianBean.DataBean.CommonlyBean> data) {
+    public FenleiChangyongAdapter(List<ZhuanchangTuijianBean.DataBean.RecommendBean> data) {
         this.data = data;
     }
 
