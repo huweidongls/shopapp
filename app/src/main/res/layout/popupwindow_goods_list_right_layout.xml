@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/white_ffffff">
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_above="@+id/ll_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="32dp"
+                    android:textColor="@color/black_333333"
+                    android:textSize="16sp"
+                    android:text="价格区间(元)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_marginTop="11dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="9dp"
+                        android:inputType="number"
+                        android:textSize="13sp"
+                        android:textColor="@color/black_333333"
+                        android:textColorHint="#BFBFC4"
+                        android:hint="最低价"
+                        android:background="@drawable/bg_f5f5f5_19dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp" />
+
+                    <View
+                        android:layout_gravity="center_vertical"
+                        android:background="#000000"
+                        android:layout_width="11dp"
+                        android:layout_height="1dp"/>
+
+                    <EditText
+                        android:layout_marginRight="9dp"
+                        android:layout_marginLeft="8dp"
+                        android:inputType="number"
+                        android:textSize="13sp"
+                        android:textColor="@color/black_333333"
+                        android:textColorHint="#BFBFC4"
+                        android:hint="最高价"
+                        android:background="@drawable/bg_f5f5f5_19dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:elevation="10dp"
+            android:background="@color/white_ffffff"
+            android:id="@+id/ll_bottom"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="#BFBFC4"
+                android:text="重置"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:background="#FF4D16"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="#ffffff"
+                android:text="确定"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
