@@ -153,7 +153,8 @@ public class FragmentWode extends Fragment {
         }
     }
 
-    @OnClick({R.id.rl1, R.id.rl2, R.id.rl3, R.id.rl4, R.id.rl5, R.id.iv_avatar, R.id.ll_login, R.id.ll_my_order})
+    @OnClick({R.id.rl1, R.id.rl2, R.id.rl3, R.id.rl4, R.id.rl5, R.id.iv_avatar, R.id.ll_login, R.id.ll_my_order, R.id.ll_daifukuan,
+    R.id.ll_daishouhuo, R.id.ll_comment, R.id.ll_tuikuan})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -216,6 +217,45 @@ public class FragmentWode extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.ll_my_order:
+                if(userId.equals("0")){
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), MyOrderActivity.class);
+                    intent.putExtra("index", 0);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.ll_daifukuan:
+                if(userId.equals("0")){
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), MyOrderActivity.class);
+                    intent.putExtra("index", 1);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.ll_daishouhuo:
+                if(userId.equals("0")){
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), MyOrderActivity.class);
+                    intent.putExtra("index", 2);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.ll_comment:
+                if(userId.equals("0")){
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), MyOrderActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.ll_tuikuan:
                 if(userId.equals("0")){
                     intent.setClass(getContext(), SMSLoginActivity.class);
                     startActivity(intent);

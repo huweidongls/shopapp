@@ -162,6 +162,7 @@
                 android:layout_height="82dp">
 
                 <LinearLayout
+                    android:id="@+id/ll_daifukuan"
                     android:background="@drawable/selector_fragment_my_bg"
                     android:layout_gravity="center_vertical"
                     android:orientation="vertical"
@@ -187,6 +188,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_daishouhuo"
                     android:background="@drawable/selector_fragment_my_bg"
                     android:layout_gravity="center_vertical"
                     android:orientation="vertical"
@@ -212,6 +214,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_comment"
                     android:background="@drawable/selector_fragment_my_bg"
                     android:layout_gravity="center_vertical"
                     android:orientation="vertical"
@@ -237,6 +240,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_tuikuan"
                     android:background="@drawable/selector_fragment_my_bg"
                     android:layout_gravity="center_vertical"
                     android:orientation="vertical"

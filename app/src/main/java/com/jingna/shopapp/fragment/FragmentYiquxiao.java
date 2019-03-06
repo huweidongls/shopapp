@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jingna.shopapp.R;
-import com.jingna.shopapp.adapter.FragmentYiwanchengAdapter;
+import com.jingna.shopapp.adapter.FragmentYiquxiaoAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,18 +22,18 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2019/3/6.
  */
 
-public class FragmentYiwancheng extends Fragment {
+public class FragmentYiquxiao extends Fragment {
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
 
-    private FragmentYiwanchengAdapter adapter;
+    private FragmentYiquxiaoAdapter adapter;
     private List<String> mList;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_yiwancheng, null);
+        View view = inflater.inflate(R.layout.fragment_yiquxiao, null);
 
         ButterKnife.bind(this, view);
         initData();
@@ -46,7 +46,10 @@ public class FragmentYiwancheng extends Fragment {
         mList = new ArrayList<>();
         mList.add("");
         mList.add("");
-        adapter = new FragmentYiwanchengAdapter(mList);
+        mList.add("");
+        mList.add("");
+        mList.add("");
+        adapter = new FragmentYiquxiaoAdapter(mList);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);

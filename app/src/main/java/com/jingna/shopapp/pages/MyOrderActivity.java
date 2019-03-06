@@ -13,11 +13,10 @@ import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.GoodsDetailsViewpagerAdapter;
 import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.customview.ScaleTransitionPagerTitleView;
-import com.jingna.shopapp.fragment.FragmentComment;
 import com.jingna.shopapp.fragment.FragmentDaifukuan;
 import com.jingna.shopapp.fragment.FragmentDaishouhuo;
-import com.jingna.shopapp.fragment.FragmentEvaluation;
-import com.jingna.shopapp.fragment.FragmentGoods;
+import com.jingna.shopapp.fragment.FragmentYiquxiao;
+import com.jingna.shopapp.fragment.FragmentYiwancheng;
 import com.jingna.shopapp.util.StatusBarUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -51,11 +50,14 @@ public class MyOrderActivity extends BaseActivity {
 
     private ArrayList<String> mTitleDataList;
 
+    private int index = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_order);
 
+        index = getIntent().getIntExtra("index", 0);
         StatusBarUtils.setStatusBar(MyOrderActivity.this, Color.parseColor("#ffffff"));
         ButterKnife.bind(MyOrderActivity.this);
         mFragmentManager = getSupportFragmentManager();
@@ -66,11 +68,11 @@ public class MyOrderActivity extends BaseActivity {
     private void initData() {
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(new FragmentGoods());
+        fragmentList.add(new FragmentDaifukuan());
         fragmentList.add(new FragmentDaifukuan());
         fragmentList.add(new FragmentDaishouhuo());
-        fragmentList.add(new FragmentEvaluation());
-        fragmentList.add(new FragmentEvaluation());
+        fragmentList.add(new FragmentYiwancheng());
+        fragmentList.add(new FragmentYiquxiao());
         mViewPagerFragmentAdapter = new GoodsDetailsViewpagerAdapter(mFragmentManager, fragmentList);
         mViewPager.setAdapter(mViewPagerFragmentAdapter);
 
@@ -119,6 +121,7 @@ public class MyOrderActivity extends BaseActivity {
 //        titleContainer.setDividerPadding(UIUtil.dip2px(this, 15));
 //        titleContainer.setDividerDrawable(getResources().getDrawable(R.drawable.simple_splitter));
         ViewPagerHelper.bind(magicIndicator, mViewPager);
+        mViewPager.setCurrentItem(index);
 
     }
 
