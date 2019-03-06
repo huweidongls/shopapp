@@ -91,7 +91,8 @@
         <activity android:name=".pages.EditPhoneNum2Activity" />
         <activity android:name=".pages.GoodsListActivity" />
         <activity android:name=".pages.EditPayActivity" />
-        <activity android:name=".pages.SetPayPwdActivity"></activity>
+        <activity android:name=".pages.SetPayPwdActivity" />
+        <activity android:name=".pages.MyOrderActivity"></activity>
     </application>
 
 </manifest>

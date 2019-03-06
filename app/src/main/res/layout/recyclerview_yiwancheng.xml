@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="@color/white_ffffff"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:background="#F1F1F1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:src="@mipmap/dianpu"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="14dp"
+                    android:layout_width="17dp"
+                    android:layout_height="15dp" />
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="7dp"
+                    android:textColor="@color/black_333333"
+                    android:textSize="14sp"
+                    android:text="贝脆思旗舰店"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="9dp"
+                    android:src="@mipmap/right_b"
+                    android:layout_width="3dp"
+                    android:layout_height="8dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="46dp"
+                android:textColor="#333333"
+                android:textSize="13sp"
+                android:text="已完成"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_marginRight="11dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="14dp"
+                android:layout_height="15dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:background="#FAFAFA"
+            android:layout_width="match_parent"
+            android:layout_height="89dp">
+
+            <ImageView
+                android:id="@+id/iv_title"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:src="@mipmap/fushi"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+
+            <TextView
+                android:ellipsize="end"
+                android:lines="2"
+                android:textSize="13sp"
+                android:textColor="@color/black_333333"
+                android:text="良品铺子  夏威夷果265g×3袋  零食坚果炒货每日坚果大礼包大礼包"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="27dp"
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@+id/iv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <LinearLayout
+                android:layout_marginRight="24dp"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/black_333333"
+                    android:textSize="13sp"
+                    android:text="共1件商品 应付款："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:textColor="@color/black_333333"
+                    android:textSize="16sp"
+                    android:text="¥228.00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:background="#F1F1F1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:background="@drawable/bg_ff0004_15dp_bord"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="14dp"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:textColor="#FF0004"
+                android:textSize="13sp"
+                android:text="再次购买"
+                android:layout_width="80dp"
+                android:layout_height="30dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

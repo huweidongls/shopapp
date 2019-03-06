@@ -23,6 +23,7 @@ import com.jingna.shopapp.pages.AddressActivity;
 import com.jingna.shopapp.pages.EditPayActivity;
 import com.jingna.shopapp.pages.EditPhoneNum1Activity;
 import com.jingna.shopapp.pages.EditPwdActivity;
+import com.jingna.shopapp.pages.MyOrderActivity;
 import com.jingna.shopapp.pages.PersonInformationActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
 import com.jingna.shopapp.util.Const;
@@ -152,7 +153,7 @@ public class FragmentWode extends Fragment {
         }
     }
 
-    @OnClick({R.id.rl1, R.id.rl2, R.id.rl3, R.id.rl4, R.id.rl5, R.id.iv_avatar, R.id.ll_login})
+    @OnClick({R.id.rl1, R.id.rl2, R.id.rl3, R.id.rl4, R.id.rl5, R.id.iv_avatar, R.id.ll_login, R.id.ll_my_order})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -213,6 +214,15 @@ public class FragmentWode extends Fragment {
             case R.id.ll_login:
                 intent.setClass(getContext(), SMSLoginActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.ll_my_order:
+                if(userId.equals("0")){
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), MyOrderActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }
