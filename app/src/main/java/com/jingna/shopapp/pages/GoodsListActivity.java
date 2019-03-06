@@ -1,5 +1,6 @@
 package com.jingna.shopapp.pages;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.GoodsListAdapter;
+import com.jingna.shopapp.adapter.GoodsListPopRvAdapter;
 import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.bean.GoodsListBean;
 import com.jingna.shopapp.util.StatusBarUtils;
@@ -45,6 +47,7 @@ public class GoodsListActivity extends BaseActivity {
     private String id = "";
 
     private PopupWindow popupWindow;
+    private View popView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class GoodsListActivity extends BaseActivity {
         StatusBarUtils.setStatusBar(GoodsListActivity.this, Color.parseColor("#ffffff"));
         ButterKnife.bind(GoodsListActivity.this);
         initData();
+        initRight();
 
     }
 
@@ -94,9 +98,38 @@ public class GoodsListActivity extends BaseActivity {
 
     }
 
+    private void initRight() {
+
+        popView = LayoutInflater.from(context).inflate(R.layout.popupwindow_goods_list_right_layout, null);
+        RecyclerView rvPop = popView.findViewById(R.id.rv_pop);
+        List<String> data = new ArrayList<>();
+        data.add("");
+        data.add("");
+        data.add("");
+        data.add("");
+        data.add("");
+        data.add("");
+        data.add("");
+        data.add("");
+        GoodsListPopRvAdapter popRvAdapter = new GoodsListPopRvAdapter(data);
+        LinearLayoutManager manager = new LinearLayoutManager(context){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        rvPop.setLayoutManager(manager);
+        rvPop.setAdapter(popRvAdapter);
+
+    }
+
+    /**
+     * 显示右侧筛选
+     */
     private void showRight(){
-        View view = LayoutInflater.from(context).inflate(R.layout.popupwindow_goods_list_right_layout, null);
-        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.MATCH_PARENT, true);
+
+        popupWindow = new PopupWindow(popView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.MATCH_PARENT, true);
         popupWindow.setTouchable(true);
         popupWindow.setFocusable(true);
         // 设置点击窗口外边窗口消失
