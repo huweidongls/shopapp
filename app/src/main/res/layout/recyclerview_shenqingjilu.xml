@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="@color/white_ffffff"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:background="#FAFAFA"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp">
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black_333333"
+                android:textSize="13sp"
+                android:text="服务单号：408712058"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_type"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/huanhuo"
+                    android:layout_width="15dp"
+                    android:layout_height="14dp" />
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/black_333333"
+                    android:textSize="13sp"
+                    android:layout_marginLeft="5dp"
+                    android:text="换货"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:background="#F1F1F1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="94dp">
+
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:id="@+id/iv_title"
+                android:src="@mipmap/lvxing"
+                android:layout_marginLeft="16dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+
+            <LinearLayout
+                android:layout_marginRight="27dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="18dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:ellipsize="end"
+                    android:lines="2"
+                    android:textColor="@color/black_333333"
+                    android:textSize="13sp"
+                    android:text="良品铺子 夏威夷果265g×3袋 零食坚果炒货 每日坚果大礼包大礼包"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginTop="6dp"
+                    android:textColor="#8E8E8E"
+                    android:textSize="11sp"
+                    android:text="数量：1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

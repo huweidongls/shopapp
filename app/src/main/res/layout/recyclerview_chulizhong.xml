@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="@color/white_ffffff"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:background="#FAFAFA"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="34dp">
+
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="14dp"
+                android:src="@mipmap/dianpu"
+                android:layout_width="17dp"
+                android:layout_height="15dp" />
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="7dp"
+                android:textColor="@color/black_333333"
+                android:textSize="14sp"
+                android:text="贝脆思旗舰店"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_marginLeft="9dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/right_b"
+                android:layout_width="3dp"
+                android:layout_height="8dp" />
+
+        </LinearLayout>
+
+        <View
+            android:background="#F1F1F1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="94dp">
+
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:id="@+id/iv_title"
+                android:src="@mipmap/lvxing"
+                android:layout_marginLeft="16dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+
+            <LinearLayout
+                android:layout_marginRight="27dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="18dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:ellipsize="end"
+                    android:lines="2"
+                    android:textColor="@color/black_333333"
+                    android:textSize="13sp"
+                    android:text="良品铺子 夏威夷果265g×3袋 零食坚果炒货 每日坚果大礼包大礼包"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginTop="6dp"
+                    android:textColor="#8E8E8E"
+                    android:textSize="11sp"
+                    android:text="数量：1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginRight="14dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_ff0004_15dp_bord"
+                android:gravity="center"
+                android:textColor="#FF0004"
+                android:textSize="13sp"
+                android:text="退款中"
+                android:layout_width="80dp"
+                android:layout_height="30dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
