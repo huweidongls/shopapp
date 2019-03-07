@@ -6,4 +6,7 @@
     <!-- 设置按钮的四个角为弧形 -->
     <!-- android:radius 弧形的半径 -->
     <corners android:radius="25dp" />
+    <gradient android:startColor="#F10200"
+        android:endColor="#FF4D16"
+        android:angle="0"/>
 </shape>
