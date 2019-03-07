@@ -49,6 +49,7 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:id="@+id/ll_goods_focus"
                         android:orientation="vertical"
                         android:layout_weight="1"
                         android:layout_width="0dp"

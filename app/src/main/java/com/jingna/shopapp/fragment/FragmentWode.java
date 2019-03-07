@@ -20,6 +20,7 @@ import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.FragmentMyTuijianAdapter;
 import com.jingna.shopapp.bean.GetOneBean;
 import com.jingna.shopapp.pages.AddressActivity;
+import com.jingna.shopapp.pages.CommentActivity;
 import com.jingna.shopapp.pages.EditPayActivity;
 import com.jingna.shopapp.pages.EditPhoneNum1Activity;
 import com.jingna.shopapp.pages.EditPwdActivity;
@@ -155,7 +156,7 @@ public class FragmentWode extends Fragment {
     }
 
     @OnClick({R.id.rl1, R.id.rl2, R.id.rl3, R.id.rl4, R.id.rl5, R.id.iv_avatar, R.id.ll_login, R.id.ll_my_order, R.id.ll_daifukuan,
-    R.id.ll_daishouhuo, R.id.ll_comment, R.id.ll_tuikuan})
+    R.id.ll_daishouhuo, R.id.ll_comment, R.id.ll_tuikuan, R.id.ll_goods_focus})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -262,6 +263,15 @@ public class FragmentWode extends Fragment {
                     startActivity(intent);
                 }else {
                     intent.setClass(getContext(), TuikuanShouhouActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.ll_goods_focus:
+                if(userId.equals("0")){
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), CommentActivity.class);
                     startActivity(intent);
                 }
                 break;

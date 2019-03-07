@@ -93,7 +93,8 @@
         <activity android:name=".pages.EditPayActivity" />
         <activity android:name=".pages.SetPayPwdActivity" />
         <activity android:name=".pages.MyOrderActivity" />
-        <activity android:name=".pages.TuikuanShouhouActivity"></activity>
+        <activity android:name=".pages.TuikuanShouhouActivity" />
+        <activity android:name=".pages.CommentActivity"></activity>
     </application>
 
 </manifest>
