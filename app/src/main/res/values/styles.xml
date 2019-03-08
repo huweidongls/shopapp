@@ -29,4 +29,10 @@
         <!-- 指定消失的动画xml -->
     </style>
 
+    <style name="mRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating</item>
+        <item name="android:minHeight">20dp</item>
+        <item name="android:maxHeight">20dp</item>
+    </style>
+
 </resources>

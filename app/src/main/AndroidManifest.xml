@@ -94,7 +94,9 @@
         <activity android:name=".pages.SetPayPwdActivity" />
         <activity android:name=".pages.MyOrderActivity" />
         <activity android:name=".pages.TuikuanShouhouActivity" />
-        <activity android:name=".pages.CommentActivity"></activity>
+        <activity android:name=".pages.CommentActivity" />
+        <activity android:name=".pages.DetailsOrderActivity" />
+        <activity android:name=".pages.ApplyRefundActivity"></activity>
     </application>
 
 </manifest>

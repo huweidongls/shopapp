@@ -56,4 +56,5 @@ dependencies {
     implementation 'com.github.donkingliang:ImageSelector:1.6.8'
     compile 'com.yanzhenjie:recyclerview-swipe:1.1.4'
     compile 'com.contrarywind:Android-PickerView:4.1.5'
+    compile 'com.xingliuhua:xlhratingbar_lib:2.1'
 }
