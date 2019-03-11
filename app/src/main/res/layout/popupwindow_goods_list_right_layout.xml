@@ -34,6 +34,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:id="@+id/et_min"
                         android:layout_marginRight="8dp"
                         android:layout_marginLeft="9dp"
                         android:inputType="number"
@@ -54,6 +55,7 @@
                         android:layout_height="1dp"/>
 
                     <EditText
+                        android:id="@+id/et_max"
                         android:layout_marginRight="9dp"
                         android:layout_marginLeft="8dp"
                         android:inputType="number"
@@ -110,6 +112,7 @@
                 android:layout_height="match_parent" />
 
             <TextView
+                android:id="@+id/tv_sure"
                 android:background="#FF4D16"
                 android:gravity="center"
                 android:textSize="16sp"

@@ -80,11 +80,13 @@
         android:layout_height="1dp"/>
 
     <LinearLayout
+        android:id="@+id/ll_shaixuan"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="44dp">
 
         <RelativeLayout
+            android:id="@+id/rl_zonghe"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">

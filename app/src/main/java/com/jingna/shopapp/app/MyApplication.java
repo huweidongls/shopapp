@@ -3,6 +3,7 @@ package com.jingna.shopapp.app;
 import android.app.Activity;
 import android.app.Application;
 
+import com.jingna.shopapp.bean.ChoiceMenuSignBean;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.EditPhoneNum2TimeCount;
 import com.jingna.shopapp.util.EditPhoneNumTimeCount;
@@ -12,8 +13,11 @@ import com.jingna.shopapp.util.ForgotTimeCount;
 import com.jingna.shopapp.util.SMSCodeTimeCount;
 import com.vise.xsnow.http.ViseHttp;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2019/2/13.
@@ -30,6 +34,7 @@ public class MyApplication extends Application {
     public static EditPwdTimeCount editPwdTimeCount;
     public static EditPhoneNumTimeCount editPhoneNumTimeCount;
     public static EditPhoneNum2TimeCount editPhoneNum2TimeCount;
+    public static Map<String, List<ChoiceMenuSignBean>> signMap;
 
     public MyApplication() {
     }
@@ -39,6 +44,7 @@ public class MyApplication extends Application {
         super.onCreate();
         ViseHttp.init(this);
         ViseHttp.CONFIG().baseUrl(Const.BASE_URL);
+        signMap = new HashMap<>();
         ftptimecount = new FTPTimeCount(60000, 1000);
         smsCodeTimeCount = new SMSCodeTimeCount(60000, 1000);
         forgotTimeCount = new ForgotTimeCount(60000, 1000);

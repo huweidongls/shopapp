@@ -20,6 +20,7 @@ import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.FragmentMyTuijianAdapter;
 import com.jingna.shopapp.bean.GetOneBean;
 import com.jingna.shopapp.pages.AddressActivity;
+import com.jingna.shopapp.pages.ApplyRefundActivity;
 import com.jingna.shopapp.pages.CommentActivity;
 import com.jingna.shopapp.pages.EditPayActivity;
 import com.jingna.shopapp.pages.EditPhoneNum1Activity;
@@ -93,30 +94,32 @@ public class FragmentWode extends Fragment {
             llNum.setVisibility(View.VISIBLE);
             llLogin.setVisibility(View.GONE);
         }
-        String url = "/MemUser/getOne?id="+userId;
-        ViseHttp.GET(url)
-                .request(new ACallback<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        try {
-                            Log.e("123123", data);
-                            JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.optString("status").equals("200")){
-                                Gson gson = new Gson();
-                                GetOneBean bean = gson.fromJson(data, GetOneBean.class);
-                                Glide.with(getContext()).load(Const.BASE_URL+bean.getData().getHeadPhoto()).into(ivAvatar);
-                                tvName.setText(bean.getData().getMemName());
+        if(!userId.equals("0")){
+            String url = "/MemUser/getOne?id="+userId;
+            ViseHttp.GET(url)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                Log.e("123123", data);
+                                JSONObject jsonObject = new JSONObject(data);
+                                if(jsonObject.optString("status").equals("200")){
+                                    Gson gson = new Gson();
+                                    GetOneBean bean = gson.fromJson(data, GetOneBean.class);
+                                    Glide.with(getContext()).load(Const.BASE_URL+bean.getData().getHeadPhoto()).into(ivAvatar);
+                                    tvName.setText(bean.getData().getMemName());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
 
-                    @Override
-                    public void onFail(int errCode, String errMsg) {
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
 
-                    }
-                });
+                        }
+                    });
+        }
     }
 
     private void initData() {
@@ -156,7 +159,7 @@ public class FragmentWode extends Fragment {
     }
 
     @OnClick({R.id.rl1, R.id.rl2, R.id.rl3, R.id.rl4, R.id.rl5, R.id.iv_avatar, R.id.ll_login, R.id.ll_my_order, R.id.ll_daifukuan,
-    R.id.ll_daishouhuo, R.id.ll_comment, R.id.ll_tuikuan, R.id.ll_goods_focus})
+    R.id.ll_daishouhuo, R.id.ll_comment, R.id.ll_tuikuan, R.id.ll_goods_focus, R.id.ll_shop_focus})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -272,6 +275,15 @@ public class FragmentWode extends Fragment {
                     startActivity(intent);
                 }else {
                     intent.setClass(getContext(), CommentActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.ll_shop_focus:
+                if(userId.equals("0")){
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), ApplyRefundActivity.class);
                     startActivity(intent);
                 }
                 break;

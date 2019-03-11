@@ -76,6 +76,15 @@ public class GoodsListBean {
         private String goodsPic;
         private int brandId;
         private String sellerName;
+        private String productName;
+
+        public String getProductName() {
+            return productName;
+        }
+
+        public void setProductName(String productName) {
+            this.productName = productName;
+        }
 
         public int getId() {
             return id;

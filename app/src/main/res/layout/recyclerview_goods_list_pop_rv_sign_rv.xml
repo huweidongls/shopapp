@@ -11,6 +11,7 @@
         android:layout_height="32dp">
 
         <TextView
+            android:id="@+id/tv"
             android:gravity="center"
             android:textColor="@color/black_333333"
             android:textSize="12sp"

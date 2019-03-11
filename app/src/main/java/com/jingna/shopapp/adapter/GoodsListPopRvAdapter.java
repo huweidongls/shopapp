@@ -7,9 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.bean.ChoiceMenuBean;
+import com.jingna.shopapp.bean.ChoiceMenuSignBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,9 +23,9 @@ import java.util.List;
 public class GoodsListPopRvAdapter extends RecyclerView.Adapter<GoodsListPopRvAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<ChoiceMenuBean.DataBean> data;
 
-    public GoodsListPopRvAdapter(List<String> data) {
+    public GoodsListPopRvAdapter(List<ChoiceMenuBean.DataBean> data) {
         this.data = data;
     }
 
@@ -35,7 +39,13 @@ public class GoodsListPopRvAdapter extends RecyclerView.Adapter<GoodsListPopRvAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        GoodsListPopRvSignRvAdapter rvAdapter = new GoodsListPopRvSignRvAdapter(data);
+        holder.tvName.setText(data.get(position).getAttributeName());
+        List<ChoiceMenuSignBean> list = new ArrayList<>();
+        String[] sign = data.get(position).getAttributeList().split(",");
+        for (int i = 0; i<sign.length; i++){
+            list.add(new ChoiceMenuSignBean(sign[i], 0));
+        }
+        GoodsListPopRvSignRvAdapter rvAdapter = new GoodsListPopRvSignRvAdapter(list, position);
         GridLayoutManager manager = new GridLayoutManager(context, 3){
             @Override
             public boolean canScrollVertically() {
@@ -54,10 +64,12 @@ public class GoodsListPopRvAdapter extends RecyclerView.Adapter<GoodsListPopRvAd
     class ViewHolder extends RecyclerView.ViewHolder{
 
         private RecyclerView rvSign;
+        private TextView tvName;
 
         public ViewHolder(View itemView) {
             super(itemView);
             rvSign = itemView.findViewById(R.id.rv_sign);
+            tvName = itemView.findViewById(R.id.tv_name);
         }
     }
 
