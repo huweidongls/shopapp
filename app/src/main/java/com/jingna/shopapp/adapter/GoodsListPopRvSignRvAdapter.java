@@ -23,10 +23,12 @@ public class GoodsListPopRvSignRvAdapter extends RecyclerView.Adapter<GoodsListP
     private Context context;
     private List<ChoiceMenuSignBean> data;
     private int pos;
+    private ClickListener listener;
 
-    public GoodsListPopRvSignRvAdapter(List<ChoiceMenuSignBean> data, int pos) {
+    public GoodsListPopRvSignRvAdapter(List<ChoiceMenuSignBean> data, int pos, ClickListener listener) {
         this.data = data;
         this.pos = pos;
+        this.listener = listener;
     }
 
     @Override
@@ -47,13 +49,13 @@ public class GoodsListPopRvSignRvAdapter extends RecyclerView.Adapter<GoodsListP
                     holder.tv.setTextColor(Color.parseColor("#FF0004"));
                     holder.tv.setBackgroundResource(R.drawable.bg_ff0004_16dp_bord);
                     data.get(position).setIsSelete(1);
-                    MyApplication.signMap.put(pos+"", data);
+                    listener.onClick(pos, data);
                     notifyDataSetChanged();
                 }else {
                     holder.tv.setTextColor(Color.parseColor("#333333"));
                     holder.tv.setBackgroundResource(R.drawable.bg_f5f5f5_16dp);
                     data.get(position).setIsSelete(0);
-                    MyApplication.signMap.put(pos+"", data);
+                    listener.onClick(pos, data);
                     notifyDataSetChanged();
                 }
             }
@@ -73,6 +75,10 @@ public class GoodsListPopRvSignRvAdapter extends RecyclerView.Adapter<GoodsListP
             super(itemView);
             tv = itemView.findViewById(R.id.tv);
         }
+    }
+
+    public interface ClickListener{
+        void onClick(int pos, List<ChoiceMenuSignBean> i);
     }
 
 }

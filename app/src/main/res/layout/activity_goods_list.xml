@@ -98,6 +98,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_zonghe"
                     android:textColor="#FF0004"
                     android:textSize="14sp"
                     android:text="综合"
@@ -105,6 +106,7 @@
                     android:layout_height="wrap_content" />
 
                 <ImageView
+                    android:id="@+id/iv_bottom_zonghe"
                     android:layout_marginLeft="7dp"
                     android:layout_gravity="center_vertical"
                     android:src="@mipmap/bottom_red"
@@ -121,12 +123,14 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/ll_xiaoliang"
                 android:layout_centerInParent="true"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_xiaoliang"
                     android:textColor="@color/black_333333"
                     android:textSize="14sp"
                     android:text="销量"
@@ -138,6 +142,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_jiage"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">
@@ -149,6 +154,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_jiage"
                     android:textColor="@color/black_333333"
                     android:textSize="14sp"
                     android:text="价格"
@@ -163,12 +169,14 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        android:id="@+id/iv_top_jiage"
                         android:layout_gravity="center_horizontal"
                         android:src="@mipmap/top_b"
                         android:layout_width="5dp"
                         android:layout_height="3dp" />
 
                     <ImageView
+                        android:id="@+id/iv_bottom_jiage"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="2dp"
                         android:src="@mipmap/bottom_b"
@@ -218,9 +226,16 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

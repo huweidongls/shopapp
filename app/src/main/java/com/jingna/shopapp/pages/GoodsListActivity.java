@@ -13,10 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.GoodsListAdapter;
@@ -28,6 +31,12 @@ import com.jingna.shopapp.bean.ChoiceMenuSignBean;
 import com.jingna.shopapp.bean.GoodsListBean;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
+import com.scwang.smartrefresh.header.MaterialHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
@@ -35,6 +44,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +60,24 @@ public class GoodsListActivity extends BaseActivity {
     RecyclerView recyclerView;
     @BindView(R.id.ll_shaixuan)
     LinearLayout llShaixuan;
+    @BindView(R.id.tv_zonghe)
+    TextView tvZonghe;
+    @BindView(R.id.iv_bottom_zonghe)
+    ImageView ivBottomZonghe;
+    @BindView(R.id.ll_xiaoliang)
+    LinearLayout llXiaoliang;
+    @BindView(R.id.tv_xiaoliang)
+    TextView tvXiaoliang;
+    @BindView(R.id.rl_jiage)
+    RelativeLayout rlJiage;
+    @BindView(R.id.tv_jiage)
+    TextView tvJiage;
+    @BindView(R.id.iv_top_jiage)
+    ImageView ivTopJiage;
+    @BindView(R.id.iv_bottom_jiage)
+    ImageView ivBottomJiage;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout smartRefreshLayout;
 
     private GoodsListAdapter adapter;
     private List<GoodsListBean.DataBean> mList;
@@ -65,6 +93,12 @@ public class GoodsListActivity extends BaseActivity {
     private String sign = "";
     private String minPrice = "";
     private String maxPrice = "";
+    private String orderBy = "";
+    private int page = 1;
+
+    private List<ChoiceMenuBean.DataBean> list;
+    public static Map<String, List<ChoiceMenuSignBean>> signMap;
+    private GoodsListPopRvAdapter popRvAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +115,31 @@ public class GoodsListActivity extends BaseActivity {
 
     private void initData() {
 
+        signMap = new HashMap<>();
+        smartRefreshLayout.setRefreshHeader(new MaterialHeader(context));
+        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(context));
+        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                page = 1;
+                onReGet();
+                refreshlayout.finishRefresh(1000/*,false*/);//传入false表示刷新失败
+            }
+        });
+        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                page = page + 1;
+                onReGet();
+                refreshlayout.finishLoadMore(1000/*,false*/);//传入false表示加载失败
+            }
+        });
+
         mList = new ArrayList<>();
         ViseHttp.POST("/AppGoodsShop/queryList")
-                .addParam("pageNum", "1")
+                .addParam("pageNum", page+"")
                 .addParam("pageSize", "10")
                 .addParam("categoryId", id)
-                .addParam("orderBy", "b.price asc")
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -123,6 +176,84 @@ public class GoodsListActivity extends BaseActivity {
 
         popViewZonghe = LayoutInflater.from(context).inflate(R.layout.popupwindow_goods_list_zonghe, null);
 
+        RelativeLayout rl1 = popViewZonghe.findViewById(R.id.rl1);
+        RelativeLayout rl2 = popViewZonghe.findViewById(R.id.rl2);
+        RelativeLayout rl3 = popViewZonghe.findViewById(R.id.rl3);
+        final TextView tv1 = popViewZonghe.findViewById(R.id.tv1);
+        final TextView tv2 = popViewZonghe.findViewById(R.id.tv2);
+        final TextView tv3 = popViewZonghe.findViewById(R.id.tv3);
+        final ImageView iv1 = popViewZonghe.findViewById(R.id.iv1);
+        final ImageView iv2 = popViewZonghe.findViewById(R.id.iv2);
+        final ImageView iv3 = popViewZonghe.findViewById(R.id.iv3);
+
+        rl1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderBy = "";
+                tv1.setTextColor(Color.parseColor("#FF0004"));
+                tv2.setTextColor(Color.parseColor("#333333"));
+                tv3.setTextColor(Color.parseColor("#333333"));
+                iv1.setVisibility(View.VISIBLE);
+                iv2.setVisibility(View.GONE);
+                iv3.setVisibility(View.GONE);
+                onReGet();
+                popupWindowZonghe.dismiss();
+            }
+        });
+
+        rl2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderBy = "a.create_date desc";
+                tv1.setTextColor(Color.parseColor("#333333"));
+                tv2.setTextColor(Color.parseColor("#FF0004"));
+                tv3.setTextColor(Color.parseColor("#333333"));
+                iv1.setVisibility(View.GONE);
+                iv2.setVisibility(View.VISIBLE);
+                iv3.setVisibility(View.GONE);
+                onReGet();
+                popupWindowZonghe.dismiss();
+            }
+        });
+
+        rl3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderBy = "e.goods_comment desc";
+                tv1.setTextColor(Color.parseColor("#333333"));
+                tv2.setTextColor(Color.parseColor("#333333"));
+                tv3.setTextColor(Color.parseColor("#FF0004"));
+                iv1.setVisibility(View.GONE);
+                iv2.setVisibility(View.GONE);
+                iv3.setVisibility(View.VISIBLE);
+                onReGet();
+                popupWindowZonghe.dismiss();
+            }
+        });
+
+        if(TextUtils.isEmpty(orderBy)){
+            tv1.setTextColor(Color.parseColor("#FF0004"));
+            tv2.setTextColor(Color.parseColor("#333333"));
+            tv3.setTextColor(Color.parseColor("#333333"));
+            iv1.setVisibility(View.VISIBLE);
+            iv2.setVisibility(View.GONE);
+            iv3.setVisibility(View.GONE);
+        }else if(orderBy.equals("a.create_date desc")){
+            tv1.setTextColor(Color.parseColor("#333333"));
+            tv2.setTextColor(Color.parseColor("#FF0004"));
+            tv3.setTextColor(Color.parseColor("#333333"));
+            iv1.setVisibility(View.GONE);
+            iv2.setVisibility(View.VISIBLE);
+            iv3.setVisibility(View.GONE);
+        }else if(orderBy.equals("e.goods_comment desc")){
+            tv1.setTextColor(Color.parseColor("#333333"));
+            tv2.setTextColor(Color.parseColor("#333333"));
+            tv3.setTextColor(Color.parseColor("#FF0004"));
+            iv1.setVisibility(View.GONE);
+            iv2.setVisibility(View.GONE);
+            iv3.setVisibility(View.VISIBLE);
+        }
+
         popupWindowZonghe = new PopupWindow(popViewZonghe, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
         popupWindowZonghe.setTouchable(true);
         popupWindowZonghe.setFocusable(true);
@@ -157,18 +288,45 @@ public class GoodsListActivity extends BaseActivity {
         TextView tvSure = popView.findViewById(R.id.tv_sure);
         final EditText etMin = popView.findViewById(R.id.et_min);
         final EditText etMax = popView.findViewById(R.id.et_max);
+        TextView tvReset = popView.findViewById(R.id.tv_reset);
+
+        tvReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signMap.clear();
+                etMin.setText(null);
+                etMax.setText(null);
+                minPrice = "";
+                maxPrice = "";
+                sign = "";
+                popRvAdapter = new GoodsListPopRvAdapter(list, new GoodsListPopRvAdapter.ClickListener() {
+                    @Override
+                    public void onClick(int pos, List<ChoiceMenuSignBean> i) {
+                        signMap.put(pos+"", i);
+                    }
+                });
+                LinearLayoutManager manager = new LinearLayoutManager(context){
+                    @Override
+                    public boolean canScrollVertically() {
+                        return false;
+                    }
+                };
+                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                rvPop.setLayoutManager(manager);
+                rvPop.setAdapter(popRvAdapter);
+            }
+        });
 
         tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Map<String, List<ChoiceMenuSignBean>> map = MyApplication.signMap;
                 String signN = "";
-                for (int i = 0;;i++){
-                    if(map.get(i+"") == null){
-                        break;
+                for (int i = 0; i<list.size(); i++){
+                    if(signMap.get(i+"") == null){
+
                     }else {
-                        List<ChoiceMenuSignBean> list = map.get(i+"");
+                        List<ChoiceMenuSignBean> list = signMap.get(i+"");
                         for (int a = 0; a<list.size(); a++){
                             if(list.get(a).getIsSelete() == 1){
                                 signN = signN + list.get(a).getSign() + ",";
@@ -208,9 +366,14 @@ public class GoodsListActivity extends BaseActivity {
                             if(jsonObject.optString("status").equals("200")){
                                 Gson gson = new Gson();
                                 ChoiceMenuBean menuBean = gson.fromJson(data, ChoiceMenuBean.class);
-                                List<ChoiceMenuBean.DataBean> list = new ArrayList<>();
+                                list = new ArrayList<>();
                                 list.addAll(menuBean.getData());
-                                GoodsListPopRvAdapter popRvAdapter = new GoodsListPopRvAdapter(list);
+                                popRvAdapter = new GoodsListPopRvAdapter(list, new GoodsListPopRvAdapter.ClickListener() {
+                                    @Override
+                                    public void onClick(int pos, List<ChoiceMenuSignBean> i) {
+                                        signMap.put(pos+"", i);
+                                    }
+                                });
                                 LinearLayoutManager manager = new LinearLayoutManager(context){
                                     @Override
                                     public boolean canScrollVertically() {
@@ -240,16 +403,18 @@ public class GoodsListActivity extends BaseActivity {
     private void onReGet() {
 
         ViseHttp.POST("/AppGoodsShop/queryList")
-                .addParam("pageNum", "1")
+                .addParam("pageNum", page+"")
                 .addParam("pageSize", "10")
                 .addParam("categoryId", id)
                 .addParam("goodsAttributes", sign)
                 .addParam("minPrice", minPrice)
                 .addParam("maxPrice", maxPrice)
+                .addParam("orderBy", orderBy)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
                         try {
+                            Log.e("123123", data);
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){
                                 Gson gson = new Gson();
@@ -302,7 +467,7 @@ public class GoodsListActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.rl_back, R.id.rl_right_shaixuan, R.id.rl_zonghe})
+    @OnClick({R.id.rl_back, R.id.rl_right_shaixuan, R.id.rl_zonghe, R.id.ll_xiaoliang, R.id.rl_jiage})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.rl_back:
@@ -312,7 +477,44 @@ public class GoodsListActivity extends BaseActivity {
                 showRight();
                 break;
             case R.id.rl_zonghe:
+                tvZonghe.setTextColor(Color.parseColor("#FF0004"));
+                Glide.with(context).load(R.mipmap.bottom_red).into(ivBottomZonghe);
+                tvXiaoliang.setTextColor(Color.parseColor("#333333"));
+                tvJiage.setTextColor(Color.parseColor("#333333"));
+                Glide.with(context).load(R.mipmap.top_b).into(ivTopJiage);
+                Glide.with(context).load(R.mipmap.bottom_b).into(ivBottomJiage);
                 showPopZonghe();
+                break;
+            case R.id.ll_xiaoliang:
+                tvZonghe.setTextColor(Color.parseColor("#333333"));
+                Glide.with(context).load(R.mipmap.bottom_b).into(ivBottomZonghe);
+                tvXiaoliang.setTextColor(Color.parseColor("#FF0004"));
+                tvJiage.setTextColor(Color.parseColor("#333333"));
+                Glide.with(context).load(R.mipmap.top_b).into(ivTopJiage);
+                Glide.with(context).load(R.mipmap.bottom_b).into(ivBottomJiage);
+                orderBy = "b.sale desc";
+                onReGet();
+                break;
+            case R.id.rl_jiage:
+                if(!orderBy.equals("b.price asc")){
+                    tvZonghe.setTextColor(Color.parseColor("#333333"));
+                    Glide.with(context).load(R.mipmap.bottom_b).into(ivBottomZonghe);
+                    tvXiaoliang.setTextColor(Color.parseColor("#333333"));
+                    tvJiage.setTextColor(Color.parseColor("#FF0004"));
+                    Glide.with(context).load(R.mipmap.top_red).into(ivTopJiage);
+                    Glide.with(context).load(R.mipmap.bottom_b).into(ivBottomJiage);
+                    orderBy = "b.price asc";
+                    onReGet();
+                }else {
+                    tvZonghe.setTextColor(Color.parseColor("#333333"));
+                    Glide.with(context).load(R.mipmap.bottom_b).into(ivBottomZonghe);
+                    tvXiaoliang.setTextColor(Color.parseColor("#333333"));
+                    tvJiage.setTextColor(Color.parseColor("#FF0004"));
+                    Glide.with(context).load(R.mipmap.top_b).into(ivTopJiage);
+                    Glide.with(context).load(R.mipmap.bottom_red).into(ivBottomJiage);
+                    orderBy = "b.price desc";
+                    onReGet();
+                }
                 break;
         }
     }
@@ -320,6 +522,5 @@ public class GoodsListActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        MyApplication.signMap.clear();
     }
 }

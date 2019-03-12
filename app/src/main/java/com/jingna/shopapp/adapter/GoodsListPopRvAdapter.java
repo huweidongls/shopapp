@@ -24,9 +24,11 @@ public class GoodsListPopRvAdapter extends RecyclerView.Adapter<GoodsListPopRvAd
 
     private Context context;
     private List<ChoiceMenuBean.DataBean> data;
+    private ClickListener listener;
 
-    public GoodsListPopRvAdapter(List<ChoiceMenuBean.DataBean> data) {
+    public GoodsListPopRvAdapter(List<ChoiceMenuBean.DataBean> data, ClickListener listener) {
         this.data = data;
+        this.listener = listener;
     }
 
     @Override
@@ -45,7 +47,12 @@ public class GoodsListPopRvAdapter extends RecyclerView.Adapter<GoodsListPopRvAd
         for (int i = 0; i<sign.length; i++){
             list.add(new ChoiceMenuSignBean(sign[i], 0));
         }
-        GoodsListPopRvSignRvAdapter rvAdapter = new GoodsListPopRvSignRvAdapter(list, position);
+        GoodsListPopRvSignRvAdapter rvAdapter = new GoodsListPopRvSignRvAdapter(list, position, new GoodsListPopRvSignRvAdapter.ClickListener() {
+            @Override
+            public void onClick(int pos, List<ChoiceMenuSignBean> i) {
+                listener.onClick(pos, i);
+            }
+        });
         GridLayoutManager manager = new GridLayoutManager(context, 3){
             @Override
             public boolean canScrollVertically() {
@@ -71,6 +78,10 @@ public class GoodsListPopRvAdapter extends RecyclerView.Adapter<GoodsListPopRvAd
             rvSign = itemView.findViewById(R.id.rv_sign);
             tvName = itemView.findViewById(R.id.tv_name);
         }
+    }
+
+    public interface ClickListener{
+        void onClick(int pos, List<ChoiceMenuSignBean> i);
     }
 
 }
