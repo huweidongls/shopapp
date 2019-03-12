@@ -96,7 +96,8 @@
         <activity android:name=".pages.TuikuanShouhouActivity" />
         <activity android:name=".pages.CommentActivity" />
         <activity android:name=".pages.DetailsOrderActivity" />
-        <activity android:name=".pages.ApplyRefundActivity"></activity>
+        <activity android:name=".pages.ApplyRefundActivity" />
+        <activity android:name=".pages.ShopIndexActivity"></activity>
     </application>
 
 </manifest>
