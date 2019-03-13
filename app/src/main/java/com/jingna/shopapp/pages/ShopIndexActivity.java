@@ -15,6 +15,7 @@ import com.jingna.shopapp.adapter.GoodsDetailsViewpagerAdapter;
 import com.jingna.shopapp.customview.ScaleTransitionPagerTitleView;
 import com.jingna.shopapp.fragment.FragmentDaifukuan;
 import com.jingna.shopapp.fragment.FragmentDaishouhuo;
+import com.jingna.shopapp.fragment.FragmentShopGoods;
 import com.jingna.shopapp.fragment.FragmentShopindex;
 import com.jingna.shopapp.fragment.FragmentYiquxiao;
 import com.jingna.shopapp.fragment.FragmentYiwancheng;
@@ -64,7 +65,7 @@ public class ShopIndexActivity extends AppCompatActivity {
     private void initData() {
         fragmentList = new ArrayList<>();
         fragmentList.add(new FragmentShopindex());
-        fragmentList.add(new FragmentDaifukuan());
+        fragmentList.add(new FragmentShopGoods());
         fragmentList.add(new FragmentDaishouhuo());
         fragmentList.add(new FragmentYiwancheng());
         mViewPagerFragmentAdapter = new GoodsDetailsViewpagerAdapter(mFragmentManager, fragmentList);
