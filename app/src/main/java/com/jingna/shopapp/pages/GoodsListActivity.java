@@ -264,18 +264,18 @@ public class GoodsListActivity extends BaseActivity {
         popupWindowZonghe.showAsDropDown(llShaixuan);
         // 设置popWindow的显示和消失动画
 //        popupWindowZonghe.setAnimationStyle(R.style.mypopwindow_anim_style);
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.alpha = 0.5f;
-        getWindow().setAttributes(params);
+//        WindowManager.LayoutParams params = getWindow().getAttributes();
+//        params.alpha = 0.5f;
+//        getWindow().setAttributes(params);
         popupWindowZonghe.update();
 
         popupWindowZonghe.setOnDismissListener(new PopupWindow.OnDismissListener() {
 
             // 在dismiss中恢复透明度
             public void onDismiss() {
-                WindowManager.LayoutParams params = getWindow().getAttributes();
-                params.alpha = 1f;
-                getWindow().setAttributes(params);
+//                WindowManager.LayoutParams params = getWindow().getAttributes();
+//                params.alpha = 1f;
+//                getWindow().setAttributes(params);
             }
         });
 
