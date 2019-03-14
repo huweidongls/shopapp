@@ -24,7 +24,6 @@ import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.GoodsListAdapter;
 import com.jingna.shopapp.adapter.GoodsListPopRvAdapter;
-import com.jingna.shopapp.app.MyApplication;
 import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.bean.ChoiceMenuBean;
 import com.jingna.shopapp.bean.ChoiceMenuSignBean;

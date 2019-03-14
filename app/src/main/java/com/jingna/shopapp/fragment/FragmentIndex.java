@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.IndexAdapter;
+import com.jingna.shopapp.pages.CommitOrderActivity;
 import com.jingna.shopapp.pages.GoodsListActivity;
 import com.jingna.shopapp.pages.LoginActivity;
 import com.jingna.shopapp.pages.RegisterActivity;
@@ -168,7 +169,8 @@ public class FragmentIndex extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.ll2:
-
+                intent.setClass(getContext(), CommitOrderActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ll3:
 
