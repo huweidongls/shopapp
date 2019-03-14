@@ -21,6 +21,7 @@ import com.jingna.shopapp.adapter.IndexAdapter;
 import com.jingna.shopapp.pages.CommitOrderActivity;
 import com.jingna.shopapp.pages.GoodsListActivity;
 import com.jingna.shopapp.pages.LoginActivity;
+import com.jingna.shopapp.pages.OrderTrackingActivity;
 import com.jingna.shopapp.pages.RegisterActivity;
 import com.jingna.shopapp.pages.RegisterYzmActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
@@ -173,7 +174,8 @@ public class FragmentIndex extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.ll3:
-
+                intent.setClass(getContext(), OrderTrackingActivity.class);
+                startActivity(intent);
                 break;
         }
     }
