@@ -35,7 +35,7 @@ public class FragmentGoodsDetailsCommentListRvPicAdapter extends RecyclerView.Ad
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Glide.with(context).load(R.mipmap.lvxing).into(holder.iv);
+        Glide.with(context).load(data.get(position)).into(holder.iv);
     }
 
     @Override

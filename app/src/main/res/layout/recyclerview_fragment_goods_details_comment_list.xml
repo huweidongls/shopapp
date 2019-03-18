@@ -19,11 +19,13 @@
                 android:layout_height="wrap_content">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_avatar"
                     android:src="@mipmap/shengxian"
                     android:layout_width="26dp"
                     android:layout_height="26dp" />
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="9dp"
                     android:textColor="@color/black_333333"
@@ -49,6 +51,7 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_comment"
             android:layout_marginTop="8dp"
             android:textColor="@color/black_333333"
             android:textSize="14sp"

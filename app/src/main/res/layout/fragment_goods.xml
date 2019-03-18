@@ -12,10 +12,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:src="@mipmap/fushi"
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
                 android:layout_width="match_parent"
-                android:layout_height="300dp" />
+                android:layout_height="300dp">
+            </com.youth.banner.Banner>
 
             <RelativeLayout
                 android:layout_marginRight="15dp"
@@ -25,6 +26,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_price"
                     android:textColor="#FF0004"
                     android:textSize="24sp"
                     android:text="¥14.90"
@@ -40,6 +42,7 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_title"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/black_333333"

@@ -90,6 +90,7 @@ public class GoodsListActivity extends BaseActivity {
     private View popViewZonghe;
 
     private String sign = "";
+    private String attrIds = "";
     private String minPrice = "";
     private String maxPrice = "";
     private String orderBy = "";
@@ -127,10 +128,40 @@ public class GoodsListActivity extends BaseActivity {
         });
         smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
+            public void onLoadMore(final RefreshLayout refreshlayout) {
                 page = page + 1;
-                onReGet();
-                refreshlayout.finishLoadMore(1000/*,false*/);//传入false表示加载失败
+                ViseHttp.POST("/AppGoodsShop/queryList")
+                        .addParam("pageNum", page+"")
+                        .addParam("pageSize", "10")
+                        .addParam("categoryId", id)
+                        .addParam("goodsAttributes", sign)
+                        .addParam("minPrice", minPrice)
+                        .addParam("maxPrice", maxPrice)
+                        .addParam("orderBy", orderBy)
+                        .addParam("attrIds", attrIds)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    Log.e("123123", data);
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.optString("status").equals("200")){
+                                        Gson gson = new Gson();
+                                        GoodsListBean bean = gson.fromJson(data, GoodsListBean.class);
+                                        mList.addAll(bean.getData());
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                refreshlayout.finishLoadMore(1000/*,false*/);//传入false表示加载失败
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                                refreshlayout.finishLoadMore(1000/*,false*/);//传入false表示加载失败
+                            }
+                        });
             }
         });
 
@@ -321,10 +352,12 @@ public class GoodsListActivity extends BaseActivity {
             public void onClick(View v) {
 
                 String signN = "";
+                String attr = "";
                 for (int i = 0; i<list.size(); i++){
                     if(signMap.get(i+"") == null){
 
                     }else {
+                        attr = attr + list.get(i).getAttributeId() + ",";
                         List<ChoiceMenuSignBean> list = signMap.get(i+"");
                         for (int a = 0; a<list.size(); a++){
                             if(list.get(a).getIsSelete() == 1){
@@ -334,6 +367,7 @@ public class GoodsListActivity extends BaseActivity {
                     }
                 }
                 sign = signN;
+                attrIds = attr;
                 Log.e("123123", sign);
                 String min = etMin.getText().toString();
                 String max = etMax.getText().toString();
@@ -409,6 +443,7 @@ public class GoodsListActivity extends BaseActivity {
                 .addParam("minPrice", minPrice)
                 .addParam("maxPrice", maxPrice)
                 .addParam("orderBy", orderBy)
+                .addParam("attrIds", attrIds)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
