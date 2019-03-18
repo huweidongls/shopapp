@@ -23,7 +23,7 @@ public class ShopIndexAdapter extends RecyclerView.Adapter<ShopIndexAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.shop_index_goods, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_shop_index_goods, parent, false);
         ShopIndexAdapter.ViewHolder holder = new ShopIndexAdapter.ViewHolder(view);
         return holder;
     }
@@ -38,7 +38,7 @@ public class ShopIndexAdapter extends RecyclerView.Adapter<ShopIndexAdapter.View
         return data == null ? 0 : data.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(View itemView) {
             super(itemView);
         }

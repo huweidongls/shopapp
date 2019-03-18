@@ -7,29 +7,34 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.bean.ChoiceMenuSignBean;
 
 import java.util.List;
 
 /**
- * Created by Administrator on 2019/3/13.
+ * Created by Administrator on 2019/3/15.
  */
 
-public class ShopGoodsAdapter extends RecyclerView.Adapter<ShopGoodsAdapter.ViewHolder>{
+public class ShopCategoryTypeAdapter extends RecyclerView.Adapter<ShopCategoryTypeAdapter.ViewHolder>{
     private Context context;
     private List<String> data;
-    public ShopGoodsAdapter(List<String> data) {
+    public ShopCategoryTypeAdapter(List<String> data) {
         this.data = data;
     }
-    @Override
-    public ShopGoodsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        this.context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_shop_goods_list, parent, false);
-        ShopGoodsAdapter.ViewHolder holder = new ShopGoodsAdapter.ViewHolder(view);
-        return holder;
+
+    public ShopCategoryTypeAdapter() {
+
     }
 
     @Override
-    public void onBindViewHolder(ShopGoodsAdapter.ViewHolder holder, int position) {
+    public ShopCategoryTypeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        this.context = parent.getContext();
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_shop_type, parent, false);
+        ShopCategoryTypeAdapter.ViewHolder holder = new ShopCategoryTypeAdapter.ViewHolder(view);
+        return holder;
+    }
+    @Override
+    public void onBindViewHolder(ShopCategoryTypeAdapter.ViewHolder holder, int position) {
 
     }
 
