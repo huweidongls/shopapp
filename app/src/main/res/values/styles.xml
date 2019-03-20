@@ -29,6 +29,15 @@
         <!-- 指定消失的动画xml -->
     </style>
 
+    <!--  控制popuWindow显示和隐藏 -->
+    <style name="mypopwindow_anim_style_bottom">
+        <item name="android:windowEnterAnimation">@anim/popshow_bottom_anim</item>
+        <!-- 指定显示的动画xml -->
+
+        <item name="android:windowExitAnimation">@anim/pophiden_bottom_anim</item>
+        <!-- 指定消失的动画xml -->
+    </style>
+
     <style name="mRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/rating</item>
         <item name="android:minHeight">20dp</item>

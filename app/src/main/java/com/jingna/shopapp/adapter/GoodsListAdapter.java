@@ -55,6 +55,8 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.View
                 ViseHttp.POST("/ShopCart/toUpdate")
                         .addParam("userid", SpUtils.getUserId(context))
                         .addParam("goodsid", data.get(position).getId()+"")
+                        .addParam("sellerId", data.get(position).getSellerId())
+                        .addParam("goodsNum", "1")
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {

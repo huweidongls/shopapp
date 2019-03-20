@@ -20,10 +20,17 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.ShoppingCarAdapter;
+import com.jingna.shopapp.bean.FragmentGouwucheBean;
 import com.jingna.shopapp.bean.ShoppingCarDataBean;
 import com.jingna.shopapp.customview.RoundCornerDialog;
+import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +140,7 @@ public class FragmentGouwuche extends Fragment {
             "        }\n" +
             "    ]\n" +
             "}";
-    private List<ShoppingCarDataBean.DatasBean> datas;
+    private List<FragmentGouwucheBean.DataBean> datas;
     private Context context;
     private ShoppingCarAdapter shoppingCarAdapter;
 
@@ -193,11 +200,36 @@ public class FragmentGouwuche extends Fragment {
         /**
          * 实际开发中，通过请求后台接口获取购物车数据并解析
          */
-        Gson gson = new Gson();
-        ShoppingCarDataBean shoppingCarDataBean = gson.fromJson(shoppingCarData, ShoppingCarDataBean.class);
-        datas = shoppingCarDataBean.getDatas();
 
-        initExpandableListViewData(datas);
+        ViseHttp.GET("/ShopCart/queryList")
+                .addParam("id", SpUtils.getUserId(getContext()))
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                FragmentGouwucheBean gouwucheBean = gson.fromJson(data, FragmentGouwucheBean.class);
+                                datas = gouwucheBean.getData();
+                                initExpandableListViewData(datas);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
+//        Gson gson = new Gson();
+//        ShoppingCarDataBean shoppingCarDataBean = gson.fromJson(shoppingCarData, ShoppingCarDataBean.class);
+//        datas = shoppingCarDataBean.getDatas();
+//
+//        initExpandableListViewData(datas);
     }
 
     /**
@@ -247,7 +279,7 @@ public class FragmentGouwuche extends Fragment {
      *
      * @param datas 购物车的数据
      */
-    private void initExpandableListViewData(List<ShoppingCarDataBean.DatasBean> datas) {
+    private void initExpandableListViewData(List<FragmentGouwucheBean.DataBean> datas) {
         if (datas != null && datas.size() > 0) {
             //刷新数据时，保持当前位置
             shoppingCarAdapter.setData(datas);
@@ -293,10 +325,10 @@ public class FragmentGouwuche extends Fragment {
         //true为有，则需要刷新数据；反之，则不需要；
         boolean hasSelect = false;
         //创建临时的List，用于存储没有被选中的购物车数据
-        List<ShoppingCarDataBean.DatasBean> datasTemp = new ArrayList<>();
+        List<FragmentGouwucheBean.DataBean> datasTemp = new ArrayList<>();
 
         for (int i = 0; i < datas.size(); i++) {
-            List<ShoppingCarDataBean.DatasBean.GoodsBean> goods = datas.get(i).getGoods();
+            List<FragmentGouwucheBean.DataBean.ShopGoodsBean> goods = datas.get(i).getShopGoods();
             boolean isSelect_shop = datas.get(i).getIsSelect_shop();
 
             if (isSelect_shop) {
@@ -305,17 +337,17 @@ public class FragmentGouwuche extends Fragment {
                 continue;
             } else {
                 datasTemp.add(datas.get(i));
-                datasTemp.get(datasTemp.size() - 1).setGoods(new ArrayList<ShoppingCarDataBean.DatasBean.GoodsBean>());
+                datasTemp.get(datasTemp.size() - 1).setShopGoods(new ArrayList<FragmentGouwucheBean.DataBean.ShopGoodsBean>());
             }
 
             for (int y = 0; y < goods.size(); y++) {
-                ShoppingCarDataBean.DatasBean.GoodsBean goodsBean = goods.get(y);
+                FragmentGouwucheBean.DataBean.ShopGoodsBean goodsBean = goods.get(y);
                 boolean isSelect = goodsBean.getIsSelect();
 
                 if (isSelect) {
                     hasSelect = true;
                 } else {
-                    datasTemp.get(datasTemp.size() - 1).getGoods().add(goodsBean);
+                    datasTemp.get(datasTemp.size() - 1).getShopGoods().add(goodsBean);
                 }
             }
         }
@@ -332,7 +364,7 @@ public class FragmentGouwuche extends Fragment {
      *
      * @param datasTemp
      */
-    private void showDeleteDialog(final List<ShoppingCarDataBean.DatasBean> datasTemp) {
+    private void showDeleteDialog(final List<FragmentGouwucheBean.DataBean> datasTemp) {
         View view = View.inflate(context, R.layout.dialog_two_btn, null);
         final RoundCornerDialog roundCornerDialog = new RoundCornerDialog(context, 0, 0, view, R.style.RoundCornerDialog);
         roundCornerDialog.show();
