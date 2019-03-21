@@ -10,9 +10,9 @@ public class GoodsListBean {
 
     /**
      * status : 200
-     * data : [{"id":1,"sellerId":"1","categoryId":"1","mainTitle":"321","subTitle":"发的","price":"123321","buyNum":43,"goodsPic":"/upload/0c8fbb037e6941aaab2e659ec4a869f8.jpg","brandId":1,"sellerName":"OW代练"},{"id":2,"sellerId":"2","categoryId":"1","mainTitle":"11","subTitle":"改的","price":"43253245","buyNum":23,"goodsPic":"/upload/0c8fbb037e6941aaab2e659ec4a869f8.jpg","brandId":1,"sellerName":"3333"},{"id":4,"sellerId":"2","categoryId":"1","mainTitle":"4324","subTitle":"割发代首","price":"16800","buyNum":10,"goodsPic":"/upload/0c8fbb037e6941aaab2e659ec4a869f8.jpg","brandId":1,"sellerName":"3333"},{"id":8,"sellerId":"1","categoryId":"1","mainTitle":"1小米","subTitle":"1小米9","price":"3699","buyNum":100,"goodsPic":"/upload/0c8fbb037e6941aaab2e659ec4a869f8.jpg","brandId":1,"sellerName":"OW代练"}]
+     * data : [{"sellerId":4,"pic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","price":10,"goodsId":4,"commentCount":"2","sellerName":"测试商铺1","productName":"核桃"},{"sellerId":4,"goodsId":7,"commentCount":"0","sellerName":"测试商铺1","productName":"谷物零食"}]
      * totalPage : 1
-     * totalCount : 4
+     * totalCount : 2
      */
 
     private String status;
@@ -54,108 +54,61 @@ public class GoodsListBean {
 
     public static class DataBean {
         /**
-         * id : 1
-         * sellerId : 1
-         * categoryId : 1
-         * mainTitle : 321
-         * subTitle : 发的
-         * price : 123321
-         * buyNum : 43
-         * goodsPic : /upload/0c8fbb037e6941aaab2e659ec4a869f8.jpg
-         * brandId : 1
-         * sellerName : OW代练
+         * sellerId : 4
+         * pic : /upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg
+         * price : 10
+         * goodsId : 4
+         * commentCount : 2
+         * sellerName : 测试商铺1
+         * productName : 核桃
          */
 
-        private int id;
-        private String sellerId;
-        private String categoryId;
-        private String mainTitle;
-        private String subTitle;
-        private String price;
-        private int buyNum;
-        private String goodsPic;
-        private int brandId;
+        private int sellerId;
+        private String pic;
+        private int price;
+        private int goodsId;
+        private String commentCount;
         private String sellerName;
         private String productName;
 
-        public String getProductName() {
-            return productName;
-        }
-
-        public void setProductName(String productName) {
-            this.productName = productName;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getSellerId() {
+        public int getSellerId() {
             return sellerId;
         }
 
-        public void setSellerId(String sellerId) {
+        public void setSellerId(int sellerId) {
             this.sellerId = sellerId;
         }
 
-        public String getCategoryId() {
-            return categoryId;
+        public String getPic() {
+            return pic;
         }
 
-        public void setCategoryId(String categoryId) {
-            this.categoryId = categoryId;
+        public void setPic(String pic) {
+            this.pic = pic;
         }
 
-        public String getMainTitle() {
-            return mainTitle;
-        }
-
-        public void setMainTitle(String mainTitle) {
-            this.mainTitle = mainTitle;
-        }
-
-        public String getSubTitle() {
-            return subTitle;
-        }
-
-        public void setSubTitle(String subTitle) {
-            this.subTitle = subTitle;
-        }
-
-        public String getPrice() {
+        public int getPrice() {
             return price;
         }
 
-        public void setPrice(String price) {
+        public void setPrice(int price) {
             this.price = price;
         }
 
-        public int getBuyNum() {
-            return buyNum;
+        public int getGoodsId() {
+            return goodsId;
         }
 
-        public void setBuyNum(int buyNum) {
-            this.buyNum = buyNum;
+        public void setGoodsId(int goodsId) {
+            this.goodsId = goodsId;
         }
 
-        public String getGoodsPic() {
-            return goodsPic;
+        public String getCommentCount() {
+            return commentCount;
         }
 
-        public void setGoodsPic(String goodsPic) {
-            this.goodsPic = goodsPic;
-        }
-
-        public int getBrandId() {
-            return brandId;
-        }
-
-        public void setBrandId(int brandId) {
-            this.brandId = brandId;
+        public void setCommentCount(String commentCount) {
+            this.commentCount = commentCount;
         }
 
         public String getSellerName() {
@@ -164,6 +117,14 @@ public class GoodsListBean {
 
         public void setSellerName(String sellerName) {
             this.sellerName = sellerName;
+        }
+
+        public String getProductName() {
+            return productName;
+        }
+
+        public void setProductName(String productName) {
+            this.productName = productName;
         }
     }
 }

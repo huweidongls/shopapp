@@ -99,7 +99,8 @@
         <activity android:name=".pages.ApplyRefundActivity" />
         <activity android:name=".pages.ShopIndexActivity" />
         <activity android:name=".pages.CommitOrderActivity" />
-        <activity android:name=".pages.OrderTrackingActivity"></activity>
+        <activity android:name=".pages.OrderTrackingActivity" />
+        <activity android:name=".pages.FocusActivity"></activity>
     </application>
 
 </manifest>

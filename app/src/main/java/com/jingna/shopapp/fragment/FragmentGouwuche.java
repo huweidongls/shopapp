@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,77 +70,9 @@ public class FragmentGouwuche extends Fragment {
     ImageView ivNoContant;
     @BindView(R.id.rl_no_contant)
     RelativeLayout rlNoContant;
-    @BindView(R.id.tv_titlebar_left)
-    TextView tvTitlebarLeft;
     @BindView(R.id.rl_top)
     RelativeLayout rlTop;
 
-    //模拟的购物车数据（实际开发中使用后台返回的数据）
-    private String shoppingCarData = "{\n" +
-            "    \"code\": 200,\n" +
-            "    \"datas\": [\n" +
-            "        {\n" +
-            "            \"goods\": [\n" +
-            "                {\n" +
-            "                    \"goods_id\": \"111111\",\n" +
-            "                    \"goods_image\": \"http://pic.58pic.com/58pic/15/62/69/34K58PICbmZ_1024.jpg\",\n" +
-            "                    \"goods_name\": \"习近平谈治国理政(第二卷)(平装)\",\n" +
-            "                    \"goods_num\": \"1\",\n" +
-            "                    \"goods_price\": \"18.00\"\n" +
-            "                }\n" +
-            "            ],\n" +
-            "            \"store_id\": \"1\",\n" +
-            "            \"store_name\": \"一号小书店\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "            \"goods\": [\n" +
-            "                {\n" +
-            "                    \"goods_id\": \"222221\",\n" +
-            "                    \"goods_image\": \"http://file06.16sucai.com/2016/0511/9711205e4c003182edeed83355e6f1c7.jpg\",\n" +
-            "                    \"goods_name\": \"马克思传\",\n" +
-            "                    \"goods_num\": \"2\",\n" +
-            "                    \"goods_price\": \"28.00\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"goods_id\": \"222222\",\n" +
-            "                    \"goods_image\": \"http://img01.taopic.com/150424/240473-1504240U13615.jpg\",\n" +
-            "                    \"goods_name\": \"我和霍金的生活\",\n" +
-            "                    \"goods_num\": \"2\",\n" +
-            "                    \"goods_price\": \"228.00\"\n" +
-            "                }\n" +
-            "            ],\n" +
-            "            \"store_id\": \"2\",\n" +
-            "            \"store_name\": \"二号中书店\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "            \"goods\": [\n" +
-            "                {\n" +
-            "                    \"goods_id\": \"333331\",\n" +
-            "                    \"goods_image\": \"http://pic22.nipic.com/20120718/8002769_100147127333_2.jpg\",\n" +
-            "                    \"goods_name\": \"心的重建\",\n" +
-            "                    \"goods_num\": \"3\",\n" +
-            "                    \"goods_price\": \"38.00\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"goods_id\": \"333332\",\n" +
-            "                    \"goods_image\": \"http://pic.58pic.com/58pic/14/71/50/40e58PICy54_1024.jpg\",\n" +
-            "                    \"goods_name\": \"福尔摩斯\",\n" +
-            "                    \"goods_num\": \"3\",\n" +
-            "                    \"goods_price\": \"338.00\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"goods_id\": \"333333\",\n" +
-            "                    \"goods_image\": \"http://img01.taopic.com/150518/318750-15051PS40671.jpg\",\n" +
-            "                    \"goods_name\": \"书法常识\",\n" +
-            "                    \"goods_num\": \"3\",\n" +
-            "                    \"goods_price\": \"3.80\"\n" +
-            "                }\n" +
-            "            ],\n" +
-            "            \"store_id\": \"3\",\n" +
-            "            \"store_name\": \"三号大书店\"\n" +
-            "        }\n" +
-            "    ]\n" +
-            "}";
     private List<FragmentGouwucheBean.DataBean> datas;
     private Context context;
     private ShoppingCarAdapter shoppingCarAdapter;
@@ -163,15 +96,13 @@ public class FragmentGouwuche extends Fragment {
 
         }else {
             StatusBarUtils.setStatusBar(getActivity(), Color.parseColor("#ffffff"));
+            initData();
         }
     }
 
-    @OnClick({R.id.tv_titlebar_left, R.id.tv_titlebar_right})
+    @OnClick({R.id.tv_titlebar_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_titlebar_left://刷新数据
-                initData();
-                break;
             case R.id.tv_titlebar_right://编辑
                 String edit = tvTitlebarRight.getText().toString().trim();
                 if (edit.equals("编辑")) {
@@ -206,6 +137,7 @@ public class FragmentGouwuche extends Fragment {
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
+                        Log.e("123123", data);
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){

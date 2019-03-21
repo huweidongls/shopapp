@@ -234,7 +234,7 @@ public class GoodsListActivity extends BaseActivity {
         rl2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                orderBy = "a.create_date desc";
+                orderBy = "goods.create_date desc";
                 tv1.setTextColor(Color.parseColor("#333333"));
                 tv2.setTextColor(Color.parseColor("#FF0004"));
                 tv3.setTextColor(Color.parseColor("#333333"));
@@ -249,7 +249,7 @@ public class GoodsListActivity extends BaseActivity {
         rl3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                orderBy = "e.goods_comment desc";
+                orderBy = "commentCount desc";
                 tv1.setTextColor(Color.parseColor("#333333"));
                 tv2.setTextColor(Color.parseColor("#333333"));
                 tv3.setTextColor(Color.parseColor("#FF0004"));
@@ -268,14 +268,14 @@ public class GoodsListActivity extends BaseActivity {
             iv1.setVisibility(View.VISIBLE);
             iv2.setVisibility(View.GONE);
             iv3.setVisibility(View.GONE);
-        }else if(orderBy.equals("a.create_date desc")){
+        }else if(orderBy.equals("goods.create_date desc")){
             tv1.setTextColor(Color.parseColor("#333333"));
             tv2.setTextColor(Color.parseColor("#FF0004"));
             tv3.setTextColor(Color.parseColor("#333333"));
             iv1.setVisibility(View.GONE);
             iv2.setVisibility(View.VISIBLE);
             iv3.setVisibility(View.GONE);
-        }else if(orderBy.equals("e.goods_comment desc")){
+        }else if(orderBy.equals("commentCount desc")){
             tv1.setTextColor(Color.parseColor("#333333"));
             tv2.setTextColor(Color.parseColor("#333333"));
             tv3.setTextColor(Color.parseColor("#FF0004"));
@@ -526,18 +526,18 @@ public class GoodsListActivity extends BaseActivity {
                 tvJiage.setTextColor(Color.parseColor("#333333"));
                 Glide.with(context).load(R.mipmap.top_b).into(ivTopJiage);
                 Glide.with(context).load(R.mipmap.bottom_b).into(ivBottomJiage);
-                orderBy = "b.sale desc";
+                orderBy = "goods.sale desc";
                 onReGet();
                 break;
             case R.id.rl_jiage:
-                if(!orderBy.equals("b.price asc")){
+                if(!orderBy.equals("goods.price asc")){
                     tvZonghe.setTextColor(Color.parseColor("#333333"));
                     Glide.with(context).load(R.mipmap.bottom_b).into(ivBottomZonghe);
                     tvXiaoliang.setTextColor(Color.parseColor("#333333"));
                     tvJiage.setTextColor(Color.parseColor("#FF0004"));
                     Glide.with(context).load(R.mipmap.top_red).into(ivTopJiage);
                     Glide.with(context).load(R.mipmap.bottom_b).into(ivBottomJiage);
-                    orderBy = "b.price asc";
+                    orderBy = "goods.price asc";
                     onReGet();
                 }else {
                     tvZonghe.setTextColor(Color.parseColor("#333333"));
@@ -546,7 +546,7 @@ public class GoodsListActivity extends BaseActivity {
                     tvJiage.setTextColor(Color.parseColor("#FF0004"));
                     Glide.with(context).load(R.mipmap.top_b).into(ivTopJiage);
                     Glide.with(context).load(R.mipmap.bottom_red).into(ivBottomJiage);
-                    orderBy = "b.price desc";
+                    orderBy = "goods.price desc";
                     onReGet();
                 }
                 break;

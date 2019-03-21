@@ -20,11 +20,10 @@ import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.FragmentMyTuijianAdapter;
 import com.jingna.shopapp.bean.GetOneBean;
 import com.jingna.shopapp.pages.AddressActivity;
-import com.jingna.shopapp.pages.ApplyRefundActivity;
-import com.jingna.shopapp.pages.CommentActivity;
 import com.jingna.shopapp.pages.EditPayActivity;
 import com.jingna.shopapp.pages.EditPhoneNum1Activity;
 import com.jingna.shopapp.pages.EditPwdActivity;
+import com.jingna.shopapp.pages.FocusActivity;
 import com.jingna.shopapp.pages.MyOrderActivity;
 import com.jingna.shopapp.pages.PersonInformationActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
@@ -274,7 +273,7 @@ public class FragmentWode extends Fragment {
                     intent.setClass(getContext(), SMSLoginActivity.class);
                     startActivity(intent);
                 }else {
-                    intent.setClass(getContext(), CommentActivity.class);
+                    intent.setClass(getContext(), FocusActivity.class);
                     startActivity(intent);
                 }
                 break;
@@ -283,7 +282,7 @@ public class FragmentWode extends Fragment {
                     intent.setClass(getContext(), SMSLoginActivity.class);
                     startActivity(intent);
                 }else {
-                    intent.setClass(getContext(), ApplyRefundActivity.class);
+                    intent.setClass(getContext(), FocusActivity.class);
                     startActivity(intent);
                 }
                 break;
