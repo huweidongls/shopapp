@@ -2,6 +2,8 @@ package com.jingna.shopapp.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +12,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -61,6 +67,8 @@ public class FragmentIndex extends Fragment {
     ImageView ivSmallSearch;
     @BindView(R.id.tv_search_text)
     TextView tvSearchText;
+    @BindView(R.id.webview)
+    WebView webView;
 
     private IndexAdapter adapter;
     private List<String> mList;
@@ -74,8 +82,34 @@ public class FragmentIndex extends Fragment {
         getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         ButterKnife.bind(this, view);
         initView();
+        initWebView();
 
         return view;
+    }
+
+    public void initWebView(){
+
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return super.shouldOverrideUrlLoading(view, url);
+            }
+
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+//                super.onReceivedSslError(view, handler, error);
+                handler.proceed();
+            }
+        });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+
+        }
+        String url = "http://www.baidu.com";
+        webView.loadUrl(url);
     }
 
     private void initView() {
