@@ -4,13 +4,18 @@ import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.bean.FragmentCommentBean;
+import com.jingna.shopapp.util.Const;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +27,9 @@ import java.util.List;
 public class FragmentCommentListAdapter extends RecyclerView.Adapter<FragmentCommentListAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<FragmentCommentBean.DataBean> data;
 
-    public FragmentCommentListAdapter(List<String> data) {
+    public FragmentCommentListAdapter(List<FragmentCommentBean.DataBean> data) {
         this.data = data;
     }
 
@@ -38,6 +43,9 @@ public class FragmentCommentListAdapter extends RecyclerView.Adapter<FragmentCom
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        Glide.with(context).load(Const.BASE_URL+data.get(position).getHeadPhoto()).into(holder.ivAvatar);
+        holder.tvName.setText(data.get(position).getMemName());
+        holder.tvGoodsComment.setText(data.get(position).getGoodsComment());
         holder.llXing.removeAllViews();
         ImageView imageView;
         for (int i = 0; i<5; i++){
@@ -53,20 +61,13 @@ public class FragmentCommentListAdapter extends RecyclerView.Adapter<FragmentCom
                 holder.llXing.addView(imageView, layoutParams);
             }
         }
-        List<String> mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        FragmentCommentListRvAdapter rvAdapter = new FragmentCommentListRvAdapter(mList);
-        GridLayoutManager manager = new GridLayoutManager(context, 3);
-        holder.rvPic.setLayoutManager(manager);
-        holder.rvPic.setAdapter(rvAdapter);
+        String pic = data.get(position).getGoodsCommentPic();
+        if(!TextUtils.isEmpty(pic)){
+            FragmentCommentListRvAdapter rvAdapter = new FragmentCommentListRvAdapter(pic.split(","));
+            GridLayoutManager manager = new GridLayoutManager(context, 3);
+            holder.rvPic.setLayoutManager(manager);
+            holder.rvPic.setAdapter(rvAdapter);
+        }
     }
 
     @Override
@@ -78,11 +79,17 @@ public class FragmentCommentListAdapter extends RecyclerView.Adapter<FragmentCom
 
         private LinearLayout llXing;
         private RecyclerView rvPic;
+        private ImageView ivAvatar;
+        private TextView tvName;
+        private TextView tvGoodsComment;
 
         public ViewHolder(View itemView) {
             super(itemView);
             llXing = itemView.findViewById(R.id.ll_xing);
             rvPic = itemView.findViewById(R.id.rv_pic);
+            ivAvatar = itemView.findViewById(R.id.iv_avatar);
+            tvName = itemView.findViewById(R.id.tv_name);
+            tvGoodsComment = itemView.findViewById(R.id.tv_goods_comment);
         }
     }
 

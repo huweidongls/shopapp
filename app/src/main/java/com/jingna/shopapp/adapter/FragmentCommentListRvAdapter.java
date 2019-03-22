@@ -5,8 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.util.Const;
 
 import java.util.List;
 
@@ -17,9 +20,9 @@ import java.util.List;
 public class FragmentCommentListRvAdapter extends RecyclerView.Adapter<FragmentCommentListRvAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private String[] data;
 
-    public FragmentCommentListRvAdapter(List<String> data) {
+    public FragmentCommentListRvAdapter(String[] data) {
         this.data = data;
     }
 
@@ -33,18 +36,21 @@ public class FragmentCommentListRvAdapter extends RecyclerView.Adapter<FragmentC
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        Glide.with(context).load(Const.BASE_URL+data[position]).into(holder.iv);
     }
 
     @Override
     public int getItemCount() {
-        return data == null ? 0 : data.size();
+        return data.length;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
+        private ImageView iv;
+
         public ViewHolder(View itemView) {
             super(itemView);
+            iv = itemView.findViewById(R.id.iv);
         }
     }
 

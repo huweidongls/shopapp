@@ -55,6 +55,7 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_goods_comment"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:textColor="@color/black_333333"
