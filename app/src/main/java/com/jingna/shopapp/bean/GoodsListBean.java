@@ -10,9 +10,9 @@ public class GoodsListBean {
 
     /**
      * status : 200
-     * data : [{"sellerId":4,"pic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","price":10,"goodsId":4,"commentCount":"2","sellerName":"测试商铺1","productName":"核桃"},{"sellerId":4,"goodsId":7,"commentCount":"0","sellerName":"测试商铺1","productName":"谷物零食"}]
+     * data : [{"sellerId":4,"goodsName":"核桃","pic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","price":10,"goodsId":4,"commentCount":"3","sellerName":"测试商铺1"}]
      * totalPage : 1
-     * totalCount : 2
+     * totalCount : 1
      */
 
     private String status;
@@ -55,21 +55,21 @@ public class GoodsListBean {
     public static class DataBean {
         /**
          * sellerId : 4
+         * goodsName : 核桃
          * pic : /upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg
          * price : 10
          * goodsId : 4
-         * commentCount : 2
+         * commentCount : 3
          * sellerName : 测试商铺1
-         * productName : 核桃
          */
 
         private int sellerId;
+        private String goodsName;
         private String pic;
         private int price;
         private int goodsId;
         private String commentCount;
         private String sellerName;
-        private String productName;
 
         public int getSellerId() {
             return sellerId;
@@ -77,6 +77,14 @@ public class GoodsListBean {
 
         public void setSellerId(int sellerId) {
             this.sellerId = sellerId;
+        }
+
+        public String getGoodsName() {
+            return goodsName;
+        }
+
+        public void setGoodsName(String goodsName) {
+            this.goodsName = goodsName;
         }
 
         public String getPic() {
@@ -117,14 +125,6 @@ public class GoodsListBean {
 
         public void setSellerName(String sellerName) {
             this.sellerName = sellerName;
-        }
-
-        public String getProductName() {
-            return productName;
-        }
-
-        public void setProductName(String productName) {
-            this.productName = productName;
         }
     }
 }

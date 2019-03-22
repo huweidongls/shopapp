@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.GoodsListBean;
+import com.jingna.shopapp.pages.GoodsDetailsActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.SpUtils;
@@ -52,7 +54,7 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.View
         if(!TextUtils.isEmpty(pic)){
             Glide.with(context).load(Const.BASE_URL+pic.split(",")[0]).into(holder.iv);
         }
-        holder.tvTitle.setText(data.get(position).getProductName());
+        holder.tvTitle.setText(data.get(position).getGoodsName());
         holder.tvPrice.setText("¥"+data.get(position).getPrice());
         holder.tvShopName.setText(data.get(position).getSellerName()+" >");
         holder.ivAddCar.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +89,15 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.View
                                 }
                             });
                 }
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(context, GoodsDetailsActivity.class);
+                intent.putExtra("id", data.get(position).getGoodsId()+"");
+                context.startActivity(intent);
             }
         });
     }

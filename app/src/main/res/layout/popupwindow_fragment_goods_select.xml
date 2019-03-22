@@ -23,6 +23,29 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp">
+
+            <ImageView
+                android:id="@+id/iv_title"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:textColor="#FF0004"
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
+                android:layout_alignBottom="@+id/iv_title"
+                android:layout_toRightOf="@+id/iv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"

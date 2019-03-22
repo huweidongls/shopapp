@@ -4,18 +4,21 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.FragmentGoodsDetailsCommentListAdapter;
@@ -23,6 +26,7 @@ import com.jingna.shopapp.adapter.FragmentGoodsSelectPopRvAdapter;
 import com.jingna.shopapp.base.BaseFragment;
 import com.jingna.shopapp.bean.FragmentGoodsBean;
 import com.jingna.shopapp.bean.FragmentGoodsSelectPopBean;
+import com.jingna.shopapp.bean.GoodsSelectResultBean;
 import com.jingna.shopapp.util.Const;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -32,7 +36,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,8 +62,6 @@ public class FragmentGoods extends BaseFragment {
     private FragmentGoodsDetailsCommentListAdapter adapter;
     private List<FragmentGoodsBean.DataBean.CommentListBean> mList;
 
-    private String id = "5";
-
     private List<String> bannerList;
 
     private View selectView;
@@ -66,14 +70,31 @@ public class FragmentGoods extends BaseFragment {
     /**
      * pop列表
      */
-    private List<FragmentGoodsSelectPopBean.DataBean.AttrListBean> mSelectList;
+    private List<FragmentGoodsSelectPopBean.DataBean> mSelectList;
     private FragmentGoodsSelectPopRvAdapter popRvAdapter;
+
+    private String id = "";
+
+    public static FragmentGoods newInstance(String id) {
+        FragmentGoods newFragment = new FragmentGoods();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        newFragment.setArguments(bundle);
+        return newFragment;
+    }
+
+    private Map<Integer, String> signMap;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goods, null);
 
+        Bundle args = getArguments();
+        if (args != null) {
+            id = args.getString("id");
+        }
+        signMap = new HashMap<>();
         ButterKnife.bind(this, view);
         initData();
         initSelect();
@@ -95,16 +116,18 @@ public class FragmentGoods extends BaseFragment {
                                 FragmentGoodsBean goodsBean = gson.fromJson(data, FragmentGoodsBean.class);
                                 //加载轮播图
                                 String bannerPic = goodsBean.getData().getShopGoods().getPic();
-                                String[] banners = bannerPic.split(",");
-                                bannerList = new ArrayList<>();
-                                for (int i = 0; i<banners.length; i++){
-                                    bannerList.add(Const.BASE_URL+banners[i]);
+                                if(!TextUtils.isEmpty(bannerPic)){
+                                    String[] banners = bannerPic.split(",");
+                                    bannerList = new ArrayList<>();
+                                    for (int i = 0; i<banners.length; i++){
+                                        bannerList.add(Const.BASE_URL+banners[i]);
+                                    }
+                                    init(banner, bannerList);
                                 }
-                                init(banner, bannerList);
                                 //加载商品价格
                                 tvPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice());
                                 //加载商品标题
-                                tvTitle.setText(goodsBean.getData().getShopGoods().getProductName());
+                                tvTitle.setText(goodsBean.getData().getShopGoods().getGoodsName());
                                 //加载评论列表
                                 mList = goodsBean.getData().getCommentList();
                                 adapter = new FragmentGoodsDetailsCommentListAdapter(mList);
@@ -135,7 +158,9 @@ public class FragmentGoods extends BaseFragment {
 
         selectView = LayoutInflater.from(getContext()).inflate(R.layout.popupwindow_fragment_goods_select, null);
         RelativeLayout rlBack = selectView.findViewById(R.id.rl_back);
-        RecyclerView popRv = selectView.findViewById(R.id.rv);
+        final RecyclerView popRv = selectView.findViewById(R.id.rv);
+        final ImageView ivTitle = selectView.findViewById(R.id.iv_title);
+        final TextView tvPrice = selectView.findViewById(R.id.tv_price);
 
         rlBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +169,7 @@ public class FragmentGoods extends BaseFragment {
             }
         });
 
-        ViseHttp.GET("/AppGoodsShop/getGoodsByAttribute")
+        ViseHttp.POST("/AppGoodsShop/selectGoods")
                 .addParam("goodsId", id)
                 .request(new ACallback<String>() {
                     @Override
@@ -154,7 +179,50 @@ public class FragmentGoods extends BaseFragment {
                             if(jsonObject.optString("status").equals("200")){
                                 Gson gson = new Gson();
                                 FragmentGoodsSelectPopBean selectPopBean = gson.fromJson(data, FragmentGoodsSelectPopBean.class);
-                                mSelectList = selectPopBean.getData().getAttrList();
+                                mSelectList = selectPopBean.getData();
+                                popRvAdapter = new FragmentGoodsSelectPopRvAdapter(mSelectList, new FragmentGoodsSelectPopRvAdapter.ClickListener() {
+                                    @Override
+                                    public void onClick(int pos, String i) {
+                                        signMap.put(pos, i);
+                                        if(signMap.size() == mSelectList.size()){
+                                            String sign = "";
+                                            for (int a = 0; a<signMap.size(); a++){
+                                                sign = sign + signMap.get(a) + ",";
+                                            }
+                                            ViseHttp.POST("/AppGoodsShop/resultGoods")
+                                                    .addParam("goodsId", id)
+                                                    .addParam("attrs", sign)
+                                                    .request(new ACallback<String>() {
+                                                        @Override
+                                                        public void onSuccess(String data) {
+                                                            Log.e("123123", data);
+                                                            try {
+                                                                JSONObject jsonObject1 = new JSONObject(data);
+                                                                if(jsonObject1.optString("status").equals("200")){
+                                                                    Gson gson1 = new Gson();
+                                                                    GoodsSelectResultBean resultBean = gson1.fromJson(data, GoodsSelectResultBean.class);
+                                                                    if(resultBean.getData()!=null&&resultBean.getData().size()>0){
+                                                                        Glide.with(getContext()).load(Const.BASE_URL+resultBean.getData().get(0).getPic()).into(ivTitle);
+                                                                        tvPrice.setText("¥"+resultBean.getData().get(0).getPrice());
+                                                                    }
+                                                                }
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onFail(int errCode, String errMsg) {
+
+                                                        }
+                                                    });
+                                        }
+                                    }
+                                });
+                                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                                popRv.setLayoutManager(manager);
+                                popRv.setAdapter(popRvAdapter);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

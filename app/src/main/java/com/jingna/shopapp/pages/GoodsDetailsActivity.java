@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -53,11 +54,14 @@ public class GoodsDetailsActivity extends BaseActivity {
 
     private ArrayList<String> mTitleDataList;
 
+    private String id = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_details);
 
+        id = getIntent().getStringExtra("id");
         StatusBarUtils.setStatusBar(GoodsDetailsActivity.this, Color.parseColor("#FBFBFB"));
         ButterKnife.bind(GoodsDetailsActivity.this);
         mFragmentManager = getSupportFragmentManager();
@@ -68,7 +72,7 @@ public class GoodsDetailsActivity extends BaseActivity {
     private void initData() {
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(new FragmentGoods());
+        fragmentList.add(FragmentGoods.newInstance(id));
         fragmentList.add(new FragmentGoodsDetails());
         fragmentList.add(new FragmentComment());
         fragmentList.add(new FragmentEvaluation());

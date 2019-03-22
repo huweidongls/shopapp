@@ -3,14 +3,14 @@ package com.jingna.shopapp.bean;
 import java.util.List;
 
 /**
- * Created by Administrator on 2019/3/19.
+ * Created by Administrator on 2019/3/22.
  */
 
-public class FragmentGoodsSelectPopBean {
+public class GoodsSelectResultBean {
 
     /**
      * status : 200
-     * data : [{"price":10,"attributeName":"包装单位","goodsId":"4","inputList":"简装,瓶装,袋装","goodsSn":"1112312","pic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg"},{"price":10,"attributeName":"成分","goodsId":"4","inputList":"豌豆,大豆,苞米豆","goodsSn":"1112312","pic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg"},{"price":10,"attributeName":"是否添加蔗糖","goodsId":"4","inputList":"含蔗糖,不含蔗糖","goodsSn":"1112312","pic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg"}]
+     * data : [{"price":2,"skuId":"2","goodsId":"4","goodsName":"核桃","goodsSn":"1112312","lowStock":"1","pic":"/upload/13a825c68f296a31200e3503cc660e8.jpg","stock":"1"}]
      */
 
     private String status;
@@ -34,20 +34,24 @@ public class FragmentGoodsSelectPopBean {
 
     public static class DataBean {
         /**
-         * price : 10
-         * attributeName : 包装单位
+         * price : 2
+         * skuId : 2
          * goodsId : 4
-         * inputList : 简装,瓶装,袋装
+         * goodsName : 核桃
          * goodsSn : 1112312
-         * pic : /upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg
+         * lowStock : 1
+         * pic : /upload/13a825c68f296a31200e3503cc660e8.jpg
+         * stock : 1
          */
 
         private int price;
-        private String attributeName;
+        private String skuId;
         private String goodsId;
-        private String inputList;
+        private String goodsName;
         private String goodsSn;
+        private String lowStock;
         private String pic;
+        private String stock;
 
         public int getPrice() {
             return price;
@@ -57,12 +61,12 @@ public class FragmentGoodsSelectPopBean {
             this.price = price;
         }
 
-        public String getAttributeName() {
-            return attributeName;
+        public String getSkuId() {
+            return skuId;
         }
 
-        public void setAttributeName(String attributeName) {
-            this.attributeName = attributeName;
+        public void setSkuId(String skuId) {
+            this.skuId = skuId;
         }
 
         public String getGoodsId() {
@@ -73,12 +77,12 @@ public class FragmentGoodsSelectPopBean {
             this.goodsId = goodsId;
         }
 
-        public String getInputList() {
-            return inputList;
+        public String getGoodsName() {
+            return goodsName;
         }
 
-        public void setInputList(String inputList) {
-            this.inputList = inputList;
+        public void setGoodsName(String goodsName) {
+            this.goodsName = goodsName;
         }
 
         public String getGoodsSn() {
@@ -89,12 +93,28 @@ public class FragmentGoodsSelectPopBean {
             this.goodsSn = goodsSn;
         }
 
+        public String getLowStock() {
+            return lowStock;
+        }
+
+        public void setLowStock(String lowStock) {
+            this.lowStock = lowStock;
+        }
+
         public String getPic() {
             return pic;
         }
 
         public void setPic(String pic) {
             this.pic = pic;
+        }
+
+        public String getStock() {
+            return stock;
+        }
+
+        public void setStock(String stock) {
+            this.stock = stock;
         }
     }
 }

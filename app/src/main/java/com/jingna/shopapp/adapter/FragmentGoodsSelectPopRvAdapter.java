@@ -23,10 +23,10 @@ import java.util.List;
 public class FragmentGoodsSelectPopRvAdapter extends RecyclerView.Adapter<FragmentGoodsSelectPopRvAdapter.ViewHolder> {
 
     private Context context;
-    private List<FragmentGoodsSelectPopBean.DataBean.AttrListBean> data;
+    private List<FragmentGoodsSelectPopBean.DataBean> data;
     private ClickListener listener;
 
-    public FragmentGoodsSelectPopRvAdapter(List<FragmentGoodsSelectPopBean.DataBean.AttrListBean> data, ClickListener listener) {
+    public FragmentGoodsSelectPopRvAdapter(List<FragmentGoodsSelectPopBean.DataBean> data, ClickListener listener) {
         this.data = data;
         this.listener = listener;
     }
@@ -41,26 +41,26 @@ public class FragmentGoodsSelectPopRvAdapter extends RecyclerView.Adapter<Fragme
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        holder.tvName.setText(data.get(position).getAttributeName());
-//        List<ChoiceMenuSignBean> list = new ArrayList<>();
-//        String[] sign = data.get(position).getAttributeList().split(",");
-//        for (int i = 0; i<sign.length; i++){
-//            list.add(new ChoiceMenuSignBean(sign[i], 0));
-//        }
-//        GoodsListPopRvSignRvAdapter rvAdapter = new GoodsListPopRvSignRvAdapter(list, position, new GoodsListPopRvSignRvAdapter.ClickListener() {
-//            @Override
-//            public void onClick(int pos, List<ChoiceMenuSignBean> i) {
-//                listener.onClick(pos, i);
-//            }
-//        });
-//        GridLayoutManager manager = new GridLayoutManager(context, 3){
-//            @Override
-//            public boolean canScrollVertically() {
-//                return false;
-//            }
-//        };
-//        holder.rvSign.setLayoutManager(manager);
-//        holder.rvSign.setAdapter(rvAdapter);
+        holder.tvName.setText(data.get(position).getAttributeName());
+        List<ChoiceMenuSignBean> list = new ArrayList<>();
+        String[] sign = data.get(position).getInputList().split(",");
+        for (int i = 0; i<sign.length; i++){
+            list.add(new ChoiceMenuSignBean(sign[i], 0));
+        }
+        FragmentGoodsSelectPopRvSignRvAdapter rvAdapter = new FragmentGoodsSelectPopRvSignRvAdapter(list, position, new FragmentGoodsSelectPopRvSignRvAdapter.ClickListener() {
+            @Override
+            public void onClick(int pos, String i) {
+                listener.onClick(pos, i);
+            }
+        });
+        GridLayoutManager manager = new GridLayoutManager(context, 3){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        holder.rvSign.setLayoutManager(manager);
+        holder.rvSign.setAdapter(rvAdapter);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class FragmentGoodsSelectPopRvAdapter extends RecyclerView.Adapter<Fragme
     }
 
     public interface ClickListener{
-        void onClick(int pos, List<ChoiceMenuSignBean> i);
+        void onClick(int pos, String i);
     }
 
 }

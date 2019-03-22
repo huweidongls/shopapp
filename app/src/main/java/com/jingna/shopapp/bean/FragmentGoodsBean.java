@@ -61,12 +61,12 @@ public class FragmentGoodsBean {
             /**
              * pic : /upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg,/upload/13a825c68f296a31200e3503cc660e8.jpg
              * price : 20
-             * productName : 开心果
+             * goodsName : 开心果
              */
 
             private String pic;
             private int price;
-            private String productName;
+            private String goodsName;
 
             public String getPic() {
                 return pic;
@@ -84,12 +84,12 @@ public class FragmentGoodsBean {
                 this.price = price;
             }
 
-            public String getProductName() {
-                return productName;
+            public String getGoodsName() {
+                return goodsName;
             }
 
-            public void setProductName(String productName) {
-                this.productName = productName;
+            public void setGoodsName(String goodsName) {
+                this.goodsName = goodsName;
             }
         }
 

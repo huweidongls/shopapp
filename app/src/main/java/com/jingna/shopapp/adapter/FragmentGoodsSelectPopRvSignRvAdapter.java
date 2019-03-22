@@ -23,6 +23,7 @@ public class FragmentGoodsSelectPopRvSignRvAdapter extends RecyclerView.Adapter<
     private List<ChoiceMenuSignBean> data;
     private int pos;
     private ClickListener listener;
+    private int selectPosition = -1;
 
     public FragmentGoodsSelectPopRvSignRvAdapter(List<ChoiceMenuSignBean> data, int pos, ClickListener listener) {
         this.data = data;
@@ -40,23 +41,20 @@ public class FragmentGoodsSelectPopRvSignRvAdapter extends RecyclerView.Adapter<
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        if(selectPosition == position){
+            holder.tv.setTextColor(Color.parseColor("#FF0004"));
+            holder.tv.setBackgroundResource(R.drawable.bg_ff0004_16dp_bord);
+        }else {
+            holder.tv.setTextColor(Color.parseColor("#333333"));
+            holder.tv.setBackgroundResource(R.drawable.bg_f5f5f5_16dp);
+        }
         holder.tv.setText(data.get(position).getSign());
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(data.get(position).getIsSelete() == 0){
-                    holder.tv.setTextColor(Color.parseColor("#FF0004"));
-                    holder.tv.setBackgroundResource(R.drawable.bg_ff0004_16dp_bord);
-                    data.get(position).setIsSelete(1);
-                    listener.onClick(pos, data);
-                    notifyDataSetChanged();
-                }else {
-                    holder.tv.setTextColor(Color.parseColor("#333333"));
-                    holder.tv.setBackgroundResource(R.drawable.bg_f5f5f5_16dp);
-                    data.get(position).setIsSelete(0);
-                    listener.onClick(pos, data);
-                    notifyDataSetChanged();
-                }
+                selectPosition = position;
+                listener.onClick(pos, data.get(position).getSign());
+                notifyDataSetChanged();
             }
         });
     }
@@ -77,7 +75,7 @@ public class FragmentGoodsSelectPopRvSignRvAdapter extends RecyclerView.Adapter<
     }
 
     public interface ClickListener{
-        void onClick(int pos, List<ChoiceMenuSignBean> i);
+        void onClick(int pos, String i);
     }
 
 }
