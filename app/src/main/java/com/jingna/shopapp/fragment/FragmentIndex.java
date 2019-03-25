@@ -25,13 +25,18 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.IndexAdapter;
+import com.jingna.shopapp.dialog.DialogCustom;
 import com.jingna.shopapp.pages.CommitOrderActivity;
 import com.jingna.shopapp.pages.GoodsListActivity;
 import com.jingna.shopapp.pages.LoginActivity;
+import com.jingna.shopapp.pages.MessageActivity;
+import com.jingna.shopapp.pages.MessagePreferentialActivity;
+import com.jingna.shopapp.pages.MessageServiceActivity;
 import com.jingna.shopapp.pages.OrderTrackingActivity;
 import com.jingna.shopapp.pages.RegisterActivity;
 import com.jingna.shopapp.pages.RegisterYzmActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
+import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
 import com.jingna.shopapp.widget.ObservableScrollView;
@@ -256,11 +261,20 @@ public class FragmentIndex extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.ll4:
-
+                intent.setClass(getContext(), MessageServiceActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ll5:
-                wxShare.shareUrl("http://www.baidu.com", "1", "2", "http://img1.3lian.com/2015/w15/48/d/23.jpg");
-                Log.e("123123", "分享");
+                //微信分享
+                DialogCustom dialogCustom = new DialogCustom(getActivity(), "“商城”想要打开“微信”", new DialogCustom.OnYesListener() {
+                    @Override
+                    public void onYes() {
+                        wxShare.shareUrl("http://www.baidu.com", "1", "2",
+                                "/upload/13a825c68f296a31200e3503cc660e8.jpg");
+                        Log.e("123123", "分享");
+                    }
+                });
+                dialogCustom.show();
                 break;
         }
     }

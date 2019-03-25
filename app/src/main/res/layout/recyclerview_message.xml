@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="78dp">
+
+        <ImageView
+            android:layout_marginLeft="16dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/lvxing"
+            android:layout_width="46dp"
+            android:layout_height="46dp" />
+
+        <RelativeLayout
+            android:layout_marginLeft="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_marginTop="17dp"
+                android:textColor="@color/black_333333"
+                android:textSize="16sp"
+                android:text="优惠促销"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="#999999"
+                android:layout_marginTop="3dp"
+                android:layout_below="@+id/tv_title"
+                android:text="运动户外好物集结！满499减100~3月1…"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginTop="19dp"
+                android:layout_marginRight="12dp"
+                android:layout_alignParentRight="true"
+                android:textColor="#999999"
+                android:text="星期二"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#F5F5F5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

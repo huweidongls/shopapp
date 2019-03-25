@@ -1,5 +1,6 @@
 package com.jingna.shopapp;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -19,6 +21,8 @@ import com.jingna.shopapp.fragment.FragmentGouwuche;
 import com.jingna.shopapp.fragment.FragmentIndex;
 import com.jingna.shopapp.fragment.FragmentWode;
 import com.jingna.shopapp.util.ToastUtil;
+import com.vise.xsnow.permission.OnPermissionCallback;
+import com.vise.xsnow.permission.PermissionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +75,30 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(MainActivity.this);
         MyApplication.getInstance().addActivity(this);
         init();
+
+        PermissionManager.instance().request(this, new OnPermissionCallback() {
+                    @Override
+                    public void onRequestAllow(String permissionName) {
+//                DialogUtil.showTips(mContext, getString(R.string.permission_control),
+//                        getString(R.string.permission_allow) + "\n" + permissionName);
+                        Log.e("123123", "1"+permissionName);
+                    }
+
+                    @Override
+                    public void onRequestRefuse(String permissionName) {
+//                DialogUtil.showTips(mContext, getString(R.string.permission_control),
+//                        getString(R.string.permission_refuse) + "\n" + permissionName);
+                        Log.e("123123", "2"+permissionName);
+                    }
+
+                    @Override
+                    public void onRequestNoAsk(String permissionName) {
+//                DialogUtil.showTips(mContext, getString(R.string.permission_control),
+//                        getString(R.string.permission_noAsk) + "\n" + permissionName);
+                        Log.e("123123", "3");
+                    }
+                }, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE);
 
     }
 

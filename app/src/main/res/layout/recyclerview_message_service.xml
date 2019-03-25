@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:background="@drawable/bg_dfdfdf_12dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white_ffffff"
+        android:textSize="12sp"
+        android:text="星期二 10:00"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp" />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/white_ffffff"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black_333333"
+            android:textSize="16sp"
+            android:text="购物车降价通知"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@mipmap/lvxing"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:lines="3"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black_333333"
+                android:textSize="14sp"
+                android:text="您购物车中的【良品铺子高端零食 臻惜 礼 坚果干果夏威夷果开心果核桃混 合…】降价10.0元，手慢无哦！"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
