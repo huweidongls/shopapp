@@ -36,11 +36,24 @@ public class FragmentGoodsDetails extends Fragment {
     @BindView(R.id.rl3)
     RelativeLayout rl3;
 
+    private String id = "";
+
+    public static FragmentGoodsDetails newInstance(String id) {
+        FragmentGoodsDetails newFragment = new FragmentGoodsDetails();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        newFragment.setArguments(bundle);
+        return newFragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goods_details, null);
-
+        Bundle args = getArguments();
+        if (args != null) {
+            id = args.getString("id");
+        }
         ButterKnife.bind(this, view);
 
         return view;

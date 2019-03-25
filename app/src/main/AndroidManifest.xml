@@ -100,7 +100,12 @@
         <activity android:name=".pages.ShopIndexActivity" />
         <activity android:name=".pages.CommitOrderActivity" />
         <activity android:name=".pages.OrderTrackingActivity" />
-        <activity android:name=".pages.FocusActivity"></activity>
+        <activity android:name=".pages.FocusActivity"/>
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

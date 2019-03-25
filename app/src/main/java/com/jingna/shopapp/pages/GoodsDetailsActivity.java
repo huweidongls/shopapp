@@ -73,9 +73,9 @@ public class GoodsDetailsActivity extends BaseActivity {
 
         fragmentList = new ArrayList<>();
         fragmentList.add(FragmentGoods.newInstance(id));
-        fragmentList.add(new FragmentGoodsDetails());
+        fragmentList.add(FragmentGoodsDetails.newInstance(id));
         fragmentList.add(FragmentComment.newInstance(id));
-        fragmentList.add(new FragmentEvaluation());
+        fragmentList.add(FragmentEvaluation.newInstance(id));
         mViewPagerFragmentAdapter = new GoodsDetailsViewpagerAdapter(mFragmentManager, fragmentList);
         mViewPager.setAdapter(mViewPagerFragmentAdapter);
 

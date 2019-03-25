@@ -30,11 +30,24 @@ public class FragmentEvaluation extends Fragment {
     private FragmentEvaluationAdapter adapter;
     private List<String> mList;
 
+    private String id = "";
+
+    public static FragmentEvaluation newInstance(String id) {
+        FragmentEvaluation newFragment = new FragmentEvaluation();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        newFragment.setArguments(bundle);
+        return newFragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmeng_evaluation, null);
-
+        Bundle args = getArguments();
+        if (args != null) {
+            id = args.getString("id");
+        }
         ButterKnife.bind(this, view);
         initData();
 

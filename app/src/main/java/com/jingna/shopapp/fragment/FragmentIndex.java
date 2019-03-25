@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,10 @@ import com.jingna.shopapp.pages.RegisterActivity;
 import com.jingna.shopapp.pages.RegisterYzmActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
 import com.jingna.shopapp.util.StatusBarUtils;
+import com.jingna.shopapp.util.ToastUtil;
 import com.jingna.shopapp.widget.ObservableScrollView;
+import com.jingna.shopapp.wxapi.OnResponseListener;
+import com.jingna.shopapp.wxapi.WXShare;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +77,8 @@ public class FragmentIndex extends Fragment {
     private IndexAdapter adapter;
     private List<String> mList;
 
+    private WXShare wxShare;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -83,8 +89,46 @@ public class FragmentIndex extends Fragment {
         ButterKnife.bind(this, view);
         initView();
         initWebView();
+        initListener();
 
         return view;
+    }
+
+    /**
+     * 微信分享回调
+     */
+    private void initListener() {
+
+        wxShare = new WXShare(getContext());
+        wxShare.setListener(new OnResponseListener() {
+            @Override
+            public void onSuccess() {
+                ToastUtil.showShort(getContext(), "分享成功");
+            }
+
+            @Override
+            public void onCancel() {
+                ToastUtil.showShort(getContext(), "取消分享");
+            }
+
+            @Override
+            public void onFail(String message) {
+                ToastUtil.showShort(getContext(), "分享失败");
+            }
+        });
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        wxShare.register();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        wxShare.unregister();
     }
 
     public void initWebView(){
@@ -195,7 +239,7 @@ public class FragmentIndex extends Fragment {
         }
     }
 
-    @OnClick({R.id.ll1, R.id.ll2, R.id.ll3})
+    @OnClick({R.id.ll1, R.id.ll2, R.id.ll3, R.id.ll4, R.id.ll5})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -210,6 +254,13 @@ public class FragmentIndex extends Fragment {
             case R.id.ll3:
                 intent.setClass(getContext(), OrderTrackingActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.ll4:
+
+                break;
+            case R.id.ll5:
+                wxShare.shareUrl("http://www.baidu.com", "1", "2", "http://img1.3lian.com/2015/w15/48/d/23.jpg");
+                Log.e("123123", "分享");
                 break;
         }
     }
