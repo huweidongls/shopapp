@@ -10,7 +10,7 @@ public class GoodsListBean {
 
     /**
      * status : 200
-     * data : [{"sellerId":4,"goodsName":"核桃","pic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","price":10,"goodsId":4,"commentCount":"3","sellerName":"测试商铺1"}]
+     * data : [{"sellerId":4,"goodsName":"核桃","pic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","price":10,"subTitle":"草莓味,菠萝味","goodsId":4,"commentCount":"3","sellerName":"测试商铺1"}]
      * totalPage : 1
      * totalCount : 1
      */
@@ -58,6 +58,7 @@ public class GoodsListBean {
          * goodsName : 核桃
          * pic : /upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg
          * price : 10
+         * subTitle : 草莓味,菠萝味
          * goodsId : 4
          * commentCount : 3
          * sellerName : 测试商铺1
@@ -67,6 +68,7 @@ public class GoodsListBean {
         private String goodsName;
         private String pic;
         private int price;
+        private String subTitle;
         private int goodsId;
         private String commentCount;
         private String sellerName;
@@ -101,6 +103,14 @@ public class GoodsListBean {
 
         public void setPrice(int price) {
             this.price = price;
+        }
+
+        public String getSubTitle() {
+            return subTitle;
+        }
+
+        public void setSubTitle(String subTitle) {
+            this.subTitle = subTitle;
         }
 
         public int getGoodsId() {

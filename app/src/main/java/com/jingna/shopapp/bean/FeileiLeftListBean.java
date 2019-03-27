@@ -42,7 +42,7 @@ public class FeileiLeftListBean {
 
         private int id;
         private String categoryName;
-        private String categoryPic;
+        private String appCategoryPic;
         private int homeType;
 
         public int getId() {
@@ -61,12 +61,12 @@ public class FeileiLeftListBean {
             this.categoryName = categoryName;
         }
 
-        public String getCategoryPic() {
-            return categoryPic;
+        public String getAppCategoryPic() {
+            return appCategoryPic;
         }
 
-        public void setCategoryPic(String categoryPic) {
-            this.categoryPic = categoryPic;
+        public void setAppCategoryPic(String categoryPic) {
+            this.appCategoryPic = categoryPic;
         }
 
         public int getHomeType() {

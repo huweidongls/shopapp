@@ -1,5 +1,6 @@
 package com.jingna.shopapp.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +22,7 @@ import com.jingna.shopapp.adapter.FenleiLeftAdapter;
 import com.jingna.shopapp.adapter.FenleiTuijianAdapter;
 import com.jingna.shopapp.bean.FeileiLeftListBean;
 import com.jingna.shopapp.bean.ZhuanchangTuijianBean;
+import com.jingna.shopapp.pages.SearchActivity;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.vise.xsnow.http.ViseHttp;
@@ -34,6 +36,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2019/2/15.
@@ -70,6 +73,17 @@ public class FragmentFenlei extends Fragment {
         return view;
     }
 
+    @OnClick({R.id.ll_search})
+    public void onClick(View view){
+        Intent intent = new Intent();
+        switch (view.getId()){
+            case R.id.ll_search:
+                intent.setClass(getContext(), SearchActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
     private void initData() {
 
         mList1 = new ArrayList<>();
@@ -97,12 +111,12 @@ public class FragmentFenlei extends Fragment {
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                                 rvFenlei.setLayoutManager(manager);
                                 rvFenlei.setAdapter(leftAdapter);
-                                Glide.with(getContext()).load(Const.BASE_URL+mList.get(0).getCategoryPic()).into(ivTitle);
+                                Glide.with(getContext()).load(Const.BASE_URL+mList.get(0).getAppCategoryPic()).into(ivTitle);
                                 getRight(mList.get(0).getId()+"");
                                 leftAdapter.setListener(new FenleiLeftAdapter.ItemClickListener() {
                                     @Override
                                     public void onItemClick(int i) {
-                                        Glide.with(getContext()).load(Const.BASE_URL+mList.get(i).getCategoryPic()).into(ivTitle);
+                                        Glide.with(getContext()).load(Const.BASE_URL+mList.get(i).getAppCategoryPic()).into(ivTitle);
                                         getRight(mList.get(i).getId()+"");
                                     }
                                 });

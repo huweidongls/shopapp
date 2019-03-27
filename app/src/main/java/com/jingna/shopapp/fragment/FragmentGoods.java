@@ -1,5 +1,6 @@
 package com.jingna.shopapp.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.jingna.shopapp.base.BaseFragment;
 import com.jingna.shopapp.bean.FragmentGoodsBean;
 import com.jingna.shopapp.bean.FragmentGoodsSelectPopBean;
 import com.jingna.shopapp.bean.GoodsSelectResultBean;
+import com.jingna.shopapp.pages.CommitOrderActivity;
 import com.jingna.shopapp.util.Const;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -75,6 +77,8 @@ public class FragmentGoods extends BaseFragment {
 
     private String id = "";
 
+    private FragmentGoodsBean goodsBean;
+
     public static FragmentGoods newInstance(String id) {
         FragmentGoods newFragment = new FragmentGoods();
         Bundle bundle = new Bundle();
@@ -113,7 +117,7 @@ public class FragmentGoods extends BaseFragment {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){
                                 Gson gson = new Gson();
-                                FragmentGoodsBean goodsBean = gson.fromJson(data, FragmentGoodsBean.class);
+                                goodsBean = gson.fromJson(data, FragmentGoodsBean.class);
                                 //加载轮播图
                                 String bannerPic = goodsBean.getData().getShopGoods().getPic();
                                 if(!TextUtils.isEmpty(bannerPic)){
@@ -268,12 +272,18 @@ public class FragmentGoods extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.rl_select})
+    @OnClick({R.id.rl_select, R.id.tv_buy})
     public void onClick(View view){
+        Intent intent = new Intent();
         switch (view.getId()){
             case R.id.rl_select:
                 //显示选择pop
                 showSelect();
+                break;
+            case R.id.tv_buy:
+                intent.setClass(getContext(), CommitOrderActivity.class);
+                intent.putExtra("bean", goodsBean);
+                startActivity(intent);
                 break;
         }
     }

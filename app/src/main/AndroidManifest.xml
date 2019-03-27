@@ -108,7 +108,20 @@
             android:screenOrientation="portrait" />
         <activity android:name=".pages.MessageActivity" />
         <activity android:name=".pages.MessagePreferentialActivity" />
-        <activity android:name=".pages.MessageServiceActivity"></activity>
+        <activity android:name=".pages.MessageServiceActivity" />
+        <activity android:name=".pages.SearchActivity"></activity>
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="wx84adae87b2b30943" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

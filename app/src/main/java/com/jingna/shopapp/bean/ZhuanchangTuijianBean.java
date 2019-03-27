@@ -62,7 +62,7 @@ public class ZhuanchangTuijianBean {
 
             private int id;
             private String categoryName;
-            private String categoryPic;
+            private String appCategoryPic;
             private int oftenType;
 
             public int getId() {
@@ -81,12 +81,12 @@ public class ZhuanchangTuijianBean {
                 this.categoryName = categoryName;
             }
 
-            public String getCategoryPic() {
-                return categoryPic;
+            public String getAppCategoryPic() {
+                return appCategoryPic;
             }
 
-            public void setCategoryPic(String categoryPic) {
-                this.categoryPic = categoryPic;
+            public void setAppCategoryPic(String categoryPic) {
+                this.appCategoryPic = categoryPic;
             }
 
             public int getOftenType() {
@@ -108,7 +108,7 @@ public class ZhuanchangTuijianBean {
 
             private int id;
             private String categoryName;
-            private String categoryPic;
+            private String appCategoryPic;
             private int oftenType;
 
             public int getId() {
@@ -127,12 +127,12 @@ public class ZhuanchangTuijianBean {
                 this.categoryName = categoryName;
             }
 
-            public String getCategoryPic() {
-                return categoryPic;
+            public String getAppCategoryPic() {
+                return appCategoryPic;
             }
 
-            public void setCategoryPic(String categoryPic) {
-                this.categoryPic = categoryPic;
+            public void setAppCategoryPic(String categoryPic) {
+                this.appCategoryPic = categoryPic;
             }
 
             public int getOftenType() {

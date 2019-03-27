@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_ffffff"
+    android:orientation="vertical"
+    tools:context="com.jingna.shopapp.pages.SearchActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp">
+
+        <LinearLayout
+            android:background="@drawable/bg_f6f6f6_16dp"
+            android:layout_marginLeft="15dp"
+            android:layout_toLeftOf="@+id/tv_cancel"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="32dp">
+
+            <ImageView
+                android:layout_marginLeft="11dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/search_b"
+                android:layout_width="14dp"
+                android:layout_height="14dp" />
+
+            <EditText
+                android:singleLine="true"
+                android:imeOptions="actionSearch"
+                android:id="@+id/et_search"
+                android:hint="请输入搜索商品"
+                android:textColor="@color/black_333333"
+                android:textSize="13sp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:textColor="@color/black_333333"
+            android:textSize="14sp"
+            android:text="取消"
+            android:layout_width="60dp"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <View
+        android:background="#F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <RelativeLayout
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:textColor="#848688"
+            android:textSize="13sp"
+            android:text="搜索历史"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/iv_del"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/delete"
+            android:layout_width="14dp"
+            android:layout_height="15dp" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -36,6 +36,7 @@ import com.jingna.shopapp.pages.OrderTrackingActivity;
 import com.jingna.shopapp.pages.RegisterActivity;
 import com.jingna.shopapp.pages.RegisterYzmActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
+import com.jingna.shopapp.pages.SearchActivity;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
@@ -93,7 +94,7 @@ public class FragmentIndex extends Fragment {
         getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         ButterKnife.bind(this, view);
         initView();
-        initWebView();
+//        initWebView();
         initListener();
 
         return view;
@@ -244,7 +245,7 @@ public class FragmentIndex extends Fragment {
         }
     }
 
-    @OnClick({R.id.ll1, R.id.ll2, R.id.ll3, R.id.ll4, R.id.ll5})
+    @OnClick({R.id.ll1, R.id.ll2, R.id.ll3, R.id.ll4, R.id.ll5, R.id.ll_search})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -275,6 +276,10 @@ public class FragmentIndex extends Fragment {
                     }
                 });
                 dialogCustom.show();
+                break;
+            case R.id.ll_search:
+                intent.setClass(getContext(), SearchActivity.class);
+                startActivity(intent);
                 break;
         }
     }

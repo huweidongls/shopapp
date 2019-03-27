@@ -70,7 +70,6 @@ public class AddressActivity extends BaseActivity {
                         @Override
                         public void onSuccess(String data) {
                             try {
-                                Log.e("123123", data);
                                 JSONObject jsonObject = new JSONObject(data);
                                 if(jsonObject.optString("status").equals("200")){
                                     Gson gson = new Gson();
@@ -100,7 +99,6 @@ public class AddressActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String data) {
                         try {
-                            Log.e("123123", data);
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){
                                 Gson gson = new Gson();

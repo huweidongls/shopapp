@@ -40,7 +40,7 @@ public class FenleiChangyongAdapter extends RecyclerView.Adapter<FenleiChangyong
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Glide.with(context).load(Const.BASE_URL+data.get(position).getCategoryPic()).into(holder.iv);
+        Glide.with(context).load(Const.BASE_URL+data.get(position).getAppCategoryPic()).into(holder.iv);
         holder.tv.setText(data.get(position).getCategoryName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

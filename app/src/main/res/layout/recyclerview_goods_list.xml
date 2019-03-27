@@ -33,20 +33,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/tv_sign"
-                android:background="@drawable/bg_f6f6f6_8dp"
+            <android.support.v7.widget.RecyclerView
                 android:layout_marginTop="6dp"
                 android:layout_below="@+id/tv_title"
-                android:textColor="#909090"
-                android:textSize="11sp"
-                android:text="夏威夷果"
-                android:layout_width="wrap_content"
-                android:layout_height="16dp" />
+                android:id="@+id/rv_sign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <LinearLayout
                 android:layout_marginTop="9dp"
-                android:layout_below="@+id/tv_sign"
+                android:layout_below="@+id/rv_sign"
                 android:id="@+id/ll_price"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
