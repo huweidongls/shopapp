@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             >
             <ImageView
+                android:id="@+id/sellerLogo"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:src="@mipmap/lvxing"
@@ -55,7 +56,8 @@
                 android:layout_marginLeft="15dp"
                 />
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/sellerName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="良品铺子旗舰店"
                 android:textColor="#FFFFFF"
@@ -64,7 +66,8 @@
                 android:layout_marginTop="70dp"
                 />
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/memberNum"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="326.0万人关注"
                 android:textColor="#FFFFFF"
@@ -73,6 +76,7 @@
                 android:layout_marginTop="94dp"
                 />
             <Button
+                android:id="@+id/btn"
                 android:layout_alignParentRight="true"
                 android:layout_width="60dp"
                 android:layout_height="24dp"

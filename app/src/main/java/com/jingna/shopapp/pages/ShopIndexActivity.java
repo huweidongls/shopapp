@@ -2,16 +2,24 @@ package com.jingna.shopapp.pages;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.media.Image;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.GoodsDetailsViewpagerAdapter;
+import com.jingna.shopapp.bean.ShopIndexBean;
 import com.jingna.shopapp.customview.ScaleTransitionPagerTitleView;
 import com.jingna.shopapp.fragment.FragmentDaifukuan;
 import com.jingna.shopapp.fragment.FragmentDaishouhuo;
@@ -20,7 +28,11 @@ import com.jingna.shopapp.fragment.FragmentShopGoods;
 import com.jingna.shopapp.fragment.FragmentShopindex;
 import com.jingna.shopapp.fragment.FragmentYiquxiao;
 import com.jingna.shopapp.fragment.FragmentYiwancheng;
+import com.jingna.shopapp.util.Const;
+import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -31,6 +43,9 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,30 +60,66 @@ public class ShopIndexActivity extends AppCompatActivity {
     MagicIndicator magicIndicator;
     @BindView(R.id.vp)
     ViewPager mViewPager;
-
+    @BindView(R.id.sellerLogo)
+    ImageView ivlogo;
+    @BindView(R.id.sellerName)
+    TextView tvShopname;
+    @BindView(R.id.memberNum)
+    TextView memberNum;
     private FragmentManager mFragmentManager;
     private GoodsDetailsViewpagerAdapter mViewPagerFragmentAdapter;
     private List<Fragment> fragmentList;
-
+    private String sellerId = "";
     private ArrayList<String> mTitleDataList;
 
     private int index = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sellerId = "4";//getIntent().getStringExtra("sellerId");
         setContentView(R.layout.activity_shop_index);
         index = getIntent().getIntExtra("index", 0);
         StatusBarUtils.setStatusBar(ShopIndexActivity.this, Color.parseColor("#ffffff"));
         ButterKnife.bind(ShopIndexActivity.this);
         mFragmentManager = getSupportFragmentManager();
         initData();
+        init();
     }
+
+    private void init() {
+        ViseHttp.GET("/AppSeller/getOne")
+                .addParam("sellerId",sellerId)
+                .addParam("memberId", SpUtils.getUserId(context))
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                ShopIndexBean shopIndexBean = gson.fromJson(data,ShopIndexBean.class);
+                                if(!TextUtils.isEmpty(shopIndexBean.getData().getAppSellerLogo())){
+                                    Glide.with(context).load(Const.BASE_URL+shopIndexBean.getData().getAppSellerLogo()).into(ivlogo);
+                                }
+                                tvShopname.setText(shopIndexBean.getData().getSellerName());
+                                memberNum.setText(shopIndexBean.getData().getMemberNum()+"人关注");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+                    }
+                });
+    }
+
     private void initData() {
         fragmentList = new ArrayList<>();
-        fragmentList.add(new FragmentShopindex());
-        fragmentList.add(new FragmentShopGoods());
-        fragmentList.add(new FragmentShopCategory());
-        fragmentList.add(new FragmentYiwancheng());
+        fragmentList.add(FragmentShopindex.newInstance(sellerId));
+        fragmentList.add(FragmentShopGoods.newInstance(sellerId));
+        fragmentList.add(FragmentShopCategory.newInstance(sellerId));
+        fragmentList.add(FragmentYiwancheng.newInstance(sellerId));
         mViewPagerFragmentAdapter = new GoodsDetailsViewpagerAdapter(mFragmentManager, fragmentList);
         mViewPager.setAdapter(mViewPagerFragmentAdapter);
 

@@ -37,6 +37,7 @@ import com.jingna.shopapp.pages.RegisterActivity;
 import com.jingna.shopapp.pages.RegisterYzmActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
 import com.jingna.shopapp.pages.SearchActivity;
+import com.jingna.shopapp.pages.ShopIndexActivity;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
@@ -262,7 +263,7 @@ public class FragmentIndex extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.ll4:
-                intent.setClass(getContext(), MessageServiceActivity.class);
+                intent.setClass(getContext(), ShopIndexActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll5:

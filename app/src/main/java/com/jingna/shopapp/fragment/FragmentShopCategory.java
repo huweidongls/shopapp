@@ -28,12 +28,22 @@ public class FragmentShopCategory extends Fragment {
     @BindView(R.id.tv)
     RecyclerView recyclerView;
     private List<String> mList;
+    private String id;
     private ShopCategoryAdapter adapter;
-    @Nullable
+    public static FragmentShopCategory newInstance(String id) {
+        FragmentShopCategory newFragment = new FragmentShopCategory();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        newFragment.setArguments(bundle);
+        return newFragment;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_categories_of_shop_goods, null);
-
+        Bundle args = getArguments();
+        if (args != null) {
+            id = args.getString("id");
+        }
         ButterKnife.bind(this, view);
         initData();
 

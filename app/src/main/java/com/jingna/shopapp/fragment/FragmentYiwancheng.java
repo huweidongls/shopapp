@@ -26,15 +26,23 @@ public class FragmentYiwancheng extends Fragment {
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
-
+    private String id;
     private FragmentYiwanchengAdapter adapter;
     private List<String> mList;
-
-    @Nullable
+    public static FragmentYiwancheng newInstance(String id) {
+        FragmentYiwancheng newFragment = new FragmentYiwancheng();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        newFragment.setArguments(bundle);
+        return newFragment;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_yiwancheng, null);
-
+        Bundle args = getArguments();
+        if (args != null) {
+            id = args.getString("id");
+        }
         ButterKnife.bind(this, view);
         initData();
 

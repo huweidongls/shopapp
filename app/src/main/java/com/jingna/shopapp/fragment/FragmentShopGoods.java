@@ -1,5 +1,6 @@
 package com.jingna.shopapp.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,9 +31,20 @@ public class FragmentShopGoods extends Fragment {
     RecyclerView recyclerView;
     private List<String> mList;
     private ShopGoodsAdapter adapter;
+    private String id;
+    public static FragmentShopGoods newInstance(String id) {
+        FragmentShopGoods newFragment = new FragmentShopGoods();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        newFragment.setArguments(bundle);
+        return newFragment;
+    }
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shop_good_list, null);
-
+        Bundle args = getArguments();
+        if (args != null) {
+            id = args.getString("id");
+        }
         ButterKnife.bind(this, view);
         initData();
 
