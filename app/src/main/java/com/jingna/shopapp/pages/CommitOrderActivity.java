@@ -77,7 +77,7 @@ public class CommitOrderActivity extends BaseActivity {
     private void initData() {
 
         if(goodsBean != null){
-            Glide.with(context).load(Const.BASE_URL+goodsBean.getData().getShopGoods().getPic()).into(ivTitle);
+            Glide.with(context).load(Const.BASE_URL+goodsBean.getData().getShopGoods().getAppPic()).into(ivTitle);
             tvGoodsName.setText(goodsBean.getData().getShopGoods().getGoodsName());
             tvGoodsPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice());
             tvGoodsAllPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice());

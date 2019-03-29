@@ -46,9 +46,11 @@ public class FragmentGoodsDetailsCommentListAdapter extends RecyclerView.Adapter
         holder.tvName.setText(data.get(position).getMemName());
         Glide.with(context).load(Const.BASE_URL+data.get(position).getHeadPhoto()).into(holder.ivAvatar);
         holder.tvComment.setText(data.get(position).getGoodsComment());
+        holder.tvGoodsName.setText(data.get(position).getGoodsName());
+        int commentLevel = data.get(position).getCommentLevel();
         holder.llXing.removeAllViews();
         ImageView imageView;
-        for (int i = 0; i<5; i++){
+        for (int i = 0; i<commentLevel; i++){
             if(i == 0){
                 imageView = new ImageView(context);
                 imageView.setImageResource(R.mipmap.xingxing_red);
@@ -92,6 +94,7 @@ public class FragmentGoodsDetailsCommentListAdapter extends RecyclerView.Adapter
         private TextView tvName;
         private ImageView ivAvatar;
         private TextView tvComment;
+        private TextView tvGoodsName;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -100,6 +103,7 @@ public class FragmentGoodsDetailsCommentListAdapter extends RecyclerView.Adapter
             tvName = itemView.findViewById(R.id.tv_name);
             ivAvatar = itemView.findViewById(R.id.iv_avatar);
             tvComment = itemView.findViewById(R.id.tv_comment);
+            tvGoodsName = itemView.findViewById(R.id.tv_goods_name);
         }
     }
 

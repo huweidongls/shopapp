@@ -30,6 +30,7 @@ import com.jingna.shopapp.bean.FragmentGoodsSelectPopBean;
 import com.jingna.shopapp.bean.GoodsSelectResultBean;
 import com.jingna.shopapp.pages.CommitOrderActivity;
 import com.jingna.shopapp.util.Const;
+import com.jingna.shopapp.util.SpUtils;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.youth.banner.Banner;
@@ -60,6 +61,16 @@ public class FragmentGoods extends BaseFragment {
     TextView tvPrice;
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.tv_comment_num)
+    TextView tvCommentNum;
+    @BindView(R.id.tv_favorablerate)
+    TextView tvFavorablerate;
+    @BindView(R.id.iv_shop_avatar)
+    ImageView ivShopAvatar;
+    @BindView(R.id.tv_shop_name)
+    TextView tvShopName;
+    @BindView(R.id.tv_shop_follow_num)
+    TextView tvShopFollowNum;
 
     private FragmentGoodsDetailsCommentListAdapter adapter;
     private List<FragmentGoodsBean.DataBean.CommentListBean> mList;
@@ -110,6 +121,7 @@ public class FragmentGoods extends BaseFragment {
 
         ViseHttp.GET("/AppGoodsShop/getOne")
                 .addParam("goodsId", id)
+                .addParam("memberId", SpUtils.getUserId(getContext()))
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -119,7 +131,7 @@ public class FragmentGoods extends BaseFragment {
                                 Gson gson = new Gson();
                                 goodsBean = gson.fromJson(data, FragmentGoodsBean.class);
                                 //加载轮播图
-                                String bannerPic = goodsBean.getData().getShopGoods().getPic();
+                                String bannerPic = goodsBean.getData().getShopGoods().getAppPic();
                                 if(!TextUtils.isEmpty(bannerPic)){
                                     String[] banners = bannerPic.split(",");
                                     bannerList = new ArrayList<>();
@@ -132,6 +144,10 @@ public class FragmentGoods extends BaseFragment {
                                 tvPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice());
                                 //加载商品标题
                                 tvTitle.setText(goodsBean.getData().getShopGoods().getGoodsName());
+                                //加载评论数量
+                                tvCommentNum.setText("评价("+goodsBean.getData().getCommentTotalNum()+"条)");
+                                //加载好评率
+                                tvFavorablerate.setText(goodsBean.getData().getShopGoods().getFavorableRate()+"%");
                                 //加载评论列表
                                 mList = goodsBean.getData().getCommentList();
                                 adapter = new FragmentGoodsDetailsCommentListAdapter(mList);
@@ -144,6 +160,10 @@ public class FragmentGoods extends BaseFragment {
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                                 recyclerView.setLayoutManager(manager);
                                 recyclerView.setAdapter(adapter);
+                                //加载店铺信息
+                                Glide.with(getContext()).load(Const.BASE_URL+goodsBean.getData().getShopGoods().getAppSellerLogo()).into(ivShopAvatar);
+                                tvShopName.setText(goodsBean.getData().getShopGoods().getSellerName());
+                                tvShopFollowNum.setText(goodsBean.getData().getShopGoods().getFollowSellerNum()+"人关注");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -66,6 +66,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:id="@+id/tv_goods_name"
             android:layout_marginTop="12dp"
             android:textColor="#82838E"
             android:text="酥脆薄饼海苔味300g"
