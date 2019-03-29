@@ -63,6 +63,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/addcart"
                 android:background="@drawable/bg_bord_dadada_12dp"
                 android:gravity="center"
                 android:textSize="11sp"

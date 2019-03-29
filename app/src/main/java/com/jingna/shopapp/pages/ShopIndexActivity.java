@@ -1,6 +1,7 @@
 package com.jingna.shopapp.pages;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
 import android.support.v4.app.Fragment;
@@ -12,8 +13,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -52,6 +56,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ShopIndexActivity extends AppCompatActivity {
     private Context context = ShopIndexActivity.this;
@@ -66,13 +71,15 @@ public class ShopIndexActivity extends AppCompatActivity {
     TextView tvShopname;
     @BindView(R.id.memberNum)
     TextView memberNum;
+    @BindView(R.id.btn)
+    Button follow;
     private FragmentManager mFragmentManager;
     private GoodsDetailsViewpagerAdapter mViewPagerFragmentAdapter;
     private List<Fragment> fragmentList;
     private String sellerId = "";
     private ArrayList<String> mTitleDataList;
-
     private int index = 0;
+    private int follow_radio = 0;//关注状态 0为关注 1为取消关注
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +92,82 @@ public class ShopIndexActivity extends AppCompatActivity {
         initData();
         init();
     }
+    @OnClick({R.id.btn})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.btn:
+                if (follow_radio == 0) {
+                    if(SpUtils.getUserId(context).equals("0")){
+                        Intent intent = new Intent();
+                        intent.setClass(context, LoginActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Attention_interface();
+                    }
+                }else{
+                    Removefollw();
+                }
+                break;
+        }
+    }
+    //关注
+    private void Attention_interface(){
+        ViseHttp.POST("/AppSeller/follow")
+                .addParam("sellerId",sellerId)
+                .addParam("sellerMemId",SpUtils.getUserId(context))
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.optString("status").equals("200")){
+                                follow.setText("已关注");
+                                follow.setBackgroundResource(R.drawable.bg_ffffff_15dp_bord);
+                                follow_radio = 1;
+                                Toast.makeText(context,"关注成功!",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(context,"参数错误!",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+    }
+    //取消关注
+    private void Removefollw(){
+        ViseHttp.POST("/AppSeller/isFollow")
+                .addParam("sellerId",sellerId)
+                .addParam("memberId",SpUtils.getUserId(context))
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.optString("status").equals("200")){//bg_ff4d16_25dp
+                                follow.setText("+关注");
+                                follow.setBackgroundResource(R.drawable.bg_ff4d16_25dp);
+                                follow_radio = 0;
+                                Toast.makeText(context,"取消成功!",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(context,"参数错误!",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+    }
     private void init() {
         ViseHttp.GET("/AppSeller/getOne")
                 .addParam("sellerId",sellerId)
@@ -103,6 +185,11 @@ public class ShopIndexActivity extends AppCompatActivity {
                                 }
                                 tvShopname.setText(shopIndexBean.getData().getSellerName());
                                 memberNum.setText(shopIndexBean.getData().getMemberNum()+"人关注");
+                                if(shopIndexBean.getData().getMemStatus().equals("1")){
+                                    follow.setText("已关注");
+                                    follow.setBackgroundResource(R.drawable.bg_ffffff_15dp_bord);
+                                    follow_radio = 1;
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
