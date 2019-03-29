@@ -100,7 +100,8 @@ public class FragmentShopindex extends Fragment {
                                         Gson gson = new Gson();
                                         ShopIndexGoodsBean bean = gson.fromJson(data, ShopIndexGoodsBean.class);
                                         mList.addAll(bean.getData());
-                                        adapter = new ShopIndexAdapter(mList);
+                                        adapter.notifyDataSetChanged();
+                                        /*adapter = new ShopIndexAdapter(mList,id);
                                         GridLayoutManager manager = new GridLayoutManager(getContext(),2){
                                             @Override
                                             public boolean canScrollVertically() {
@@ -109,7 +110,7 @@ public class FragmentShopindex extends Fragment {
                                         };
                                         manager.setOrientation(LinearLayoutManager.VERTICAL);
                                         recyclerView.setLayoutManager(manager);
-                                        recyclerView.setAdapter(adapter);
+                                        recyclerView.setAdapter(adapter);*/
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -138,7 +139,7 @@ public class FragmentShopindex extends Fragment {
                                 ShopIndexGoodsBean bean = gson.fromJson(data, ShopIndexGoodsBean.class);
                                 mList.clear();
                                 mList.addAll(bean.getData());
-                                adapter = new ShopIndexAdapter(mList);
+                                adapter = new ShopIndexAdapter(mList,id);
                                 GridLayoutManager manager = new GridLayoutManager(getContext(),2){
                                     @Override
                                     public boolean canScrollVertically() {
@@ -175,7 +176,8 @@ public class FragmentShopindex extends Fragment {
                                 ShopIndexGoodsBean bean = gson.fromJson(data, ShopIndexGoodsBean.class);
                                 mList.clear();
                                 mList.addAll(bean.getData());
-                                adapter = new ShopIndexAdapter(mList);
+                                adapter.notifyDataSetChanged();
+                                /*adapter = new ShopIndexAdapter(mList,id);
                                 GridLayoutManager manager = new GridLayoutManager(getContext(),2){
                                     @Override
                                     public boolean canScrollVertically() {
@@ -184,7 +186,7 @@ public class FragmentShopindex extends Fragment {
                                 };
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                                 recyclerView.setLayoutManager(manager);
-                                recyclerView.setAdapter(adapter);
+                                recyclerView.setAdapter(adapter);*/
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

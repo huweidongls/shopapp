@@ -11,9 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.ShopGoodsAdapter;
 import com.jingna.shopapp.adapter.ShopIndexAdapter;
+import com.jingna.shopapp.bean.ShopGoodsBean;
+import com.jingna.shopapp.bean.ShopIndexBean;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +37,7 @@ public class FragmentShopGoods extends Fragment {
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
-    private List<String> mList;
+    private List<ShopGoodsBean.DataBean> mList;
     private ShopGoodsAdapter adapter;
     private String id;
     public static FragmentShopGoods newInstance(String id) {
@@ -52,24 +60,41 @@ public class FragmentShopGoods extends Fragment {
     }
     private void initData() {
         mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        adapter = new ShopGoodsAdapter(mList);
-        GridLayoutManager manager = new GridLayoutManager(getContext(),2){
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
+        ViseHttp.GET("/AppSeller/queryList")
+                .addParam("pageNum","1")
+                .addParam("pageSize","10")
+                .addParam("sellerId",id)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                ShopGoodsBean ShopGoodsBean = gson.fromJson(data,ShopGoodsBean.class);
+                                mList.clear();
+                                mList.addAll(ShopGoodsBean.getData());
+                                adapter = new ShopGoodsAdapter(mList,id);
+                                GridLayoutManager manager = new GridLayoutManager(getContext(),2){
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                };
+                                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                                recyclerView.setLayoutManager(manager);
+                                recyclerView.setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
     }
 }
