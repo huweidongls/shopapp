@@ -51,14 +51,14 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        String pic = data.get(position).getPic();
+        String pic = data.get(position).getAppPic();
         if(!TextUtils.isEmpty(pic)){
             Glide.with(context).load(Const.BASE_URL+pic.split(",")[0]).into(holder.iv);
         }
         holder.tvTitle.setText(data.get(position).getGoodsName());
         holder.tvPrice.setText("¥"+data.get(position).getPrice());
         holder.tvShopName.setText(data.get(position).getSellerName()+" >");
-        holder.tvComment.setText(data.get(position).getCommentCount()+"条评价  99%好评");
+        holder.tvComment.setText(data.get(position).getCommentCount()+"条评价  "+data.get(position).getFavorableRate()+"%好评");
         //加载副标题
         LinearLayoutManager manager = new LinearLayoutManager(context);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);

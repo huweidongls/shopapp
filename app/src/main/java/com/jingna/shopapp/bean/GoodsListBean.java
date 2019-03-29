@@ -10,7 +10,7 @@ public class GoodsListBean {
 
     /**
      * status : 200
-     * data : [{"sellerId":4,"goodsName":"核桃","pic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","price":10,"subTitle":"草莓味,菠萝味","goodsId":4,"commentCount":"3","sellerName":"测试商铺1"}]
+     * data : [{"sellerId":4,"goodsName":"核桃","appPic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","price":10,"subTitle":"草莓味,菠萝味","goodsId":4,"favorableRate":"99","commentCount":"3","sellerName":"测试商铺1"}]
      * totalPage : 1
      * totalCount : 1
      */
@@ -56,20 +56,22 @@ public class GoodsListBean {
         /**
          * sellerId : 4
          * goodsName : 核桃
-         * pic : /upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg
+         * appPic : /upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg
          * price : 10
          * subTitle : 草莓味,菠萝味
          * goodsId : 4
+         * favorableRate : 99
          * commentCount : 3
          * sellerName : 测试商铺1
          */
 
         private int sellerId;
         private String goodsName;
-        private String pic;
+        private String appPic;
         private int price;
         private String subTitle;
         private int goodsId;
+        private String favorableRate;
         private String commentCount;
         private String sellerName;
 
@@ -89,12 +91,12 @@ public class GoodsListBean {
             this.goodsName = goodsName;
         }
 
-        public String getPic() {
-            return pic;
+        public String getAppPic() {
+            return appPic;
         }
 
-        public void setPic(String pic) {
-            this.pic = pic;
+        public void setAppPic(String appPic) {
+            this.appPic = appPic;
         }
 
         public int getPrice() {
@@ -119,6 +121,14 @@ public class GoodsListBean {
 
         public void setGoodsId(int goodsId) {
             this.goodsId = goodsId;
+        }
+
+        public String getFavorableRate() {
+            return favorableRate;
+        }
+
+        public void setFavorableRate(String favorableRate) {
+            this.favorableRate = favorableRate;
         }
 
         public String getCommentCount() {
