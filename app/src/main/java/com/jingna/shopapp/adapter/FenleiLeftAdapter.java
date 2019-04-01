@@ -62,9 +62,11 @@ public class FenleiLeftAdapter extends RecyclerView.Adapter<FenleiLeftAdapter.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                select = position;
-                notifyDataSetChanged();
-                listener.onItemClick(position);
+                if(select != position){
+                    select = position;
+                    notifyDataSetChanged();
+                    listener.onItemClick(position);
+                }
             }
         });
     }

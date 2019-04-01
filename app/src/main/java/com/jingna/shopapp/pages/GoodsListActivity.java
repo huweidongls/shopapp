@@ -1,6 +1,7 @@
 package com.jingna.shopapp.pages;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -502,8 +503,9 @@ public class GoodsListActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.rl_back, R.id.rl_right_shaixuan, R.id.rl_zonghe, R.id.ll_xiaoliang, R.id.rl_jiage})
+    @OnClick({R.id.rl_back, R.id.rl_right_shaixuan, R.id.rl_zonghe, R.id.ll_xiaoliang, R.id.rl_jiage, R.id.ll_search, R.id.rl_msg})
     public void onClick(View view){
+        Intent intent = new Intent();
         switch (view.getId()){
             case R.id.rl_back:
                 finish();
@@ -550,6 +552,14 @@ public class GoodsListActivity extends BaseActivity {
                     orderBy = "goods.price desc";
                     onReGet();
                 }
+                break;
+            case R.id.ll_search:
+                intent.setClass(context, SearchActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_msg:
+                intent.setClass(context, MessageActivity.class);
+                startActivity(intent);
                 break;
         }
     }

@@ -12,7 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -22,6 +25,7 @@ import com.jingna.shopapp.adapter.FenleiLeftAdapter;
 import com.jingna.shopapp.adapter.FenleiTuijianAdapter;
 import com.jingna.shopapp.bean.FeileiLeftListBean;
 import com.jingna.shopapp.bean.ZhuanchangTuijianBean;
+import com.jingna.shopapp.pages.MessageActivity;
 import com.jingna.shopapp.pages.SearchActivity;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.StatusBarUtils;
@@ -54,6 +58,14 @@ public class FragmentFenlei extends Fragment {
     RecyclerView rvChangyong;
     @BindView(R.id.iv_title)
     ImageView ivTitle;
+    @BindView(R.id.ll_changyong)
+    LinearLayout llChangyong;
+    @BindView(R.id.ll_tuijian)
+    LinearLayout llTuijian;
+    @BindView(R.id.scroll_view)
+    ScrollView scrollView;
+    @BindView(R.id.tv_wait)
+    TextView tvWait;
 
     private FenleiLeftAdapter leftAdapter;
     private List<FeileiLeftListBean.DataBean> mList;
@@ -73,12 +85,16 @@ public class FragmentFenlei extends Fragment {
         return view;
     }
 
-    @OnClick({R.id.ll_search})
+    @OnClick({R.id.ll_search, R.id.rl_message})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
             case R.id.ll_search:
                 intent.setClass(getContext(), SearchActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_message:
+                intent.setClass(getContext(), MessageActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -116,6 +132,8 @@ public class FragmentFenlei extends Fragment {
                                 leftAdapter.setListener(new FenleiLeftAdapter.ItemClickListener() {
                                     @Override
                                     public void onItemClick(int i) {
+                                        scrollView.setVisibility(View.GONE);
+                                        tvWait.setVisibility(View.VISIBLE);
                                         Glide.with(getContext()).load(Const.BASE_URL+mList.get(i).getAppCategoryPic()).into(ivTitle);
                                         getRight(mList.get(i).getId()+"");
                                     }
@@ -152,26 +170,38 @@ public class FragmentFenlei extends Fragment {
                                 ZhuanchangTuijianBean tuijianBean = gson.fromJson(data, ZhuanchangTuijianBean.class);
                                 mList1.clear();
                                 mList1.addAll(tuijianBean.getData().getRecommend());
-                                changyongAdapter = new FenleiChangyongAdapter(mList1);
-                                GridLayoutManager manager2 = new GridLayoutManager(getContext(), 3){
-                                    @Override
-                                    public boolean canScrollVertically() {
-                                        return false;
-                                    }
-                                };
-                                rvChangyong.setLayoutManager(manager2);
-                                rvChangyong.setAdapter(changyongAdapter);
+                                if(mList1.size()>0){
+                                    llChangyong.setVisibility(View.VISIBLE);
+                                    changyongAdapter = new FenleiChangyongAdapter(mList1);
+                                    GridLayoutManager manager2 = new GridLayoutManager(getContext(), 3){
+                                        @Override
+                                        public boolean canScrollVertically() {
+                                            return false;
+                                        }
+                                    };
+                                    rvChangyong.setLayoutManager(manager2);
+                                    rvChangyong.setAdapter(changyongAdapter);
+                                }else {
+                                    llChangyong.setVisibility(View.GONE);
+                                }
                                 mList2.clear();
                                 mList2.addAll(tuijianBean.getData().getCommonly());
-                                tuijianAdapter = new FenleiTuijianAdapter(mList2);
-                                GridLayoutManager manager1 = new GridLayoutManager(getContext(), 3){
-                                    @Override
-                                    public boolean canScrollVertically() {
-                                        return false;
-                                    }
-                                };
-                                rvTuijian.setLayoutManager(manager1);
-                                rvTuijian.setAdapter(tuijianAdapter);
+                                if(mList2.size()>0){
+                                    llTuijian.setVisibility(View.VISIBLE);
+                                    tuijianAdapter = new FenleiTuijianAdapter(mList2);
+                                    GridLayoutManager manager1 = new GridLayoutManager(getContext(), 3){
+                                        @Override
+                                        public boolean canScrollVertically() {
+                                            return false;
+                                        }
+                                    };
+                                    rvTuijian.setLayoutManager(manager1);
+                                    rvTuijian.setAdapter(tuijianAdapter);
+                                }else {
+                                    llTuijian.setVisibility(View.GONE);
+                                }
+                                scrollView.setVisibility(View.VISIBLE);
+                                tvWait.setVisibility(View.GONE);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

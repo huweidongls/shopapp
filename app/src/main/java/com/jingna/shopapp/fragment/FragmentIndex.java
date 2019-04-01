@@ -246,7 +246,7 @@ public class FragmentIndex extends Fragment {
         }
     }
 
-    @OnClick({R.id.ll1, R.id.ll2, R.id.ll3, R.id.ll4, R.id.ll5, R.id.ll_search})
+    @OnClick({R.id.ll1, R.id.ll2, R.id.ll3, R.id.ll4, R.id.ll5, R.id.ll_search, R.id.rl_message})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -280,6 +280,10 @@ public class FragmentIndex extends Fragment {
                 break;
             case R.id.ll_search:
                 intent.setClass(getContext(), SearchActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_message:
+                intent.setClass(getContext(), MessageActivity.class);
                 startActivity(intent);
                 break;
         }
