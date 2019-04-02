@@ -13,8 +13,6 @@ import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.GoodsDetailsViewpagerAdapter;
 import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.customview.ScaleTransitionPagerTitleView;
-import com.jingna.shopapp.fragment.FragmentGoods;
-import com.jingna.shopapp.fragment.FragmentGoodsDetails;
 import com.jingna.shopapp.fragment.FragmentHaveComment;
 import com.jingna.shopapp.fragment.FragmentToComment;
 import com.jingna.shopapp.util.StatusBarUtils;
