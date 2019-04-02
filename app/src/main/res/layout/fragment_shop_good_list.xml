@@ -16,6 +16,7 @@
             android:layout_weight="1"
             >
             <TextView
+                android:id="@+id/Recommend"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:text="推荐"
@@ -25,6 +26,7 @@
                 android:layout_marginTop="12dp"
                 />
             <ImageView
+                android:id="@+id/top_Recommend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/bottom_b"
@@ -38,6 +40,7 @@
             android:layout_weight="1"
             >
             <TextView
+                android:id="@+id/Salesvolume"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:text="销量"
@@ -53,6 +56,7 @@
             android:layout_weight="1"
             >
             <TextView
+                android:id="@+id/price_goods"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:text="价格"
@@ -62,17 +66,19 @@
                 android:layout_marginTop="12dp"
                 />
             <ImageView
+                android:id="@+id/top_price_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/top_b"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="17dp"
                 android:layout_marginLeft="30dp"
                 />
             <ImageView
+                android:id="@+id/bottom_price_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/bottom_b"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="22dp"
                 android:layout_marginLeft="30dp"
                 />
         </RelativeLayout>
@@ -82,6 +88,7 @@
             android:layout_weight="1"
             >
             <TextView
+                android:id="@+id/stock"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:text="仅看有货"
@@ -103,6 +110,10 @@
                />
         </RelativeLayout>
     </LinearLayout>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -122,4 +133,5 @@
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>
