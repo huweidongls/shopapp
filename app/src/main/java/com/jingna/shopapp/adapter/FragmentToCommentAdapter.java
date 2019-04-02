@@ -14,22 +14,22 @@ import java.util.List;
  * Created by Administrator on 2019/4/2.
  */
 
-public class TocommentAdapter extends RecyclerView.Adapter<TocommentAdapter.ViewHolder>{
+public class FragmentToCommentAdapter extends RecyclerView.Adapter<FragmentToCommentAdapter.ViewHolder>{
     private Context context;
     private List<String> data;
-    public TocommentAdapter(List<String> data) {
+    public FragmentToCommentAdapter(List<String> data) {
         this.data = data;
     }
     @Override
-    public TocommentAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FragmentToCommentAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_fragment_comment_list_evaluation, parent, false);
-        TocommentAdapter.ViewHolder holder = new TocommentAdapter.ViewHolder(view);
+        FragmentToCommentAdapter.ViewHolder holder = new FragmentToCommentAdapter.ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(TocommentAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(FragmentToCommentAdapter.ViewHolder holder, int position) {
 
     }
 

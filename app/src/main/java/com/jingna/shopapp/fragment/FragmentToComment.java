@@ -2,7 +2,6 @@ package com.jingna.shopapp.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,8 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jingna.shopapp.R;
-import com.jingna.shopapp.adapter.FragmentChulizhongAdapter;
-import com.jingna.shopapp.adapter.TocommentAdapter;
+import com.jingna.shopapp.adapter.FragmentToCommentAdapter;
 import com.jingna.shopapp.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ public class FragmentToComment extends BaseFragment {
     @BindView(R.id.ceshi)
     RecyclerView recyclerView;
 
-    private TocommentAdapter adapter;
+    private FragmentToCommentAdapter adapter;
     private List<String> mList;
     private String id = "";
 
@@ -55,7 +53,7 @@ public class FragmentToComment extends BaseFragment {
     public void initData() {
         mList.add("");
         mList.add("");
-        adapter = new TocommentAdapter(mList);
+        adapter = new FragmentToCommentAdapter(mList);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
