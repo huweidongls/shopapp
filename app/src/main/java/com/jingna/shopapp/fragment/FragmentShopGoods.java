@@ -129,11 +129,11 @@ public class FragmentShopGoods extends Fragment {
         stock.setTextColor(Color.parseColor("#333333"));//设置字体颜色
     }
     private  void  Salesvolume_List(){//销量查看
+        xl = 1;
         tj =0;//推荐
         jg =0;//价格
         yh =0;//仅看有货
         zx =0;//价格判断字段
-        xl = 1;
         ShopGoods("goods.sale desc",0);
         Salesvolume.setTextColor(Color.parseColor("#FF0004"));//设置字体颜色
         Glide.with(getContext()).load(R.mipmap.top_b).into(top_price_img);//切换图片
