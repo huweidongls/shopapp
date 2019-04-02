@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.FragmentGoodsBean;
 import com.jingna.shopapp.util.Const;
+import com.jingna.shopapp.util.DensityTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,16 +50,20 @@ public class FragmentGoodsDetailsCommentListAdapter extends RecyclerView.Adapter
         holder.tvGoodsName.setText(data.get(position).getGoodsName());
         int commentLevel = data.get(position).getCommentLevel();
         holder.llXing.removeAllViews();
+        int a = DensityTool.dp2px(context, 9);
         ImageView imageView;
         for (int i = 0; i<commentLevel; i++){
             if(i == 0){
                 imageView = new ImageView(context);
                 imageView.setImageResource(R.mipmap.xingxing_red);
-                holder.llXing.addView(imageView);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(a, a);
+                holder.llXing.addView(imageView, layoutParams);
             }else {
                 imageView = new ImageView(context);
                 imageView.setImageResource(R.mipmap.xingxing_red);
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(a, a);
                 layoutParams.leftMargin = 10;
                 holder.llXing.addView(imageView, layoutParams);
             }

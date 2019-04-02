@@ -29,8 +29,8 @@ public class FragmentHaveComment extends BaseFragment {
 
     private String id = "";
 
-    public static FragmentToComment newInstance(String id) {
-        FragmentToComment newFragment = new FragmentToComment();
+    public static FragmentHaveComment newInstance(String id) {
+        FragmentHaveComment newFragment = new FragmentHaveComment();
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
         newFragment.setArguments(bundle);
