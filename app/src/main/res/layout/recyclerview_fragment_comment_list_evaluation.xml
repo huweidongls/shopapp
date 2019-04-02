@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="67dp"
+                android:src="@mipmap/chaoshi"
+                android:paddingLeft="19dp"
+                android:paddingTop="12dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="良品铺子 夏威夷果265g×3袋 零食坚良品铺子 夏威夷果265g×3袋 零食坚"
+                android:textColor="#333333"
+                android:textSize="13sp"
+                android:paddingLeft="90dp"
+                android:paddingTop="20dp"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            >
+          <TextView
+              android:layout_width="80dp"
+              android:layout_height="30dp"
+              android:text="评价"
+              android:textColor="#FF0004"
+              android:gravity="center"
+              android:textSize="13sp"
+              />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
