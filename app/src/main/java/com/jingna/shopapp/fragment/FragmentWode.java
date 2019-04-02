@@ -27,6 +27,7 @@ import com.jingna.shopapp.pages.FocusActivity;
 import com.jingna.shopapp.pages.MyOrderActivity;
 import com.jingna.shopapp.pages.PersonInformationActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
+import com.jingna.shopapp.pages.ToCommentActivity;
 import com.jingna.shopapp.pages.TuikuanShouhouActivity;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.SpUtils;
@@ -255,7 +256,7 @@ public class FragmentWode extends Fragment {
                     intent.setClass(getContext(), SMSLoginActivity.class);
                     startActivity(intent);
                 }else {
-                    intent.setClass(getContext(), MyOrderActivity.class);
+                    intent.setClass(getContext(), ToCommentActivity.class);
                     startActivity(intent);
                 }
                 break;

@@ -109,7 +109,7 @@
         <activity android:name=".pages.MessageActivity" />
         <activity android:name=".pages.MessagePreferentialActivity" />
         <activity android:name=".pages.MessageServiceActivity" />
-        <activity android:name=".pages.SearchActivity"></activity>
+        <activity android:name=".pages.SearchActivity" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
@@ -122,6 +122,19 @@
                 <data android:scheme="wx84adae87b2b30943" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".pages.ToCommentActivity"></activity>
     </application>
 
 </manifest>

@@ -1,10 +1,13 @@
 package com.jingna.shopapp.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,7 +24,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alipay.sdk.app.PayTask;
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.IndexAdapter;
@@ -44,9 +49,15 @@ import com.jingna.shopapp.util.ToastUtil;
 import com.jingna.shopapp.widget.ObservableScrollView;
 import com.jingna.shopapp.wxapi.OnResponseListener;
 import com.jingna.shopapp.wxapi.WXShare;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,6 +96,8 @@ public class FragmentIndex extends Fragment {
     private List<String> mList;
 
     private WXShare wxShare;
+
+    private static final int SDK_PAY_FLAG = 1;
 
     @Nullable
     @Override
@@ -251,8 +264,24 @@ public class FragmentIndex extends Fragment {
         Intent intent = new Intent();
         switch (view.getId()){
             case R.id.ll1:
-                intent.setClass(getContext(), GoodsListActivity.class);
-                startActivity(intent);
+                ViseHttp.POST("/ZhiFuBao/ZhiFuBaoPay/pay")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    String s = jsonObject.optString("data");
+                                    aliPay(s);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
                 break;
             case R.id.ll2:
                 intent.setClass(getContext(), CommitOrderActivity.class);
@@ -296,5 +325,42 @@ public class FragmentIndex extends Fragment {
 //            v.requestLayout();
 //        }
 //    }
+
+    public void aliPay(String info) {
+        final String orderInfo = info;   // 订单信息
+
+        Runnable payRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                PayTask alipay = new PayTask(getActivity());
+                Map<String, String> result = alipay.payV2(orderInfo,true);
+
+                Message msg = new Message();
+                msg.what = SDK_PAY_FLAG;
+                msg.obj = result;
+                mHandler.sendMessage(msg);
+            }
+        };
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
+    }
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @SuppressWarnings("unused")
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SDK_PAY_FLAG:
+                    Map<String, String> result = (Map<String, String>) msg.obj;
+                    if(result.get("resultStatus").equals("9000")){
+                        Toast.makeText(getActivity(), "支付成功", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+            }
+        }
+
+    };
 
 }
