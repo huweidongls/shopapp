@@ -115,6 +115,7 @@ public class FragmentShopGoods extends Fragment {
         }
     }
     private  void  Recommend_List(){//推荐商品
+        Sdefault();
          xl =0;//销量
          jg =0;//价格
          yh =0;//仅看有货
@@ -329,7 +330,7 @@ public class FragmentShopGoods extends Fragment {
 
     }
     private void  Sdefault(){
-        ViseHttp.GET("/AppSeller/queryList")
+        ViseHttp.GET("/AppSeller/homeList")
                 .addParam("pageNum","1")
                 .addParam("pageSize","10")
                 .addParam("sellerId",id)

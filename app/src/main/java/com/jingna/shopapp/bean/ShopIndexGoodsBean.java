@@ -7,11 +7,13 @@ import java.util.List;
  */
 
 public class ShopIndexGoodsBean {
+
+
     /**
      * status : 200
-     * data : [{"goodsId":"50","goodsName":"烂樱桃","goodsPic":"/upload/83f0c6823d9fbe77978d57a6c45710d.jpg,/upload/13a825c68f296a31200e3503cc660e8.jpg","goodsPrice":"12.00"},{"goodsId":"51","goodsName":"衬衫","goodsPic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","goodsPrice":"1.00"},{"goodsId":"52","goodsName":"蓝薄荷","goodsPic":"/upload/83f0c6823d9fbe77978d57a6c45710d.jpg,/upload/13a825c68f296a31200e3503cc660e8.jpg","goodsPrice":"1.00"}]
+     * data : [{"appSellerPic":"/upload/samsung.jpg","goodsId":"4","goodsName":"核桃","goodsPic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","goodsPrice":"10.00"}]
      * totalPage : 1
-     * totalCount : 3
+     * totalCount : 1
      */
 
     private String status;
@@ -53,16 +55,26 @@ public class ShopIndexGoodsBean {
 
     public static class DataBean {
         /**
-         * goodsId : 50
-         * goodsName : 烂樱桃
-         * goodsPic : /upload/83f0c6823d9fbe77978d57a6c45710d.jpg,/upload/13a825c68f296a31200e3503cc660e8.jpg
-         * goodsPrice : 12.00
+         * appSellerPic : /upload/samsung.jpg
+         * goodsId : 4
+         * goodsName : 核桃
+         * goodsPic : /upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg
+         * goodsPrice : 10.00
          */
 
+        private String appSellerPic;
         private String goodsId;
         private String goodsName;
         private String goodsPic;
         private String goodsPrice;
+
+        public String getAppSellerPic() {
+            return appSellerPic;
+        }
+
+        public void setAppSellerPic(String appSellerPic) {
+            this.appSellerPic = appSellerPic;
+        }
 
         public String getGoodsId() {
             return goodsId;

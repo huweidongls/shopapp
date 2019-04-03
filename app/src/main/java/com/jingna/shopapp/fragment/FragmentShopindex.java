@@ -86,7 +86,7 @@ public class FragmentShopindex extends Fragment {
             @Override
             public void onLoadMore(final RefreshLayout refreshlayout) {
                 page = page + 1;
-                ViseHttp.GET("/AppGoodsShop/queryList")
+                ViseHttp.GET("/AppSeller/homeList")
                         .addParam("pageNum",page+"")
                         .addParam("pageSize","10")
                         .addParam("sellerId",id)
@@ -125,7 +125,7 @@ public class FragmentShopindex extends Fragment {
                         });
             }
         });
-        ViseHttp.GET("/AppSeller/queryList")
+        ViseHttp.GET("/AppSeller/homeList")
                 .addParam("pageNum","1")
                 .addParam("pageSize","10")
                 .addParam("sellerId",id)
@@ -133,6 +133,7 @@ public class FragmentShopindex extends Fragment {
                     @Override
                     public void onSuccess(String data) {
                         try {
+                            Log.e("11111111",data);
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){
                                 Gson gson = new Gson();
@@ -162,7 +163,7 @@ public class FragmentShopindex extends Fragment {
                 });
     }
     public void Sdefault(){
-        ViseHttp.GET("/AppSeller/queryList")
+        ViseHttp.GET("/AppSeller/homeList")
                 .addParam("pageNum","1")
                 .addParam("pageSize","10")
                 .addParam("sellerId",id)
@@ -170,6 +171,7 @@ public class FragmentShopindex extends Fragment {
                     @Override
                     public void onSuccess(String data) {
                         try {
+
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){
                                 Gson gson = new Gson();
