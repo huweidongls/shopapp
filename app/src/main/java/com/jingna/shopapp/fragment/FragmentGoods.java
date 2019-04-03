@@ -29,8 +29,10 @@ import com.jingna.shopapp.bean.FragmentGoodsBean;
 import com.jingna.shopapp.bean.FragmentGoodsSelectPopBean;
 import com.jingna.shopapp.bean.GoodsSelectResultBean;
 import com.jingna.shopapp.pages.CommitOrderActivity;
+import com.jingna.shopapp.pages.SMSLoginActivity;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.SpUtils;
+import com.jingna.shopapp.util.ToastUtil;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.youth.banner.Banner;
@@ -91,6 +93,9 @@ public class FragmentGoods extends BaseFragment {
     private String id = "";
 
     private FragmentGoodsBean goodsBean;
+
+    private TextView tvSure;
+    private boolean isToBuy = false;//是否是立即购买
 
     public static FragmentGoods newInstance(String id) {
         FragmentGoods newFragment = new FragmentGoods();
@@ -189,7 +194,55 @@ public class FragmentGoods extends BaseFragment {
         RelativeLayout rlBack = selectView.findViewById(R.id.rl_back);
         final RecyclerView popRv = selectView.findViewById(R.id.rv);
         final ImageView ivTitle = selectView.findViewById(R.id.iv_title);
-        final TextView tvPrice = selectView.findViewById(R.id.tv_price);
+        final TextView tvPopPrice = selectView.findViewById(R.id.tv_price);
+        tvSure = selectView.findViewById(R.id.tv_sure);
+
+        tvSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(SpUtils.getUserId(getContext()).equals("0")){
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    if(isToBuy){
+
+                    }else {
+                        if(signMap.size() == mSelectList.size()){
+                            Gson gson = new Gson();
+                            String attr = gson.toJson(signMap);
+                            ViseHttp.POST("/ShopCart/toUpdate")
+                                    .addParam("userid", SpUtils.getUserId(getContext()))
+                                    .addParam("goodsid", id)
+                                    .addParam("sellerId", goodsBean.getData().getShopGoods().getSellerId()+"")
+                                    .addParam("goodsNum", "1")
+                                    .addParam("attributesStr", attr)
+                                    .request(new ACallback<String>() {
+                                        @Override
+                                        public void onSuccess(String data) {
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(data);
+                                                if(jsonObject.optString("status").equals("200")){
+                                                    ToastUtil.showShort(getContext(), "已添加到购物车");
+                                                    popupWindow.dismiss();
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFail(int errCode, String errMsg) {
+
+                                        }
+                                    });
+                        }else {
+                            ToastUtil.showShort(getContext(), "请选择商品规格后在添加到购物车");
+                        }
+                    }
+                }
+            }
+        });
 
         rlBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,7 +261,7 @@ public class FragmentGoods extends BaseFragment {
                             Log.e("123123", data);
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){
-                                Gson gson = new Gson();
+                                final Gson gson = new Gson();
                                 FragmentGoodsSelectPopBean selectPopBean = gson.fromJson(data, FragmentGoodsSelectPopBean.class);
                                 mSelectList = selectPopBean.getData();
                                 popRvAdapter = new FragmentGoodsSelectPopRvAdapter(mSelectList, new FragmentGoodsSelectPopRvAdapter.ClickListener() {
@@ -239,6 +292,7 @@ public class FragmentGoods extends BaseFragment {
                                                                     if(resultBean.getData()!=null&&resultBean.getData().size()>0){
                                                                         Glide.with(getContext()).load(Const.BASE_URL+resultBean.getData().get(0).getAppPic()).into(ivTitle);
                                                                         tvPrice.setText("¥"+resultBean.getData().get(0).getPrice());
+                                                                        tvPopPrice.setText("¥"+resultBean.getData().get(0).getPrice());
                                                                     }
                                                                 }
                                                             } catch (JSONException e) {
@@ -309,15 +363,18 @@ public class FragmentGoods extends BaseFragment {
         switch (view.getId()){
             case R.id.rl_select:
                 //显示选择pop
+                tvSure.setText("加入购物车");
                 showSelect();
                 break;
             case R.id.tv_buy:
 //                intent.setClass(getContext(), CommitOrderActivity.class);
 //                intent.putExtra("bean", goodsBean);
 //                startActivity(intent);
+                tvSure.setText("确定");
                 showSelect();
                 break;
             case R.id.tv_insert_car:
+                tvSure.setText("确定");
                 showSelect();
                 break;
         }

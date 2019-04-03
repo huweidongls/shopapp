@@ -314,13 +314,13 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         final FragmentGouwucheBean.DataBean.ShopGoodsBean goodsBean = datasBean.getShopGoods().get(childPosition);
         //商品图片
         String goods_image = "";
-        if(!TextUtils.isEmpty(goodsBean.getPic())){
-            goods_image = goodsBean.getPic().split(",")[0];
+        if(!TextUtils.isEmpty(goodsBean.getAppPic())){
+            goods_image = goodsBean.getAppPic().split(",")[0];
         }
         //商品ID
         final String goods_id = goodsBean.getId()+"";
         //商品名称
-        String goods_name = goodsBean.getProductName();
+        String goods_name = goodsBean.getGoodsName();
         //商品价格
         String goods_price = goodsBean.getPrice()+"";
         //商品数量
