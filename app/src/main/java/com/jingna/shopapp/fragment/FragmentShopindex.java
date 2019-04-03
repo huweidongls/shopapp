@@ -7,11 +7,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.FragmentDaifukuanAdapter;
@@ -19,6 +22,7 @@ import com.jingna.shopapp.adapter.GoodsListAdapter;
 import com.jingna.shopapp.adapter.ShopIndexAdapter;
 import com.jingna.shopapp.bean.GoodsListBean;
 import com.jingna.shopapp.bean.ShopIndexGoodsBean;
+import com.jingna.shopapp.util.Const;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -46,6 +50,8 @@ public class FragmentShopindex extends Fragment {
     RecyclerView recyclerView;
     @BindView(R.id.refresh)
     SmartRefreshLayout smartRefreshLayout;
+    @BindView(R.id.images_shop)
+    ImageView images_shop;
     private List<ShopIndexGoodsBean.DataBean> mList;
     private ShopIndexAdapter adapter;
     private String id;
@@ -135,11 +141,15 @@ public class FragmentShopindex extends Fragment {
                         try {
                             Log.e("11111111",data);
                             JSONObject jsonObject = new JSONObject(data);
+
                             if(jsonObject.optString("status").equals("200")){
                                 Gson gson = new Gson();
                                 ShopIndexGoodsBean bean = gson.fromJson(data, ShopIndexGoodsBean.class);
                                 mList.clear();
                                 mList.addAll(bean.getData());
+                                if(!TextUtils.isEmpty(mList.get(0).getAppSellerPic())){
+                                    Glide.with(getContext()).load(Const.BASE_URL+mList.get(0).getAppSellerPic()).into(images_shop);
+                                }
                                 adapter = new ShopIndexAdapter(mList,id);
                                 GridLayoutManager manager = new GridLayoutManager(getContext(),2){
                                     @Override
