@@ -47,9 +47,9 @@ public class FragmentGoodsSelectPopRvAdapter extends RecyclerView.Adapter<Fragme
         for (int i = 0; i<sign.length; i++){
             list.add(new ChoiceMenuSignBean(sign[i], 0));
         }
-        FragmentGoodsSelectPopRvSignRvAdapter rvAdapter = new FragmentGoodsSelectPopRvSignRvAdapter(list, position, new FragmentGoodsSelectPopRvSignRvAdapter.ClickListener() {
+        FragmentGoodsSelectPopRvSignRvAdapter rvAdapter = new FragmentGoodsSelectPopRvSignRvAdapter(list, data.get(position).getAttrId(), data.get(position).getAttrType(), new FragmentGoodsSelectPopRvSignRvAdapter.ClickListener() {
             @Override
-            public void onClick(int pos, String i) {
+            public void onClick(String pos, String i) {
                 listener.onClick(pos, i);
             }
         });
@@ -81,7 +81,7 @@ public class FragmentGoodsSelectPopRvAdapter extends RecyclerView.Adapter<Fragme
     }
 
     public interface ClickListener{
-        void onClick(int pos, String i);
+        void onClick(String pos, String i);
     }
 
 }

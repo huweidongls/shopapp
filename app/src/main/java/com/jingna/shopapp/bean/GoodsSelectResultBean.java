@@ -10,7 +10,7 @@ public class GoodsSelectResultBean {
 
     /**
      * status : 200
-     * data : [{"price":2,"skuId":"2","goodsId":"4","goodsName":"核桃","goodsSn":"1112312","lowStock":"1","pic":"/upload/13a825c68f296a31200e3503cc660e8.jpg","stock":"1"}]
+     * data : [{"price":2,"skuId":"2","goodsId":"4","goodsName":"核桃","goodsSn":"1112312","lowStock":"1","appPic":"/upload/13a825c68f296a31200e3503cc660e8.jpg","stock":"1"}]
      */
 
     private String status;
@@ -40,7 +40,7 @@ public class GoodsSelectResultBean {
          * goodsName : 核桃
          * goodsSn : 1112312
          * lowStock : 1
-         * pic : /upload/13a825c68f296a31200e3503cc660e8.jpg
+         * appPic : /upload/13a825c68f296a31200e3503cc660e8.jpg
          * stock : 1
          */
 
@@ -50,7 +50,7 @@ public class GoodsSelectResultBean {
         private String goodsName;
         private String goodsSn;
         private String lowStock;
-        private String pic;
+        private String appPic;
         private String stock;
 
         public int getPrice() {
@@ -101,12 +101,12 @@ public class GoodsSelectResultBean {
             this.lowStock = lowStock;
         }
 
-        public String getPic() {
-            return pic;
+        public String getAppPic() {
+            return appPic;
         }
 
-        public void setPic(String pic) {
-            this.pic = pic;
+        public void setAppPic(String appPic) {
+            this.appPic = appPic;
         }
 
         public String getStock() {

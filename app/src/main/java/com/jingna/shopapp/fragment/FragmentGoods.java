@@ -71,6 +71,8 @@ public class FragmentGoods extends BaseFragment {
     TextView tvShopName;
     @BindView(R.id.tv_shop_follow_num)
     TextView tvShopFollowNum;
+    @BindView(R.id.tv_has_select)
+    TextView tvHasSelect;
 
     private FragmentGoodsDetailsCommentListAdapter adapter;
     private List<FragmentGoodsBean.DataBean.CommentListBean> mList;
@@ -98,7 +100,8 @@ public class FragmentGoods extends BaseFragment {
         return newFragment;
     }
 
-    private Map<Integer, String> signMap;
+    private Map<String, String> signMap;
+    private String signJson = "";
 
     @Nullable
     @Override
@@ -141,7 +144,9 @@ public class FragmentGoods extends BaseFragment {
                                     init(banner, bannerList);
                                 }
                                 //加载商品价格
-                                tvPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice());
+                                if(TextUtils.isEmpty(signJson)){
+                                    tvPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice());
+                                }
                                 //加载商品标题
                                 tvTitle.setText(goodsBean.getData().getShopGoods().getGoodsName());
                                 //加载评论数量
@@ -195,10 +200,12 @@ public class FragmentGoods extends BaseFragment {
 
         ViseHttp.POST("/AppGoodsShop/selectGoods")
                 .addParam("goodsId", id)
+                .addParam("attrMap", signJson)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
                         try {
+                            Log.e("123123", data);
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){
                                 Gson gson = new Gson();
@@ -206,14 +213,18 @@ public class FragmentGoods extends BaseFragment {
                                 mSelectList = selectPopBean.getData();
                                 popRvAdapter = new FragmentGoodsSelectPopRvAdapter(mSelectList, new FragmentGoodsSelectPopRvAdapter.ClickListener() {
                                     @Override
-                                    public void onClick(int pos, String i) {
+                                    public void onClick(String pos, String i) {
                                         signMap.put(pos, i);
                                         if(signMap.size() == mSelectList.size()){
                                             String sign = "";
-                                            for (int a = 0; a<signMap.size(); a++){
-                                                sign = sign + signMap.get(a) + ",";
+//                                            for (int a = 0; a<signMap.size(); a++){
+//                                                sign = sign + signMap.get(a) + ",";
+//                                            }
+                                            for (String value : signMap.values()) {
+                                                sign = sign + value + ",";
                                             }
-                                            ViseHttp.POST("/AppGoodsShop/resultGoods")
+                                            tvHasSelect.setText(sign.substring(0, sign.length()-1));
+                                            ViseHttp.GET("/AppGoodsShop/resultGoods")
                                                     .addParam("goodsId", id)
                                                     .addParam("attrs", sign)
                                                     .request(new ACallback<String>() {
@@ -226,7 +237,7 @@ public class FragmentGoods extends BaseFragment {
                                                                     Gson gson1 = new Gson();
                                                                     GoodsSelectResultBean resultBean = gson1.fromJson(data, GoodsSelectResultBean.class);
                                                                     if(resultBean.getData()!=null&&resultBean.getData().size()>0){
-                                                                        Glide.with(getContext()).load(Const.BASE_URL+resultBean.getData().get(0).getPic()).into(ivTitle);
+                                                                        Glide.with(getContext()).load(Const.BASE_URL+resultBean.getData().get(0).getAppPic()).into(ivTitle);
                                                                         tvPrice.setText("¥"+resultBean.getData().get(0).getPrice());
                                                                     }
                                                                 }
@@ -255,7 +266,7 @@ public class FragmentGoods extends BaseFragment {
 
                     @Override
                     public void onFail(int errCode, String errMsg) {
-
+                        Log.e("123123", errMsg);
                     }
                 });
 
@@ -292,7 +303,7 @@ public class FragmentGoods extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.rl_select, R.id.tv_buy})
+    @OnClick({R.id.rl_select, R.id.tv_buy, R.id.tv_insert_car})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -301,9 +312,13 @@ public class FragmentGoods extends BaseFragment {
                 showSelect();
                 break;
             case R.id.tv_buy:
-                intent.setClass(getContext(), CommitOrderActivity.class);
-                intent.putExtra("bean", goodsBean);
-                startActivity(intent);
+//                intent.setClass(getContext(), CommitOrderActivity.class);
+//                intent.putExtra("bean", goodsBean);
+//                startActivity(intent);
+                showSelect();
+                break;
+            case R.id.tv_insert_car:
+                showSelect();
                 break;
         }
     }

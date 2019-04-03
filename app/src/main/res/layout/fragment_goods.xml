@@ -30,7 +30,6 @@
                     android:id="@+id/tv_price"
                     android:textColor="#FF0004"
                     android:textSize="24sp"
-                    android:text="¥14.90"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -47,7 +46,6 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/black_333333"
-                android:text="良品铺子酥脆薄饼薄脆海苔咸饼干 盒装咸味零食 小吃早餐休闲食品300"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
@@ -143,10 +141,11 @@
                 android:layout_height="56dp">
 
                 <LinearLayout
+                    android:layout_marginRight="30dp"
                     android:layout_marginLeft="10dp"
                     android:layout_centerVertical="true"
                     android:orientation="horizontal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
@@ -158,12 +157,14 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:id="@+id/tv_has_select"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="8dp"
                         android:textColor="@color/black_333333"
                         android:textSize="14sp"
-                        android:text="海苔味，300g，2件"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
@@ -331,7 +332,6 @@
                         android:textStyle="bold"
                         android:textColor="#232325"
                         android:textSize="14sp"
-                        android:text="良品铺子旗舰店"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -342,7 +342,6 @@
                         android:layout_alignLeft="@+id/tv_shop_name"
                         android:textColor="#232325"
                         android:textSize="10sp"
-                        android:text="318.4万人关注"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 

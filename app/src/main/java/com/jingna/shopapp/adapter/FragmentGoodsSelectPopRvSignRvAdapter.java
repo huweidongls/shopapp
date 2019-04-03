@@ -21,14 +21,17 @@ public class FragmentGoodsSelectPopRvSignRvAdapter extends RecyclerView.Adapter<
 
     private Context context;
     private List<ChoiceMenuSignBean> data;
-    private int pos;
+    private String pos;
     private ClickListener listener;
     private int selectPosition = -1;
+    private boolean isFirst = true;
+    private String attrType;
 
-    public FragmentGoodsSelectPopRvSignRvAdapter(List<ChoiceMenuSignBean> data, int pos, ClickListener listener) {
+    public FragmentGoodsSelectPopRvSignRvAdapter(List<ChoiceMenuSignBean> data, String pos, String attrType, ClickListener listener) {
         this.data = data;
         this.pos = pos;
         this.listener = listener;
+        this.attrType = attrType;
     }
 
     @Override
@@ -48,10 +51,15 @@ public class FragmentGoodsSelectPopRvSignRvAdapter extends RecyclerView.Adapter<
             holder.tv.setTextColor(Color.parseColor("#333333"));
             holder.tv.setBackgroundResource(R.drawable.bg_f5f5f5_16dp);
         }
+        if(data.get(position).getSign().equals(attrType)&&isFirst){
+            holder.tv.setTextColor(Color.parseColor("#FF0004"));
+            holder.tv.setBackgroundResource(R.drawable.bg_ff0004_16dp_bord);
+        }
         holder.tv.setText(data.get(position).getSign());
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isFirst = false;
                 selectPosition = position;
                 listener.onClick(pos, data.get(position).getSign());
                 notifyDataSetChanged();
@@ -75,7 +83,7 @@ public class FragmentGoodsSelectPopRvSignRvAdapter extends RecyclerView.Adapter<
     }
 
     public interface ClickListener{
-        void onClick(int pos, String i);
+        void onClick(String pos, String i);
     }
 
 }
