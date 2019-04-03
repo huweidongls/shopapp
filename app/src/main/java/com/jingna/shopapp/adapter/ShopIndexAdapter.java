@@ -51,10 +51,6 @@ public class ShopIndexAdapter extends RecyclerView.Adapter<ShopIndexAdapter.View
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Glide.with(context).load(Const.BASE_URL+data.get(position).getGoodsPic()).into(holder.iv);
         holder.tvTitle.setText(data.get(position).getGoodsName());
-        if(!TextUtils.isEmpty(data.get(position).getAppSellerPic())){
-
-            Glide.with(context).load(Const.BASE_URL+data.get(position).getAppSellerPic()).into(holder.images_shop);
-        }
         holder.tvPrice.setText("¥"+data.get(position).getGoodsPrice());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,11 +106,9 @@ public class ShopIndexAdapter extends RecyclerView.Adapter<ShopIndexAdapter.View
         private TextView tvTitle;
         private TextView tvPrice;
         private TextView addcart;
-        private ImageView images_shop;
         public ViewHolder(View itemView)
         {
             super(itemView);
-            images_shop = itemView.findViewById(R.id.images_shop);
             addcart = itemView.findViewById(R.id.addcart);
             iv = itemView.findViewById(R.id.iv);
             tvTitle = itemView.findViewById(R.id.tv);
