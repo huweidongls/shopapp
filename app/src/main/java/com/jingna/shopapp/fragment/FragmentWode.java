@@ -169,6 +169,7 @@ public class FragmentWode extends Fragment {
                     startActivity(intent);
                 }else {
                     intent.setClass(getContext(), AddressActivity.class);
+                    intent.putExtra("type", "wode");
                     startActivity(intent);
                 }
                 break;

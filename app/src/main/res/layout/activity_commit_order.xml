@@ -47,6 +47,7 @@
             android:layout_height="match_parent">
 
             <RelativeLayout
+                android:id="@+id/ll_address"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
@@ -431,6 +432,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tv_commit"
             android:layout_alignParentRight="true"
             android:background="#FF2F07"
             android:gravity="center"

@@ -91,6 +91,7 @@ public class FragmentGoods extends BaseFragment {
     private FragmentGoodsSelectPopRvAdapter popRvAdapter;
 
     private String id = "";
+    private String skuid = "";
 
     private FragmentGoodsBean goodsBean;
 
@@ -196,6 +197,7 @@ public class FragmentGoods extends BaseFragment {
         final ImageView ivTitle = selectView.findViewById(R.id.iv_title);
         final TextView tvPopPrice = selectView.findViewById(R.id.tv_price);
         tvSure = selectView.findViewById(R.id.tv_sure);
+        final TextView tvGoodsType = selectView.findViewById(R.id.tv_goods_type);
 
         tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,7 +208,20 @@ public class FragmentGoods extends BaseFragment {
                     startActivity(intent);
                 }else {
                     if(isToBuy){
-
+                        if(signMap.size() == mSelectList.size()) {
+                            if(!TextUtils.isEmpty(skuid)){
+                                Intent intent = new Intent();
+                                intent.setClass(getContext(), CommitOrderActivity.class);
+                                intent.putExtra("bean", goodsBean);
+                                intent.putExtra("id", id);
+                                intent.putExtra("skuid", skuid);
+                                startActivity(intent);
+                            }else {
+                                ToastUtil.showShort(getContext(), "该商品暂无库存");
+                            }
+                        }else {
+                            ToastUtil.showShort(getContext(), "请选择商品规格后在进行购买");
+                        }
                     }else {
                         if(signMap.size() == mSelectList.size()){
                             Gson gson = new Gson();
@@ -290,9 +305,29 @@ public class FragmentGoods extends BaseFragment {
                                                                     Gson gson1 = new Gson();
                                                                     GoodsSelectResultBean resultBean = gson1.fromJson(data, GoodsSelectResultBean.class);
                                                                     if(resultBean.getData()!=null&&resultBean.getData().size()>0){
-                                                                        Glide.with(getContext()).load(Const.BASE_URL+resultBean.getData().get(0).getAppPic()).into(ivTitle);
-                                                                        tvPrice.setText("¥"+resultBean.getData().get(0).getPrice());
-                                                                        tvPopPrice.setText("¥"+resultBean.getData().get(0).getPrice());
+                                                                        int lowstock = Integer.valueOf(resultBean.getData().get(0).getLowStock());
+                                                                        int stock = Integer.valueOf(resultBean.getData().get(0).getStock());
+                                                                        Log.e("123123", "low"+lowstock+"stock"+stock);
+                                                                        if(stock>lowstock){
+                                                                            Glide.with(getContext()).load(Const.BASE_URL+resultBean.getData().get(0).getAppPic()).into(ivTitle);
+                                                                            tvPrice.setText("¥"+resultBean.getData().get(0).getPrice());
+                                                                            tvPopPrice.setText("¥"+resultBean.getData().get(0).getPrice());
+                                                                            skuid = resultBean.getData().get(0).getSkuId();
+                                                                            tvPopPrice.setVisibility(View.VISIBLE);
+                                                                            tvGoodsType.setVisibility(View.GONE);
+                                                                        }else if(stock<=lowstock){
+                                                                            tvPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice());
+                                                                            tvGoodsType.setText("暂无库存");
+                                                                            tvPopPrice.setVisibility(View.GONE);
+                                                                            tvGoodsType.setVisibility(View.VISIBLE);
+                                                                            skuid = "";
+                                                                        }
+                                                                    }else if(resultBean.getData()==null||resultBean.getData().size()==0){
+                                                                        tvPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice());
+                                                                        tvGoodsType.setText("暂无库存");
+                                                                        tvPopPrice.setVisibility(View.GONE);
+                                                                        tvGoodsType.setVisibility(View.VISIBLE);
+                                                                        skuid = "";
                                                                     }
                                                                 }
                                                             } catch (JSONException e) {
@@ -357,27 +392,68 @@ public class FragmentGoods extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.rl_select, R.id.tv_buy, R.id.tv_insert_car})
+    @OnClick({R.id.rl_select, R.id.tv_buy, R.id.tv_insert_car, R.id.iv_follow})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
             case R.id.rl_select:
                 //显示选择pop
+                isToBuy = false;
                 tvSure.setText("加入购物车");
                 showSelect();
                 break;
             case R.id.tv_buy:
-//                intent.setClass(getContext(), CommitOrderActivity.class);
-//                intent.putExtra("bean", goodsBean);
-//                startActivity(intent);
+                isToBuy = true;
                 tvSure.setText("确定");
                 showSelect();
                 break;
             case R.id.tv_insert_car:
+                isToBuy = false;
                 tvSure.setText("确定");
                 showSelect();
                 break;
+            case R.id.iv_follow:
+                if(SpUtils.getUserId(getContext()).equals("0")){
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                }else if(goodsBean.getData().getShopGoods().getMemberStatus().equals("1")){
+                    ToastUtil.showShort(getContext(), "该商品已关注");
+                }else {
+                    followGoods();
+                }
+                break;
         }
+    }
+
+    /**
+     * 关注商品
+     */
+    private void followGoods() {
+
+        ViseHttp.POST("/AppGoodsShop/isFollow")
+                .addParam("goodsId", id)
+                .addParam("memberId", SpUtils.getUserId(getContext()))
+                .addParam("type", "1")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                ToastUtil.showShort(getContext(), "关注成功");
+                                goodsBean.getData().getShopGoods().setMemberStatus("1");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
     }
 
 }

@@ -17,6 +17,7 @@
             android:layout_height="13dp" />
 
         <TextView
+            android:id="@+id/tv_comment_num"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/iv"

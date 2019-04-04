@@ -22,9 +22,13 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.View
 
     private Context context;
     private List<AddressBean.DataBean> data;
+    private String type;
+    private ItemClickListener listener;
 
-    public MyAddressAdapter(List<AddressBean.DataBean> data) {
+    public MyAddressAdapter(List<AddressBean.DataBean> data, String type, ItemClickListener listener) {
         this.data = data;
+        this.type = type;
+        this.listener = listener;
     }
 
     @Override
@@ -48,10 +52,14 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.View
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(context, EditReceiveActivity.class);
-                intent.putExtra("id", data.get(position).getId()+"");
-                context.startActivity(intent);
+                if(type.equals("wode")){
+                    Intent intent = new Intent();
+                    intent.setClass(context, EditReceiveActivity.class);
+                    intent.putExtra("id", data.get(position).getId()+"");
+                    context.startActivity(intent);
+                }else if(type.equals("order")){
+                    listener.onClick(data.get(position));
+                }
             }
         });
     }
@@ -75,6 +83,10 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.View
             tvAddress = itemView.findViewById(R.id.tv_address);
             tvMoren = itemView.findViewById(R.id.tv_moren);
         }
+    }
+
+    public interface ItemClickListener{
+        void onClick(AddressBean.DataBean bean);
     }
 
 }

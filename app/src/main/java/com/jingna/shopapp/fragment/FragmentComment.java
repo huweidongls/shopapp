@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
@@ -33,6 +34,8 @@ public class FragmentComment extends Fragment {
 
     @BindView(R.id.rv_comment)
     RecyclerView recyclerView;
+    @BindView(R.id.tv_comment_num)
+    TextView tvCommentNum;
 
     private FragmentCommentListAdapter adapter;
     private List<FragmentCommentBean.DataBean> mList;
@@ -74,6 +77,9 @@ public class FragmentComment extends Fragment {
                                 Gson gson = new Gson();
                                 FragmentCommentBean bean = gson.fromJson(data, FragmentCommentBean.class);
                                 mList = bean.getData();
+                                if(mList!=null&&mList.size()>0){
+                                    tvCommentNum.setText("评价("+bean.getData().get(0).getGoodsComment()+"条）");
+                                }
                                 adapter = new FragmentCommentListAdapter(mList);
                                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);

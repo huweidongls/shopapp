@@ -1,17 +1,25 @@
 package com.jingna.shopapp.pages;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alipay.sdk.app.PayTask;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.bean.AddressBean;
+import com.jingna.shopapp.bean.CommitOrderZhifubaoBean;
 import com.jingna.shopapp.bean.FragmentGoodsBean;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.SpUtils;
@@ -25,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,11 +70,17 @@ public class CommitOrderActivity extends BaseActivity {
 
     private IWXAPI api;
 
+    private String id = "";//商品id
+    private String skuid = "";
+    private static final int SDK_PAY_FLAG = 1;
+    private String addressId = "";//会员地址id
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commit_order);
-
+        id = getIntent().getStringExtra("id");
+        skuid = getIntent().getStringExtra("skuid");
         api = WXAPIFactory.createWXAPI(this, null);
         goodsBean = (FragmentGoodsBean) getIntent().getSerializableExtra("bean");
         StatusBarUtils.setStatusBar(CommitOrderActivity.this, Color.parseColor("#ffffff"));
@@ -101,6 +116,7 @@ public class CommitOrderActivity extends BaseActivity {
                                         tvRecieveName.setText(list.get(i).getConsignee());
                                         tvRecievePhone.setText(list.get(i).getConsigneeTel());
                                         tvRecieveAddress.setText(list.get(i).getLocation()+list.get(i).getAdress());
+                                        addressId = list.get(i).getId()+"";
                                     }
                                 }
                             }
@@ -117,8 +133,9 @@ public class CommitOrderActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.rl_jianhao, R.id.rl_jiahao})
+    @OnClick({R.id.rl_back, R.id.rl_jianhao, R.id.rl_jiahao, R.id.tv_commit, R.id.ll_address})
     public void onClick(View view){
+        Intent intent = new Intent();
         switch (view.getId()){
             case R.id.rl_back:
                 finish();
@@ -127,13 +144,110 @@ public class CommitOrderActivity extends BaseActivity {
                 if(goodsNum > 1){
                     goodsNum = goodsNum - 1;
                     tvGoodsNum.setText(goodsNum+"");
+                    tvGoodsAllPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
+                    tvAllPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
                 }
                 break;
             case R.id.rl_jiahao:
                 goodsNum = goodsNum + 1;
                 tvGoodsNum.setText(goodsNum+"");
+                tvGoodsAllPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
+                tvAllPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
+                break;
+            case R.id.tv_commit:
+                commitOrder();
+                break;
+            case R.id.ll_address:
+                intent.setClass(context, AddressActivity.class);
+                intent.putExtra("type", "order");
+                startActivityForResult(intent, 1);
                 break;
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 100){
+            AddressBean.DataBean bean = (AddressBean.DataBean) data.getSerializableExtra("address");
+            tvRecieveName.setText(bean.getConsignee());
+            tvRecievePhone.setText(bean.getConsigneeTel());
+            tvRecieveAddress.setText(bean.getLocation()+bean.getAdress());
+            addressId = bean.getId()+"";
+        }
+    }
+
+    /**
+     * 提交订单
+     */
+    private void commitOrder() {
+
+        ViseHttp.GET("/AppOrder/ordersSubmitted")
+                .addParam("member", SpUtils.getUserId(context))
+                .addParam("addressId", addressId)
+                .addParam("sellerId", goodsBean.getData().getShopGoods().getSellerId()+"")
+                .addParam("goodsId", id)
+                .addParam("skuid", skuid)
+                .addParam("num", goodsNum+"")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            Log.e("123123", data);
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                CommitOrderZhifubaoBean zhifubaoBean = gson.fromJson(data, CommitOrderZhifubaoBean.class);
+                                aliPay(zhifubaoBean.getData().getData());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
+    }
+
+    public void aliPay(String info) {
+        final String orderInfo = info;   // 订单信息
+
+        Runnable payRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                PayTask alipay = new PayTask(CommitOrderActivity.this);
+                Map<String, String> result = alipay.payV2(orderInfo,true);
+
+                Message msg = new Message();
+                msg.what = SDK_PAY_FLAG;
+                msg.obj = result;
+                mHandler.sendMessage(msg);
+            }
+        };
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
+    }
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @SuppressWarnings("unused")
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SDK_PAY_FLAG:
+                    Map<String, String> result = (Map<String, String>) msg.obj;
+                    if(result.get("resultStatus").equals("9000")){
+                        Toast.makeText(context, "支付成功", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+            }
+        }
+
+    };
 
 }

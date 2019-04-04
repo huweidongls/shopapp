@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.FragmentCommentBean;
 import com.jingna.shopapp.util.Const;
+import com.jingna.shopapp.util.DensityTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,17 +47,24 @@ public class FragmentCommentListAdapter extends RecyclerView.Adapter<FragmentCom
         Glide.with(context).load(Const.BASE_URL+data.get(position).getHeadPhoto()).into(holder.ivAvatar);
         holder.tvName.setText(data.get(position).getMemName());
         holder.tvGoodsComment.setText(data.get(position).getGoodsComment());
+        holder.tvGoodsName.setText(data.get(position).getGoodsName());
+        holder.tvCommentTime.setText(data.get(position).getCommentTime());
         holder.llXing.removeAllViews();
+        int commentLevel = data.get(position).getCommentLevel();
+        int a = DensityTool.dp2px(context, 9);
         ImageView imageView;
-        for (int i = 0; i<5; i++){
+        for (int i = 0; i<commentLevel; i++){
             if(i == 0){
                 imageView = new ImageView(context);
                 imageView.setImageResource(R.mipmap.xingxing_red);
-                holder.llXing.addView(imageView);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(a, a);
+                holder.llXing.addView(imageView, layoutParams);
             }else {
                 imageView = new ImageView(context);
                 imageView.setImageResource(R.mipmap.xingxing_red);
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(a, a);
                 layoutParams.leftMargin = 10;
                 holder.llXing.addView(imageView, layoutParams);
             }
@@ -82,6 +90,8 @@ public class FragmentCommentListAdapter extends RecyclerView.Adapter<FragmentCom
         private ImageView ivAvatar;
         private TextView tvName;
         private TextView tvGoodsComment;
+        private TextView tvGoodsName;
+        private TextView tvCommentTime;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -90,6 +100,8 @@ public class FragmentCommentListAdapter extends RecyclerView.Adapter<FragmentCom
             ivAvatar = itemView.findViewById(R.id.iv_avatar);
             tvName = itemView.findViewById(R.id.tv_name);
             tvGoodsComment = itemView.findViewById(R.id.tv_goods_comment);
+            tvGoodsName = itemView.findViewById(R.id.tv_goods_name);
+            tvCommentTime = itemView.findViewById(R.id.tv_comment_time);
         }
     }
 

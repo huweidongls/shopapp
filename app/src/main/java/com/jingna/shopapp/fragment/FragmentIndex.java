@@ -97,8 +97,6 @@ public class FragmentIndex extends Fragment {
 
     private WXShare wxShare;
 
-    private static final int SDK_PAY_FLAG = 1;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -271,7 +269,6 @@ public class FragmentIndex extends Fragment {
                                 try {
                                     JSONObject jsonObject = new JSONObject(data);
                                     String s = jsonObject.optString("data");
-                                    aliPay(s);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -325,42 +322,5 @@ public class FragmentIndex extends Fragment {
 //            v.requestLayout();
 //        }
 //    }
-
-    public void aliPay(String info) {
-        final String orderInfo = info;   // 订单信息
-
-        Runnable payRunnable = new Runnable() {
-
-            @Override
-            public void run() {
-                PayTask alipay = new PayTask(getActivity());
-                Map<String, String> result = alipay.payV2(orderInfo,true);
-
-                Message msg = new Message();
-                msg.what = SDK_PAY_FLAG;
-                msg.obj = result;
-                mHandler.sendMessage(msg);
-            }
-        };
-        // 必须异步调用
-        Thread payThread = new Thread(payRunnable);
-        payThread.start();
-    }
-
-    @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
-        @SuppressWarnings("unused")
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case SDK_PAY_FLAG:
-                    Map<String, String> result = (Map<String, String>) msg.obj;
-                    if(result.get("resultStatus").equals("9000")){
-                        Toast.makeText(getActivity(), "支付成功", Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-            }
-        }
-
-    };
 
 }

@@ -48,11 +48,14 @@ public class AddressActivity extends BaseActivity {
 
     private String userId = "";
 
+    private String type = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
 
+        type = getIntent().getStringExtra("type");
         userId = SpUtils.getUserId(context);
         StatusBarUtils.setStatusBar(AddressActivity.this, Color.parseColor("#ffffff"));
         ButterKnife.bind(AddressActivity.this);
@@ -104,7 +107,15 @@ public class AddressActivity extends BaseActivity {
                                 Gson gson = new Gson();
                                 AddressBean bean = gson.fromJson(data, AddressBean.class);
                                 mList = bean.getData();
-                                adapter = new MyAddressAdapter(mList);
+                                adapter = new MyAddressAdapter(mList, type, new MyAddressAdapter.ItemClickListener() {
+                                    @Override
+                                    public void onClick(AddressBean.DataBean bean) {
+                                        Intent intent = new Intent();
+                                        intent.putExtra("address", bean);
+                                        setResult(100, intent);
+                                        finish();
+                                    }
+                                });
                                 LinearLayoutManager manager = new LinearLayoutManager(context);
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                                 recyclerView.setLayoutManager(manager);
