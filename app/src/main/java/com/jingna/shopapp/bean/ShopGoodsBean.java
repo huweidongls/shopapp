@@ -7,9 +7,10 @@ import java.util.List;
  */
 
 public class ShopGoodsBean {
+
     /**
      * status : 200
-     * data : [{"goodsId":"4","goodsName":"核桃","goodsPic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","goodsPrice":"10.00"},{"goodsId":"5","goodsName":"开心果","goodsPic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg,/upload/13a825c68f296a31200e3503cc660e8.jpg","goodsPrice":"20.00"},{"goodsId":"7","goodsName":"谷物零食","goodsPrice":"55.00"}]
+     * data : [{"appSellerPic":"/upload/samsung.jpg","goodsId":"5","goodsName":"开心果","goodsPic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","goodsPrice":"20.00","createTime":"04月03日"},{"appSellerPic":"/upload/samsung.jpg","goodsId":"4","goodsName":"核桃","goodsPic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","goodsPrice":"10.00","createTime":"03月03日"},{"appSellerPic":"/upload/samsung.jpg","goodsId":"7","goodsName":"谷物零食","goodsPic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","goodsPrice":"55.00","createTime":"02月13日"}]
      * totalPage : 1
      * totalCount : 3
      */
@@ -53,16 +54,28 @@ public class ShopGoodsBean {
 
     public static class DataBean {
         /**
-         * goodsId : 4
-         * goodsName : 核桃
+         * appSellerPic : /upload/samsung.jpg
+         * goodsId : 5
+         * goodsName : 开心果
          * goodsPic : /upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg
-         * goodsPrice : 10.00
+         * goodsPrice : 20.00
+         * createTime : 04月03日
          */
 
+        private String appSellerPic;
         private String goodsId;
         private String goodsName;
         private String goodsPic;
         private String goodsPrice;
+        private String createTime;
+
+        public String getAppSellerPic() {
+            return appSellerPic;
+        }
+
+        public void setAppSellerPic(String appSellerPic) {
+            this.appSellerPic = appSellerPic;
+        }
 
         public String getGoodsId() {
             return goodsId;
@@ -94,6 +107,14 @@ public class ShopGoodsBean {
 
         public void setGoodsPrice(String goodsPrice) {
             this.goodsPrice = goodsPrice;
+        }
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
         }
     }
 }
