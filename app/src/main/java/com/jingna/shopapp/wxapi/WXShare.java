@@ -24,7 +24,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 public class WXShare {
 
-    public static final String APP_ID = "wx84adae87b2b30943";
+    public static final String APP_ID = "wx859554b4226ad6fa";
     public static final String ACTION_SHARE_RESPONSE = "action_wx_share_response";
     public static final String EXTRA_RESULT = "result";
 

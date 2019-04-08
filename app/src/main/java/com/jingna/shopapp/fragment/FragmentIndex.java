@@ -28,8 +28,10 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.IndexAdapter;
+import com.jingna.shopapp.bean.WxPayBean;
 import com.jingna.shopapp.dialog.DialogCustom;
 import com.jingna.shopapp.pages.CommitOrderActivity;
 import com.jingna.shopapp.pages.GoodsListActivity;
@@ -49,6 +51,9 @@ import com.jingna.shopapp.util.ToastUtil;
 import com.jingna.shopapp.widget.ObservableScrollView;
 import com.jingna.shopapp.wxapi.OnResponseListener;
 import com.jingna.shopapp.wxapi.WXShare;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
@@ -96,12 +101,13 @@ public class FragmentIndex extends Fragment {
     private List<String> mList;
 
     private WXShare wxShare;
+    private IWXAPI api;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_index, null);
-
+        api = WXAPIFactory.createWXAPI(getContext(), null);
         StatusBarUtils.setStatusBarTransparent(getActivity());
         getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         ButterKnife.bind(this, view);
@@ -262,16 +268,14 @@ public class FragmentIndex extends Fragment {
         Intent intent = new Intent();
         switch (view.getId()){
             case R.id.ll1:
-                ViseHttp.POST("/ZhiFuBao/ZhiFuBaoPay/pay")
+                ViseHttp.POST("/pay/wxpay")
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
-                                try {
-                                    JSONObject jsonObject = new JSONObject(data);
-                                    String s = jsonObject.optString("data");
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                Log.e("123123", data);
+                                Gson gson = new Gson();
+                                WxPayBean payBean = gson.fromJson(data, WxPayBean.class);
+                                wxPay(payBean);
                             }
 
                             @Override
@@ -313,6 +317,20 @@ public class FragmentIndex extends Fragment {
                 startActivity(intent);
                 break;
         }
+    }
+
+    public void wxPay(WxPayBean model) {
+        api.registerApp(WXShare.APP_ID);
+        PayReq req = new PayReq();
+        req.appId = model.getAppId();
+        req.partnerId = model.getMchId();
+        req.prepayId = model.getPrepayId();
+        req.nonceStr = model.getNonceStr();
+        req.timeStamp = model.getTimeStamp() + "";
+        req.packageValue = "Sign=WXPay";
+        req.sign = model.getPaySign();
+        req.extData = "app data";
+        api.sendReq(req);
     }
 
 //    public static void setMargins (View v, int l, int t, int r, int b) {
