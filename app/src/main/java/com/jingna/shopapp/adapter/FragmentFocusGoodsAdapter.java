@@ -5,8 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.bean.Attention_Goods_listBean;
+import com.jingna.shopapp.util.Const;
 
 import java.util.List;
 
@@ -17,9 +22,9 @@ import java.util.List;
 public class FragmentFocusGoodsAdapter extends RecyclerView.Adapter<FragmentFocusGoodsAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<Attention_Goods_listBean.DataBean> data;
 
-    public FragmentFocusGoodsAdapter(List<String> data) {
+    public FragmentFocusGoodsAdapter(List<Attention_Goods_listBean.DataBean> data) {
         this.data = data;
     }
 
@@ -33,7 +38,9 @@ public class FragmentFocusGoodsAdapter extends RecyclerView.Adapter<FragmentFocu
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        Glide.with(context).load(Const.BASE_URL+data.get(position).getAppPic()).into(holder.g_pic);
+        holder.tv_title.setText(data.get(position).getGoodsName());
+        holder.tv_price.setText("¥"+data.get(position).getPrice());
     }
 
     @Override
@@ -42,9 +49,14 @@ public class FragmentFocusGoodsAdapter extends RecyclerView.Adapter<FragmentFocu
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-
+        private ImageView g_pic;
+        private TextView tv_title;
+        private TextView tv_price;
         public ViewHolder(View itemView) {
             super(itemView);
+            g_pic = itemView.findViewById(R.id.g_pic);
+            tv_title = itemView.findViewById(R.id.tv_title);
+            tv_price = itemView.findViewById(R.id.tv_price);
         }
     }
 

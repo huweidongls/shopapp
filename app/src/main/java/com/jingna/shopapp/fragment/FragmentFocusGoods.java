@@ -10,16 +10,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.FragmentFocusGoodsAdapter;
 import com.jingna.shopapp.adapter.FragmentFocusGoodsTuijianAdapter;
 import com.jingna.shopapp.base.BaseFragment;
+import com.jingna.shopapp.bean.Attention_Goods_listBean;
+import com.jingna.shopapp.bean.ShopGoodsBean;
+import com.jingna.shopapp.util.SpUtils;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +48,7 @@ public class FragmentFocusGoods extends BaseFragment {
     RecyclerView rvTuijian;
 
     private FragmentFocusGoodsAdapter goodsAdapter;
-    private List<String> mList;
+    private List<Attention_Goods_listBean.DataBean> mList;
     private FragmentFocusGoodsTuijianAdapter tuijianAdapter;
     private List<String> mTuijianList;
 
@@ -55,24 +64,41 @@ public class FragmentFocusGoods extends BaseFragment {
     }
 
     private void initData() {
-
-        mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        goodsAdapter = new FragmentFocusGoodsAdapter(mList);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext()){
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
-        recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
-        recyclerView.setAdapter(goodsAdapter);
-
-        mTuijianList = new ArrayList<>();
+        mList = new ArrayList<>();//商品关注列表接口
+        ViseHttp.GET("AppGoodsMember/queryList")
+                .addParam("memberId",SpUtils.getUserId(getContext()))
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                Attention_Goods_listBean Attention_Goods_listBean = gson.fromJson(data,Attention_Goods_listBean.class);
+                                mList.clear();
+                                mList.addAll(Attention_Goods_listBean.getData());
+                                goodsAdapter = new FragmentFocusGoodsAdapter(mList);
+                                LinearLayoutManager manager = new LinearLayoutManager(getContext()){
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                };
+                                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                                recyclerView.setLayoutManager(manager);
+                                recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
+                                recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
+                                recyclerView.setAdapter(goodsAdapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+                    }
+                });
+        mTuijianList = new ArrayList<>();//店铺关注列表接口
         mTuijianList.add("");
         mTuijianList.add("");
         mTuijianList.add("");
@@ -129,6 +155,29 @@ public class FragmentFocusGoods extends BaseFragment {
                 switch (menuPosition){
                     case 0:
                         //取消关注
+                        ViseHttp.POST("/AppGoodsShop/isFollow")
+                                .addParam("goodsId",mList.get(adapterPosition).getGoodsId()+"")
+                                .addParam("memberId",SpUtils.getUserId(getContext()))
+                                .addParam("type","0")
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if (jsonObject.optString("status").equals("200")){
+                                                mList.remove(adapterPosition);
+                                                goodsAdapter.notifyDataSetChanged();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
                         break;
                 }
             } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {

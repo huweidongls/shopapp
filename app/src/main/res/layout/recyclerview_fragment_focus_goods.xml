@@ -9,6 +9,7 @@
         android:layout_height="140dp">
 
         <ImageView
+            android:id="@+id/g_pic"
             android:scaleType="centerCrop"
             android:src="@mipmap/lvxing"
             android:layout_gravity="center_vertical"
