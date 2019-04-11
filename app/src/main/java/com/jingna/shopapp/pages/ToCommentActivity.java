@@ -54,7 +54,7 @@ public class ToCommentActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_comment);
 
-        StatusBarUtils.setStatusBar(ToCommentActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(ToCommentActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(ToCommentActivity.this);
         mFragmentManager = getSupportFragmentManager();
         initData();

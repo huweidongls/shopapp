@@ -67,7 +67,7 @@ public class PersonInformationActivity extends BaseActivity {
         mMonth = ca.get(Calendar.MONTH);
         mDay = ca.get(Calendar.DAY_OF_MONTH);
 
-        StatusBarUtils.setStatusBar(PersonInformationActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(PersonInformationActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(PersonInformationActivity.this);
         initData();
 

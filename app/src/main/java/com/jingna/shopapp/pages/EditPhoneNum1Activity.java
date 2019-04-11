@@ -51,7 +51,7 @@ public class EditPhoneNum1Activity extends BaseActivity {
 
         phoneNum = SpUtils.getPhoneNum(context);
         MyApplication.editPhoneNumTimeCount.setActivity(EditPhoneNum1Activity.this);
-        StatusBarUtils.setStatusBar(EditPhoneNum1Activity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(EditPhoneNum1Activity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(EditPhoneNum1Activity.this);
         initData();
 

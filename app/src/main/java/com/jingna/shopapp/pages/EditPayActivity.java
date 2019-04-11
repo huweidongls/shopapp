@@ -22,7 +22,7 @@ public class EditPayActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_pay);
 
-        StatusBarUtils.setStatusBar(EditPayActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(EditPayActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(EditPayActivity.this);
 
     }

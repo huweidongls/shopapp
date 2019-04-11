@@ -28,7 +28,7 @@ public class SetPayPwdActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_pay_pwd);
 
-        StatusBarUtils.setStatusBar(SetPayPwdActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(SetPayPwdActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(SetPayPwdActivity.this);
         initData();
 

@@ -48,7 +48,7 @@ public class ForgotPwd2Activity extends BaseActivity {
 
         phoneNum = getIntent().getStringExtra("phone");
         MyApplication.forgotTimeCount.setActivity(ForgotPwd2Activity.this);
-        StatusBarUtils.setStatusBar(ForgotPwd2Activity.this, Color.parseColor("#FBFBFB"));
+        StatusBarUtils.setStatusBar(ForgotPwd2Activity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(ForgotPwd2Activity.this);
         initData();
 

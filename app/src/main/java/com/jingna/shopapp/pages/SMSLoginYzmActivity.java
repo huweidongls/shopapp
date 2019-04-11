@@ -50,7 +50,7 @@ public class SMSLoginYzmActivity extends BaseActivity {
 
         phoneNum = getIntent().getStringExtra("phone");
         MyApplication.smsCodeTimeCount.setActivity(SMSLoginYzmActivity.this);
-        StatusBarUtils.setStatusBar(SMSLoginYzmActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(SMSLoginYzmActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(SMSLoginYzmActivity.this);
         initData();
 

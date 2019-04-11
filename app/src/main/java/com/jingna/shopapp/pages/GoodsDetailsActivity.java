@@ -62,7 +62,7 @@ public class GoodsDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_goods_details);
 
         id = getIntent().getStringExtra("id");
-        StatusBarUtils.setStatusBar(GoodsDetailsActivity.this, Color.parseColor("#FBFBFB"));
+        StatusBarUtils.setStatusBar(GoodsDetailsActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(GoodsDetailsActivity.this);
         mFragmentManager = getSupportFragmentManager();
         initData();

@@ -47,7 +47,7 @@ public class RegisterYzmActivity extends BaseActivity {
 
         MyApplication.ftptimecount.setActivity(RegisterYzmActivity.this);
         phoneNumber = getIntent().getStringExtra("number");
-        StatusBarUtils.setStatusBar(RegisterYzmActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(RegisterYzmActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(RegisterYzmActivity.this);
         initData();
 

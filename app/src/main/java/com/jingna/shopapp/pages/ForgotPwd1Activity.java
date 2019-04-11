@@ -33,7 +33,7 @@ public class ForgotPwd1Activity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_pwd1);
 
-        StatusBarUtils.setStatusBar(ForgotPwd1Activity.this, Color.parseColor("#FBFBFB"));
+        StatusBarUtils.setStatusBar(ForgotPwd1Activity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(ForgotPwd1Activity.this);
 
     }

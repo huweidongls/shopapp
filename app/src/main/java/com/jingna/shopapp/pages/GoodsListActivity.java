@@ -107,7 +107,7 @@ public class GoodsListActivity extends BaseActivity {
         setContentView(R.layout.activity_goods_list);
 
         id = getIntent().getStringExtra("id");
-        StatusBarUtils.setStatusBar(GoodsListActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(GoodsListActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(GoodsListActivity.this);
         initData();
         initRight();

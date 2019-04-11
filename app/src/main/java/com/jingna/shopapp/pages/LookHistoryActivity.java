@@ -1,14 +1,13 @@
 package com.jingna.shopapp.pages;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.jingna.shopapp.R;
-import com.jingna.shopapp.adapter.MessagePreferentialAdapter;
+import com.jingna.shopapp.adapter.LookHistoryAdapter;
 import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.util.StatusBarUtils;
 
@@ -19,23 +18,23 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MessagePreferentialActivity extends BaseActivity {
+public class LookHistoryActivity extends BaseActivity {
 
-    private Context context = MessagePreferentialActivity.this;
+    private Context context = LookHistoryActivity.this;
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
 
-    private MessagePreferentialAdapter adapter;
+    private LookHistoryAdapter adapter;
     private List<String> mList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_message_preferential);
+        setContentView(R.layout.activity_look_history);
 
-        StatusBarUtils.setStatusBar(MessagePreferentialActivity.this, getResources().getColor(R.color.statusbar_color));
-        ButterKnife.bind(MessagePreferentialActivity.this);
+        StatusBarUtils.setStatusBar(LookHistoryActivity.this, getResources().getColor(R.color.statusbar_color));
+        ButterKnife.bind(LookHistoryActivity.this);
         initData();
 
     }
@@ -46,7 +45,7 @@ public class MessagePreferentialActivity extends BaseActivity {
         mList.add("");
         mList.add("");
         mList.add("");
-        adapter = new MessagePreferentialAdapter(mList);
+        adapter = new LookHistoryAdapter(mList);
         LinearLayoutManager manager = new LinearLayoutManager(context);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);

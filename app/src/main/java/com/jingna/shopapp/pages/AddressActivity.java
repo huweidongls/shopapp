@@ -57,7 +57,7 @@ public class AddressActivity extends BaseActivity {
 
         type = getIntent().getStringExtra("type");
         userId = SpUtils.getUserId(context);
-        StatusBarUtils.setStatusBar(AddressActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(AddressActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(AddressActivity.this);
         initData();
 

@@ -19,7 +19,7 @@ public class DetailsOrderActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_order);
 
-        StatusBarUtils.setStatusBar(DetailsOrderActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(DetailsOrderActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(DetailsOrderActivity.this);
 
     }

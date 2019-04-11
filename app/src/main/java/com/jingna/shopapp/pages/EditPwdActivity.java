@@ -51,7 +51,7 @@ public class EditPwdActivity extends BaseActivity {
 
         phoneNum = SpUtils.getPhoneNum(context);
         MyApplication.editPwdTimeCount.setActivity(EditPwdActivity.this);
-        StatusBarUtils.setStatusBar(EditPwdActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(EditPwdActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(EditPwdActivity.this);
         initData();
 

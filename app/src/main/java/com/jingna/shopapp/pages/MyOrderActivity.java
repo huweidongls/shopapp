@@ -58,7 +58,7 @@ public class MyOrderActivity extends BaseActivity {
         setContentView(R.layout.activity_my_order);
 
         index = getIntent().getIntExtra("index", 0);
-        StatusBarUtils.setStatusBar(MyOrderActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(MyOrderActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(MyOrderActivity.this);
         mFragmentManager = getSupportFragmentManager();
         initData();

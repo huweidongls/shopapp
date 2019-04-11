@@ -64,7 +64,7 @@ public class InsertReceiveActivity extends BaseActivity {
         setContentView(R.layout.activity_insert_receive);
 
         userId = SpUtils.getUserId(context);
-        StatusBarUtils.setStatusBar(InsertReceiveActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(InsertReceiveActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(InsertReceiveActivity.this);
         initData();
 

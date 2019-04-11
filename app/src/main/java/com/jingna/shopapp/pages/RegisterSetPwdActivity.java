@@ -47,7 +47,7 @@ public class RegisterSetPwdActivity extends BaseActivity {
         setContentView(R.layout.activity_register_set_pwd);
 
         phoneNumber = getIntent().getStringExtra("number");
-        StatusBarUtils.setStatusBar(RegisterSetPwdActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(RegisterSetPwdActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(RegisterSetPwdActivity.this);
 
     }

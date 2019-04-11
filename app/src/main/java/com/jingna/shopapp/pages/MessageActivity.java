@@ -34,7 +34,7 @@ public class MessageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
-        StatusBarUtils.setStatusBar(MessageActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(MessageActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(MessageActivity.this);
         initData();
 

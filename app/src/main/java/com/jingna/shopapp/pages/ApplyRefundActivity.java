@@ -21,7 +21,7 @@ public class ApplyRefundActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply_refund);
 
-        StatusBarUtils.setStatusBar(ApplyRefundActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(ApplyRefundActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(ApplyRefundActivity.this);
 
     }

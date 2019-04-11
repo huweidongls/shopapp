@@ -9,9 +9,7 @@
 
     <RelativeLayout
         android:id="@+id/rl_top"
-        android:background="#FBFBFB"
-        android:layout_width="match_parent"
-        android:layout_height="44dp">
+        style="@style/rl_top_bar">
 
         <RelativeLayout
             android:id="@+id/rl_back"
@@ -19,11 +17,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:layout_marginLeft="21dp"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/back_b"
-                android:layout_width="9dp"
-                android:layout_height="16dp" />
+                style="@style/iv_top_back" />
 
         </RelativeLayout>
 

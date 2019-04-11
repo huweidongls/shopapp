@@ -5,12 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white_ffffff"
-    tools:context="com.jingna.shopapp.pages.FocusActivity">
+    tools:context="com.jingna.shopapp.pages.LookHistoryActivity">
 
     <RelativeLayout
         style="@style/rl_top_bar">
 
+        <TextView
+            android:text="浏览记录"
+            style="@style/tv_top_title" />
+        
         <RelativeLayout
             android:id="@+id/rl_back"
             android:layout_width="50dp"
@@ -21,19 +24,11 @@
 
         </RelativeLayout>
 
-        <net.lucode.hackware.magicindicator.MagicIndicator
-            android:layout_centerInParent="true"
-            android:id="@+id/magic_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.v4.view.ViewPager>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

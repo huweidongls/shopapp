@@ -42,7 +42,7 @@ public class CommentActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
 
-        StatusBarUtils.setStatusBar(CommentActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(CommentActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(CommentActivity.this);
         initData();
 

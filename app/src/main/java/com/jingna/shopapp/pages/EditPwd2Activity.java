@@ -45,7 +45,7 @@ public class EditPwd2Activity extends BaseActivity {
         setContentView(R.layout.activity_edit_pwd2);
 
         phoneNum = SpUtils.getPhoneNum(context);
-        StatusBarUtils.setStatusBar(EditPwd2Activity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(EditPwd2Activity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(EditPwd2Activity.this);
 
     }

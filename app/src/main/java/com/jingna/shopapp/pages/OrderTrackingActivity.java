@@ -34,7 +34,7 @@ public class OrderTrackingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_tracking);
 
-        StatusBarUtils.setStatusBar(OrderTrackingActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(OrderTrackingActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(OrderTrackingActivity.this);
         initData();
 

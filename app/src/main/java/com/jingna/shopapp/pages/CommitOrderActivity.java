@@ -83,7 +83,7 @@ public class CommitOrderActivity extends BaseActivity {
         skuid = getIntent().getStringExtra("skuid");
         api = WXAPIFactory.createWXAPI(this, null);
         goodsBean = (FragmentGoodsBean) getIntent().getSerializableExtra("bean");
-        StatusBarUtils.setStatusBar(CommitOrderActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(CommitOrderActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(CommitOrderActivity.this);
         initData();
 

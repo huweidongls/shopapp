@@ -30,5 +30,7 @@
     <color name="gray_101010">#10101000</color>
     <color name="red_F71F1F">#F71F1F</color>
     <color name="gray_909090">#909090</color>
-    <color name="line">#f2f2f2</color>
+    <color name="line">#f1f1f1</color>
+
+    <color name="statusbar_color">#ffffff</color>
 </resources>

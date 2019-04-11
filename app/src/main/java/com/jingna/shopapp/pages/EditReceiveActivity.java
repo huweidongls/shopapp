@@ -68,7 +68,7 @@ public class EditReceiveActivity extends BaseActivity {
 
         id = getIntent().getStringExtra("id");
         userId = SpUtils.getUserId(context);
-        StatusBarUtils.setStatusBar(EditReceiveActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(EditReceiveActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(EditReceiveActivity.this);
         initData();
 

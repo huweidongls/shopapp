@@ -38,7 +38,7 @@ public class RegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        StatusBarUtils.setStatusBar(RegisterActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(RegisterActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(RegisterActivity.this);
         initData();
 

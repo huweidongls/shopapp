@@ -40,7 +40,7 @@ public class SearchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        StatusBarUtils.setStatusBar(SearchActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(SearchActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(SearchActivity.this);
         initData();
         manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);

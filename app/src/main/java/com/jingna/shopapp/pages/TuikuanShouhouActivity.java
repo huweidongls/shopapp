@@ -54,7 +54,7 @@ public class TuikuanShouhouActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tuikuan_shouhou);
 
-        StatusBarUtils.setStatusBar(TuikuanShouhouActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(TuikuanShouhouActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(TuikuanShouhouActivity.this);
         mFragmentManager = getSupportFragmentManager();
         initData();

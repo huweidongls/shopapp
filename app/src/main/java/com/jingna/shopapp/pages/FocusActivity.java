@@ -54,7 +54,7 @@ public class FocusActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_focus);
         index = getIntent().getIntExtra("index", 0);
-        StatusBarUtils.setStatusBar(FocusActivity.this, Color.parseColor("#ffffff"));
+        StatusBarUtils.setStatusBar(FocusActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(FocusActivity.this);
         mFragmentManager = getSupportFragmentManager();
         initData();

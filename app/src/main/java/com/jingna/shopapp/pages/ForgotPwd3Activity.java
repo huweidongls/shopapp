@@ -44,7 +44,7 @@ public class ForgotPwd3Activity extends BaseActivity {
         setContentView(R.layout.activity_forgot_pwd3);
 
         phoneNumber = getIntent().getStringExtra("phone");
-        StatusBarUtils.setStatusBar(ForgotPwd3Activity.this, Color.parseColor("#FBFBFB"));
+        StatusBarUtils.setStatusBar(ForgotPwd3Activity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(ForgotPwd3Activity.this);
 
     }
