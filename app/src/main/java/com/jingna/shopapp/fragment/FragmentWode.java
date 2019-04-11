@@ -285,6 +285,7 @@ public class FragmentWode extends Fragment {
                     startActivity(intent);
                 }else {
                     intent.setClass(getContext(), FocusActivity.class);
+                    intent.putExtra("index", 1);
                     startActivity(intent);
                 }
                 break;

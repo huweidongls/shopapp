@@ -5,8 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.bean.UserFollowShopListBean;
+import com.jingna.shopapp.util.Const;
 
 import java.util.List;
 
@@ -17,9 +22,9 @@ import java.util.List;
 public class FragmentFocusShopAdapter extends RecyclerView.Adapter<FragmentFocusShopAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<UserFollowShopListBean.DataBean> data;
 
-    public FragmentFocusShopAdapter(List<String> data) {
+    public FragmentFocusShopAdapter(List<UserFollowShopListBean.DataBean> data) {
         this.data = data;
     }
 
@@ -33,7 +38,9 @@ public class FragmentFocusShopAdapter extends RecyclerView.Adapter<FragmentFocus
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        Glide.with(context).load(Const.BASE_URL+data.get(position).getAppSellerLogo()).into(holder.shopimg);
+        holder.tv_title.setText(data.get(position).getSellerName());
+        holder.tv_shopnum.setText(data.get(position).getFollowNum()+"人关注");
     }
 
     @Override
@@ -42,9 +49,14 @@ public class FragmentFocusShopAdapter extends RecyclerView.Adapter<FragmentFocus
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-
+        private ImageView shopimg;
+        private TextView tv_title;
+        private TextView tv_shopnum;
         public ViewHolder(View itemView) {
             super(itemView);
+            shopimg = itemView.findViewById(R.id.shopimg);
+            tv_title = itemView.findViewById(R.id.tv_title);
+            tv_shopnum = itemView.findViewById(R.id.tv_shopnum);
         }
     }
 

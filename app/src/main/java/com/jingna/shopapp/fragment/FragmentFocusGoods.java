@@ -65,7 +65,7 @@ public class FragmentFocusGoods extends BaseFragment {
 
     private void initData() {
         mList = new ArrayList<>();//商品关注列表接口
-        ViseHttp.GET("AppGoodsMember/queryList")
+        ViseHttp.GET("AppMemberFollow/queryList")
                 .addParam("memberId",SpUtils.getUserId(getContext()))
                 .request(new ACallback<String>() {
                     @Override

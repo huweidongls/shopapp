@@ -47,12 +47,13 @@ public class FocusActivity extends BaseActivity {
     private List<Fragment> fragmentList;
 
     private ArrayList<String> mTitleDataList;
+    private int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_focus);
-
+        index = getIntent().getIntExtra("index", 0);
         StatusBarUtils.setStatusBar(FocusActivity.this, Color.parseColor("#ffffff"));
         ButterKnife.bind(FocusActivity.this);
         mFragmentManager = getSupportFragmentManager();
@@ -110,7 +111,7 @@ public class FocusActivity extends BaseActivity {
 //        titleContainer.setDividerPadding(UIUtil.dip2px(this, 15));
 //        titleContainer.setDividerDrawable(getResources().getDrawable(R.drawable.simple_splitter));
         ViewPagerHelper.bind(magicIndicator, mViewPager);
-
+        mViewPager.setCurrentItem(index);
     }
 
     @OnClick({R.id.rl_back})

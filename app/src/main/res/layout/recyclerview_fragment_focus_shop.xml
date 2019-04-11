@@ -9,6 +9,7 @@
         android:layout_height="70dp">
 
         <ImageView
+            android:id="@+id/shopimg"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
             android:src="@mipmap/lvxing"
@@ -34,6 +35,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/tv_shopnum"
                 android:textColor="#848688"
                 android:textSize="12sp"
                 android:layout_below="@+id/tv_title"
