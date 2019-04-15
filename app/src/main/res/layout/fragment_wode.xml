@@ -101,6 +101,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ll_look_history"
                         android:orientation="vertical"
                         android:layout_weight="1"
                         android:layout_width="0dp"

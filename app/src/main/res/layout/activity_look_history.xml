@@ -24,6 +24,18 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/rl_clear"
+            android:layout_alignParentRight="true"
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="清空"
+                style="@style/tv_top_right" />
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

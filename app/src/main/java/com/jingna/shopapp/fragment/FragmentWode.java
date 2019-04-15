@@ -24,6 +24,7 @@ import com.jingna.shopapp.pages.EditPayActivity;
 import com.jingna.shopapp.pages.EditPhoneNum1Activity;
 import com.jingna.shopapp.pages.EditPwdActivity;
 import com.jingna.shopapp.pages.FocusActivity;
+import com.jingna.shopapp.pages.LookHistoryActivity;
 import com.jingna.shopapp.pages.MyOrderActivity;
 import com.jingna.shopapp.pages.PersonInformationActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
@@ -159,7 +160,7 @@ public class FragmentWode extends Fragment {
     }
 
     @OnClick({R.id.rl1, R.id.rl2, R.id.rl3, R.id.rl4, R.id.rl5, R.id.iv_avatar, R.id.ll_login, R.id.ll_my_order, R.id.ll_daifukuan,
-    R.id.ll_daishouhuo, R.id.ll_comment, R.id.ll_tuikuan, R.id.ll_goods_focus, R.id.ll_shop_focus})
+    R.id.ll_daishouhuo, R.id.ll_comment, R.id.ll_tuikuan, R.id.ll_goods_focus, R.id.ll_shop_focus, R.id.ll_look_history})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -286,6 +287,15 @@ public class FragmentWode extends Fragment {
                 }else {
                     intent.setClass(getContext(), FocusActivity.class);
                     intent.putExtra("index", 1);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.ll_look_history:
+                if(userId.equals("0")){
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), LookHistoryActivity.class);
                     startActivity(intent);
                 }
                 break;
