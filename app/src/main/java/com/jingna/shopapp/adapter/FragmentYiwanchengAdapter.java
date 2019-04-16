@@ -6,8 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.bean.OrderDaifukuanBean;
+import com.jingna.shopapp.util.Const;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +25,9 @@ import java.util.List;
 public class FragmentYiwanchengAdapter extends RecyclerView.Adapter<FragmentYiwanchengAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<OrderDaifukuanBean.DataBean> data;
 
-    public FragmentYiwanchengAdapter(List<String> data) {
+    public FragmentYiwanchengAdapter(List<OrderDaifukuanBean.DataBean> data) {
         this.data = data;
     }
 
@@ -35,20 +41,29 @@ public class FragmentYiwanchengAdapter extends RecyclerView.Adapter<FragmentYiwa
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        List<String> list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        LinearLayoutManager manager = new LinearLayoutManager(context);
-        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        holder.rvList.setLayoutManager(manager);
-        FragmentYiwanchengPicListAdapter listAdapter = new FragmentYiwanchengPicListAdapter(list);
-        holder.rvList.setAdapter(listAdapter);
+        holder.tvSellerTitle.setText(data.get(position).getSellerName());
+        List<OrderDaifukuanBean.DataBean.ListBean> list = data.get(position).getList();
+        if(list.size() == 1){
+            holder.rl1.setVisibility(View.VISIBLE);
+            holder.rl2.setVisibility(View.GONE);
+            Glide.with(context).load(Const.BASE_URL+list.get(0).getGoodPic()).into(holder.ivTitle);
+            holder.tvTitle.setText(list.get(0).getGoodsName());
+            holder.tvPrice.setText("¥"+list.get(0).getGoodsPrice());
+        }else {
+            holder.rl1.setVisibility(View.GONE);
+            holder.rl2.setVisibility(View.VISIBLE);
+            LinearLayoutManager manager = new LinearLayoutManager(context);
+            manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            holder.rvGoodsList.setLayoutManager(manager);
+            FragmentYiwanchengPicListAdapter listAdapter = new FragmentYiwanchengPicListAdapter(list);
+            holder.rvGoodsList.setAdapter(listAdapter);
+            holder.tvGoodsNum.setText("共"+list.size()+"件商品 应付款：");
+            int price = 0;
+            for (OrderDaifukuanBean.DataBean.ListBean bean : list){
+                price = price + bean.getGoodsPrice();
+            }
+            holder.tvPrice.setText("¥"+price);
+        }
     }
 
     @Override
@@ -58,11 +73,25 @@ public class FragmentYiwanchengAdapter extends RecyclerView.Adapter<FragmentYiwa
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        private RecyclerView rvList;
+        private TextView tvSellerTitle;
+        private ImageView ivTitle;
+        private TextView tvTitle;
+        private RelativeLayout rl1;
+        private RelativeLayout rl2;
+        private TextView tvGoodsNum;
+        private TextView tvPrice;
+        private RecyclerView rvGoodsList;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            rvList = itemView.findViewById(R.id.rv_goods_list);
+            tvSellerTitle = itemView.findViewById(R.id.tv_seller_title);
+            ivTitle = itemView.findViewById(R.id.iv_title);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            rl1 = itemView.findViewById(R.id.rl1);
+            rl2 = itemView.findViewById(R.id.rl2);
+            tvGoodsNum = itemView.findViewById(R.id.tv_goods_num);
+            tvPrice = itemView.findViewById(R.id.tv_price);
+            rvGoodsList = itemView.findViewById(R.id.rv_goods_list);
         }
     }
 

@@ -3,17 +3,16 @@ package com.jingna.shopapp.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
-import com.jingna.shopapp.adapter.FragmentDaifukuanAdapter;
+import com.jingna.shopapp.adapter.FragmentAllOrderAdapter;
+import com.jingna.shopapp.base.BaseFragment;
 import com.jingna.shopapp.bean.OrderDaifukuanBean;
 import com.jingna.shopapp.util.SpUtils;
 import com.scwang.smartrefresh.header.MaterialHeader;
@@ -28,24 +27,23 @@ import com.vise.xsnow.http.callback.ACallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Administrator on 2019/3/6.
+ * Created by Administrator on 2019/4/16.
  */
 
-public class FragmentDaifukuan extends Fragment {
+public class FragmentAllOrder extends BaseFragment {
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
     @BindView(R.id.refresh)
     SmartRefreshLayout smartRefreshLayout;
 
-    private FragmentDaifukuanAdapter adapter;
+    private FragmentAllOrderAdapter adapter;
     private List<OrderDaifukuanBean.DataBean> mList;
 
     private int page = 1;
@@ -53,7 +51,7 @@ public class FragmentDaifukuan extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_daifukuan, null);
+        View view = inflater.inflate(R.layout.fragment_all_order, null);
 
         ButterKnife.bind(this, view);
         initData();
@@ -71,7 +69,7 @@ public class FragmentDaifukuan extends Fragment {
                 ViseHttp.GET("/AppOrder/queryList")
                         .addParam("pageNum", "1")
                         .addParam("pageSize", "10")
-                        .addParam("type", "0")
+                        .addParam("type", "10")
                         .addParam("userId", SpUtils.getUserId(getContext()))
                         .request(new ACallback<String>() {
                             @Override
@@ -85,11 +83,11 @@ public class FragmentDaifukuan extends Fragment {
                                         mList.addAll(bean.getData());
                                         adapter.notifyDataSetChanged();
                                         page = 2;
-                                        refreshLayout.finishRefresh(500);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                                refreshLayout.finishRefresh(500);
                             }
 
                             @Override
@@ -105,7 +103,7 @@ public class FragmentDaifukuan extends Fragment {
                 ViseHttp.GET("/AppOrder/queryList")
                         .addParam("pageNum", page + "")
                         .addParam("pageSize", "10")
-                        .addParam("type", "0")
+                        .addParam("type", "10")
                         .addParam("userId", SpUtils.getUserId(getContext()))
                         .request(new ACallback<String>() {
                             @Override
@@ -117,12 +115,12 @@ public class FragmentDaifukuan extends Fragment {
                                         OrderDaifukuanBean bean = gson.fromJson(data, OrderDaifukuanBean.class);
                                         mList.addAll(bean.getData());
                                         adapter.notifyDataSetChanged();
-                                        page = page+1;
-                                        refreshLayout.finishLoadMore(500);
+                                        page = page + 1;
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                                refreshLayout.finishLoadMore(500);
                             }
 
                             @Override
@@ -134,9 +132,9 @@ public class FragmentDaifukuan extends Fragment {
         });
 
         ViseHttp.GET("/AppOrder/queryList")
-                .addParam("pageNum", page + "")
+                .addParam("pageNum", "1")
                 .addParam("pageSize", "10")
-                .addParam("type", "0")
+                .addParam("type", "10")
                 .addParam("userId", SpUtils.getUserId(getContext()))
                 .request(new ACallback<String>() {
                     @Override
@@ -147,11 +145,12 @@ public class FragmentDaifukuan extends Fragment {
                                 Gson gson = new Gson();
                                 OrderDaifukuanBean bean = gson.fromJson(data, OrderDaifukuanBean.class);
                                 mList = bean.getData();
-                                adapter = new FragmentDaifukuanAdapter(mList);
+                                adapter = new FragmentAllOrderAdapter(mList);
                                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                                 recyclerView.setLayoutManager(manager);
                                 recyclerView.setAdapter(adapter);
+                                page = 2;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

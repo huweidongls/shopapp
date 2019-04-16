@@ -15,26 +15,25 @@ import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.OrderDaifukuanBean;
 import com.jingna.shopapp.util.Const;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2019/3/6.
+ * Created by Administrator on 2019/4/16.
  */
 
-public class FragmentYiquxiaoAdapter extends RecyclerView.Adapter<FragmentYiquxiaoAdapter.ViewHolder> {
+public class FragmentReturnPriceAdapter extends RecyclerView.Adapter<FragmentReturnPriceAdapter.ViewHolder> {
 
     private Context context;
     private List<OrderDaifukuanBean.DataBean> data;
 
-    public FragmentYiquxiaoAdapter(List<OrderDaifukuanBean.DataBean> data) {
+    public FragmentReturnPriceAdapter(List<OrderDaifukuanBean.DataBean> data) {
         this.data = data;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_yiquxiao, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_return_price, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }

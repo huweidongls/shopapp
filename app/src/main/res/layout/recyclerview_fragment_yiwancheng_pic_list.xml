@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:id="@+id/iv"
         android:layout_marginLeft="7dp"
         android:src="@mipmap/fushi"
         android:layout_width="70dp"

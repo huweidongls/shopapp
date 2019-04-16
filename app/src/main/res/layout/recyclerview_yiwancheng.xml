@@ -31,6 +31,7 @@
                     android:layout_height="15dp" />
 
                 <TextView
+                    android:id="@+id/tv_seller_title"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="7dp"
                     android:textColor="@color/black_333333"
@@ -69,6 +70,37 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl1"
+            android:background="#FAFAFA"
+            android:layout_width="match_parent"
+            android:layout_height="89dp">
+
+            <ImageView
+                android:id="@+id/iv_title"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:src="@mipmap/fushi"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:ellipsize="end"
+                android:lines="2"
+                android:textSize="13sp"
+                android:textColor="@color/black_333333"
+                android:text="良品铺子  夏威夷果265g×3袋  零食坚果炒货每日坚果大礼包大礼包"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="27dp"
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@+id/iv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl2"
             android:background="#FAFAFA"
             android:layout_width="match_parent"
             android:layout_height="89dp">
@@ -93,6 +125,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/tv_goods_num"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/black_333333"
                     android:textSize="13sp"
@@ -101,6 +134,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/tv_price"
                     android:layout_gravity="center_vertical"
                     android:textStyle="bold"
                     android:textColor="@color/black_333333"

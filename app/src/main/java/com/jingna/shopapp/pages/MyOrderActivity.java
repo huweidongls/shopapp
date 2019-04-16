@@ -13,8 +13,10 @@ import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.GoodsDetailsViewpagerAdapter;
 import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.customview.ScaleTransitionPagerTitleView;
+import com.jingna.shopapp.fragment.FragmentAllOrder;
 import com.jingna.shopapp.fragment.FragmentDaifukuan;
 import com.jingna.shopapp.fragment.FragmentDaishouhuo;
+import com.jingna.shopapp.fragment.FragmentReturnPrice;
 import com.jingna.shopapp.fragment.FragmentYiquxiao;
 import com.jingna.shopapp.fragment.FragmentYiwancheng;
 import com.jingna.shopapp.util.StatusBarUtils;
@@ -68,11 +70,12 @@ public class MyOrderActivity extends BaseActivity {
     private void initData() {
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(new FragmentDaifukuan());
+        fragmentList.add(new FragmentAllOrder());
         fragmentList.add(new FragmentDaifukuan());
         fragmentList.add(new FragmentDaishouhuo());
         fragmentList.add(new FragmentYiwancheng());
         fragmentList.add(new FragmentYiquxiao());
+        fragmentList.add(new FragmentReturnPrice());
         mViewPagerFragmentAdapter = new GoodsDetailsViewpagerAdapter(mFragmentManager, fragmentList);
         mViewPager.setAdapter(mViewPagerFragmentAdapter);
 
@@ -82,6 +85,7 @@ public class MyOrderActivity extends BaseActivity {
         mTitleDataList.add("待收货");
         mTitleDataList.add("已完成");
         mTitleDataList.add("已取消");
+        mTitleDataList.add("退款");
 
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {

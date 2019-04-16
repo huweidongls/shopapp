@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:background="@drawable/selector_bg"
         android:layout_marginTop="12dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"

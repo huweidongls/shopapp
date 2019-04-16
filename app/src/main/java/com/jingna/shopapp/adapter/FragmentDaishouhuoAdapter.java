@@ -1,13 +1,20 @@
 package com.jingna.shopapp.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.bean.OrderDaifukuanBean;
+import com.jingna.shopapp.util.Const;
 
 import java.util.List;
 
@@ -18,9 +25,9 @@ import java.util.List;
 public class FragmentDaishouhuoAdapter extends RecyclerView.Adapter<FragmentDaishouhuoAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<OrderDaifukuanBean.DataBean> data;
 
-    public FragmentDaishouhuoAdapter(List<String> data) {
+    public FragmentDaishouhuoAdapter(List<OrderDaifukuanBean.DataBean> data) {
         this.data = data;
     }
 
@@ -34,12 +41,28 @@ public class FragmentDaishouhuoAdapter extends RecyclerView.Adapter<FragmentDais
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if(data.get(position).equals("0")){
-            holder.ll1.setVisibility(View.VISIBLE);
-            holder.ll2.setVisibility(View.GONE);
-        }else if(data.get(position).equals("1")){
-            holder.ll1.setVisibility(View.GONE);
-            holder.ll2.setVisibility(View.VISIBLE);
+        holder.tvSellerTitle.setText(data.get(position).getSellerName());
+        List<OrderDaifukuanBean.DataBean.ListBean> list = data.get(position).getList();
+        if(list.size() == 1){
+            holder.rl1.setVisibility(View.VISIBLE);
+            holder.rl2.setVisibility(View.GONE);
+            Glide.with(context).load(Const.BASE_URL+list.get(0).getGoodPic()).into(holder.ivTitle);
+            holder.tvTitle.setText(list.get(0).getGoodsName());
+            holder.tvPrice.setText("¥"+list.get(0).getGoodsPrice());
+        }else {
+            holder.rl1.setVisibility(View.GONE);
+            holder.rl2.setVisibility(View.VISIBLE);
+            LinearLayoutManager manager = new LinearLayoutManager(context);
+            manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            holder.rvGoodsList.setLayoutManager(manager);
+            FragmentYiwanchengPicListAdapter listAdapter = new FragmentYiwanchengPicListAdapter(list);
+            holder.rvGoodsList.setAdapter(listAdapter);
+            holder.tvGoodsNum.setText("共"+list.size()+"件商品 应付款：");
+            int price = 0;
+            for (OrderDaifukuanBean.DataBean.ListBean bean : list){
+                price = price + bean.getGoodsPrice();
+            }
+            holder.tvPrice.setText("¥"+price);
         }
     }
 
@@ -52,11 +75,27 @@ public class FragmentDaishouhuoAdapter extends RecyclerView.Adapter<FragmentDais
 
         private LinearLayout ll1;
         private LinearLayout ll2;
+        private TextView tvSellerTitle;
+        private ImageView ivTitle;
+        private TextView tvTitle;
+        private RelativeLayout rl1;
+        private RelativeLayout rl2;
+        private TextView tvGoodsNum;
+        private TextView tvPrice;
+        private RecyclerView rvGoodsList;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ll1 = itemView.findViewById(R.id.ll1);
             ll2 = itemView.findViewById(R.id.ll2);
+            tvSellerTitle = itemView.findViewById(R.id.tv_seller_title);
+            ivTitle = itemView.findViewById(R.id.iv_title);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            rl1 = itemView.findViewById(R.id.rl1);
+            rl2 = itemView.findViewById(R.id.rl2);
+            tvGoodsNum = itemView.findViewById(R.id.tv_goods_num);
+            tvPrice = itemView.findViewById(R.id.tv_price);
+            rvGoodsList = itemView.findViewById(R.id.rv_goods_list);
         }
     }
 

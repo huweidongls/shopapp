@@ -52,20 +52,12 @@
             <TextView
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="46dp"
+                android:layout_marginRight="13dp"
                 android:textColor="#333333"
                 android:textSize="13sp"
-                android:text="已取消"
+                android:text="已退款"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-
-            <ImageView
-                android:src="@mipmap/delete"
-                android:layout_marginRight="11dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_width="14dp"
-                android:layout_height="15dp" />
 
         </RelativeLayout>
 
@@ -152,23 +144,24 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
-        <RelativeLayout
+        <LinearLayout
+            android:gravity="right"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="48dp">
 
             <TextView
-                android:background="@drawable/bg_ff0004_15dp_bord"
-                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_979797_15dp_bord"
                 android:layout_marginRight="14dp"
-                android:layout_alignParentRight="true"
                 android:gravity="center"
-                android:textColor="#FF0004"
+                android:textColor="#333333"
                 android:textSize="13sp"
-                android:text="再次购买"
+                android:text="删除订单"
                 android:layout_width="80dp"
                 android:layout_height="30dp" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

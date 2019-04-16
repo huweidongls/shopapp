@@ -267,7 +267,8 @@ public class FragmentWode extends Fragment {
                     intent.setClass(getContext(), SMSLoginActivity.class);
                     startActivity(intent);
                 }else {
-                    intent.setClass(getContext(), TuikuanShouhouActivity.class);
+                    intent.setClass(getContext(), MyOrderActivity.class);
+                    intent.putExtra("index", 5);
                     startActivity(intent);
                 }
                 break;

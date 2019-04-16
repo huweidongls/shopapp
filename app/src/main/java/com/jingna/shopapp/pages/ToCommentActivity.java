@@ -31,6 +31,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ToCommentActivity extends BaseActivity {
 
@@ -114,4 +115,14 @@ public class ToCommentActivity extends BaseActivity {
         ViewPagerHelper.bind(magicIndicator, mViewPager);
 
     }
+
+    @OnClick({R.id.rl_back})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.rl_back:
+                finish();
+                break;
+        }
+    }
+
 }
