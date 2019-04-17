@@ -54,6 +54,7 @@ public class FragmentGoodsSelectPopRvSignRvAdapter extends RecyclerView.Adapter<
         if(data.get(position).getSign().equals(attrType)&&isFirst){
             holder.tv.setTextColor(Color.parseColor("#FF0004"));
             holder.tv.setBackgroundResource(R.drawable.bg_ff0004_16dp_bord);
+            listener.onClick(pos, data.get(position).getSign());
         }
         holder.tv.setText(data.get(position).getSign());
         holder.tv.setOnClickListener(new View.OnClickListener() {

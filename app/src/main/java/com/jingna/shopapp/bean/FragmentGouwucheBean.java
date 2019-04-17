@@ -133,6 +133,15 @@ public class FragmentGouwucheBean {
             private String sp3;
             private int goodsNum;
             private boolean isSelect;        //商品是否在购物车中被选中
+            private String attributesStr;
+
+            public String getAttributesStr() {
+                return attributesStr;
+            }
+
+            public void setAttributesStr(String attributesStr) {
+                this.attributesStr = attributesStr;
+            }
 
             public boolean getIsSelect() {
                 return isSelect;

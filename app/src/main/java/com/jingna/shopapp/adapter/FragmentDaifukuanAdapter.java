@@ -1,7 +1,6 @@
 package com.jingna.shopapp.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,10 +13,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.OrderDaifukuanBean;
-import com.jingna.shopapp.pages.DetailsOrderActivity;
 import com.jingna.shopapp.util.Const;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

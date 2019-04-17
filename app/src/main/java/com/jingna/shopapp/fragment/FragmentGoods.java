@@ -98,16 +98,18 @@ public class FragmentGoods extends BaseFragment {
     private TextView tvSure;
     private boolean isToBuy = false;//是否是立即购买
 
-    public static FragmentGoods newInstance(String id) {
+    public static FragmentGoods newInstance(String id, String attr) {
         FragmentGoods newFragment = new FragmentGoods();
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
+        bundle.putString("attr", attr);
         newFragment.setArguments(bundle);
         return newFragment;
     }
 
     private Map<String, String> signMap;
     private String signJson = "";
+    private int goodsNum = 1;
 
     @Nullable
     @Override
@@ -117,6 +119,7 @@ public class FragmentGoods extends BaseFragment {
         Bundle args = getArguments();
         if (args != null) {
             id = args.getString("id");
+            signJson = args.getString("attr");
         }
         signMap = new HashMap<>();
         ButterKnife.bind(this, view);
@@ -198,6 +201,29 @@ public class FragmentGoods extends BaseFragment {
         final TextView tvPopPrice = selectView.findViewById(R.id.tv_price);
         tvSure = selectView.findViewById(R.id.tv_sure);
         final TextView tvGoodsType = selectView.findViewById(R.id.tv_goods_type);
+        RelativeLayout rlJianhao = selectView.findViewById(R.id.rl_jianhao);
+        final TextView tvGoodsNum = selectView.findViewById(R.id.tv_goods_num);
+        RelativeLayout rlJiahao = selectView.findViewById(R.id.rl_jiahao);
+
+        rlJianhao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(goodsNum > 1){
+                    goodsNum = goodsNum - 1;
+                    tvGoodsNum.setText(goodsNum+"");
+                    tvPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
+                }
+            }
+        });
+
+        rlJiahao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goodsNum = goodsNum + 1;
+                tvGoodsNum.setText(goodsNum+"");
+                tvPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
+            }
+        });
 
         tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,33 +250,39 @@ public class FragmentGoods extends BaseFragment {
                         }
                     }else {
                         if(signMap.size() == mSelectList.size()){
-                            Gson gson = new Gson();
-                            String attr = gson.toJson(signMap);
-                            ViseHttp.POST("/ShopCart/toUpdate")
-                                    .addParam("userid", SpUtils.getUserId(getContext()))
-                                    .addParam("goodsid", id)
-                                    .addParam("sellerId", goodsBean.getData().getShopGoods().getSellerId()+"")
-                                    .addParam("goodsNum", "1")
-                                    .addParam("attributesStr", attr)
-                                    .request(new ACallback<String>() {
-                                        @Override
-                                        public void onSuccess(String data) {
-                                            try {
-                                                JSONObject jsonObject = new JSONObject(data);
-                                                if(jsonObject.optString("status").equals("200")){
-                                                    ToastUtil.showShort(getContext(), "已添加到购物车");
-                                                    popupWindow.dismiss();
+                            if(!TextUtils.isEmpty(skuid)){
+                                Gson gson = new Gson();
+                                String attr = gson.toJson(signMap);
+                                //添加购物车
+                                ViseHttp.POST("/ShopCart/toUpdate")
+                                        .addParam("userid", SpUtils.getUserId(getContext()))
+                                        .addParam("goodsid", id)
+                                        .addParam("sellerId", goodsBean.getData().getShopGoods().getSellerId()+"")
+                                        .addParam("goodsNum", "1")
+                                        .addParam("attributesStr", attr)
+                                        .addParam("skuid", skuid)
+                                        .request(new ACallback<String>() {
+                                            @Override
+                                            public void onSuccess(String data) {
+                                                try {
+                                                    JSONObject jsonObject = new JSONObject(data);
+                                                    if(jsonObject.optString("status").equals("200")){
+                                                        ToastUtil.showShort(getContext(), "已添加到购物车");
+                                                        popupWindow.dismiss();
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
                                                 }
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
                                             }
-                                        }
 
-                                        @Override
-                                        public void onFail(int errCode, String errMsg) {
+                                            @Override
+                                            public void onFail(int errCode, String errMsg) {
 
-                                        }
-                                    });
+                                            }
+                                        });
+                            }else {
+                                ToastUtil.showShort(getContext(), "该商品暂无库存");
+                            }
                         }else {
                             ToastUtil.showShort(getContext(), "请选择商品规格后在添加到购物车");
                         }

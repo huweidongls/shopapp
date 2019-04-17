@@ -55,12 +55,14 @@ public class GoodsDetailsActivity extends BaseActivity {
     private ArrayList<String> mTitleDataList;
 
     private String id = "";
+    private String signJson = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_details);
 
+        signJson = getIntent().getStringExtra("attr");
         id = getIntent().getStringExtra("id");
         StatusBarUtils.setStatusBar(GoodsDetailsActivity.this, getResources().getColor(R.color.statusbar_color));
         ButterKnife.bind(GoodsDetailsActivity.this);
@@ -72,7 +74,7 @@ public class GoodsDetailsActivity extends BaseActivity {
     private void initData() {
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(FragmentGoods.newInstance(id));
+        fragmentList.add(FragmentGoods.newInstance(id, signJson));
         fragmentList.add(FragmentGoodsDetails.newInstance(id));
         fragmentList.add(FragmentComment.newInstance(id));
         fragmentList.add(FragmentEvaluation.newInstance(id));

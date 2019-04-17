@@ -1,6 +1,7 @@
 package com.jingna.shopapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.FragmentGouwucheBean;
 import com.jingna.shopapp.bean.ShoppingCarDataBean;
+import com.jingna.shopapp.pages.GoodsDetailsActivity;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.ToastUtil;
 
@@ -417,6 +419,19 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             childViewHolder.viewLast.setVisibility(View.GONE);
         }
 
+        childViewHolder.ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(context, GoodsDetailsActivity.class);
+                intent.putExtra("id", goodsBean.getId()+"");
+                if(!TextUtils.isEmpty(goodsBean.getAttributesStr())){
+                    intent.putExtra("attr", goodsBean.getAttributesStr());
+                }
+                context.startActivity(intent);
+            }
+        });
+
         return convertView;
     }
 
@@ -441,6 +456,8 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         View view;
         @BindView(R.id.view_last)
         View viewLast;
+        @BindView(R.id.ll)
+        LinearLayout ll;
 
         ChildViewHolder(View view) {
             ButterKnife.bind(this, view);

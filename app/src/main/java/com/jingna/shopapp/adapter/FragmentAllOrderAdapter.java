@@ -1,19 +1,23 @@
 package com.jingna.shopapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.OrderDaifukuanBean;
+import com.jingna.shopapp.pages.DetailsOrderActivity;
 import com.jingna.shopapp.util.Const;
 
 import java.util.List;
@@ -40,7 +44,7 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.tvSellerTitle.setText(data.get(position).getSellerName());
         List<OrderDaifukuanBean.DataBean.ListBean> list = data.get(position).getList();
         if(list.size() == 1){
@@ -63,6 +67,15 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
                 price = price + bean.getGoodsPrice();
             }
             holder.tvPrice.setText("¥"+price);
+            holder.rvGoodsList.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                        holder.itemView.performClick();  //模拟父控件的点击
+                    }
+                    return false;
+                }
+            });
         }
         String orderStatus = data.get(position).getOrderStatus();
         if(orderStatus.equals("0")){
@@ -147,6 +160,15 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
             holder.tvReturnPrice.setVisibility(View.GONE);
             holder.tvDeleteOrder.setVisibility(View.VISIBLE);
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(context, DetailsOrderActivity.class);
+                intent.putExtra("orderId", data.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -171,6 +193,7 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
         private TextView tvToPay;
         private TextView tvReturnPrice;
         private TextView tvDeleteOrder;
+        private LinearLayout ll;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -189,6 +212,7 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
             tvToPay = itemView.findViewById(R.id.tv_to_pay);
             tvReturnPrice = itemView.findViewById(R.id.tv_return_price);
             tvDeleteOrder = itemView.findViewById(R.id.tv_delete_order);
+            ll = itemView.findViewById(R.id.ll);
         }
     }
 
