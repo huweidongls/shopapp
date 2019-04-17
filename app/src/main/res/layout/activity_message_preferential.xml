@@ -22,6 +22,7 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_title"
             android:text="优惠促销"
             style="@style/tv_top_title" />
 

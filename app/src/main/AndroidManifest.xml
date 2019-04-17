@@ -135,7 +135,8 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".pages.ToCommentActivity" />
-        <activity android:name=".pages.LookHistoryActivity"></activity>
+        <activity android:name=".pages.LookHistoryActivity" />
+        <activity android:name=".pages.Message_contentActivity"></activity>
     </application>
 
 </manifest>

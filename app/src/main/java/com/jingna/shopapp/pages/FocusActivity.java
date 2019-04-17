@@ -93,7 +93,7 @@ public class FocusActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         mViewPager.setCurrentItem(index);
-                    }
+                }
                 });
                 return simplePagerTitleView;
             }
