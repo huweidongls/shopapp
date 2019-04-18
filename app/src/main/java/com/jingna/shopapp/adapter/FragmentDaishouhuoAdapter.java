@@ -14,7 +14,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.OrderDaifukuanBean;
+import com.jingna.shopapp.dialog.DialogCustom;
 import com.jingna.shopapp.util.Const;
+import com.jingna.shopapp.util.ToastUtil;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -40,7 +47,7 @@ public class FragmentDaishouhuoAdapter extends RecyclerView.Adapter<FragmentDais
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvSellerTitle.setText(data.get(position).getSellerName());
         List<OrderDaifukuanBean.DataBean.ListBean> list = data.get(position).getList();
         if(list.size() == 1){
@@ -64,6 +71,47 @@ public class FragmentDaishouhuoAdapter extends RecyclerView.Adapter<FragmentDais
             }
             holder.tvPrice.setText("¥"+price);
         }
+        String orderStatus = data.get(position).getOrderStatus();
+        if(orderStatus.equals("1")){
+            holder.tvReturnPrice.setVisibility(View.VISIBLE);
+        }else if(orderStatus.equals("2")){
+            holder.tvReturnPrice.setVisibility(View.VISIBLE);
+        }else if(orderStatus.equals("3")){
+            holder.tvReturnPrice.setVisibility(View.GONE);
+        }
+        holder.tvReturnPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogCustom dialogCustom = new DialogCustom(context, "是否发起退款", new DialogCustom.OnYesListener() {
+                    @Override
+                    public void onYes() {
+                        ViseHttp.GET("/AppOrder/orderRefund")
+                                .addParam("id", data.get(position).getId())
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String str) {
+                                        try {
+                                            JSONObject jsonObject1 = new JSONObject(str);
+                                            if(jsonObject1.optString("status").equals("200")){
+                                                ToastUtil.showShort(context, "退款成功");
+                                                data.remove(position);
+                                                notifyDataSetChanged();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    }
+                });
+                dialogCustom.show();
+            }
+        });
     }
 
     @Override
@@ -83,6 +131,7 @@ public class FragmentDaishouhuoAdapter extends RecyclerView.Adapter<FragmentDais
         private TextView tvGoodsNum;
         private TextView tvPrice;
         private RecyclerView rvGoodsList;
+        private TextView tvReturnPrice;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -96,6 +145,7 @@ public class FragmentDaishouhuoAdapter extends RecyclerView.Adapter<FragmentDais
             tvGoodsNum = itemView.findViewById(R.id.tv_goods_num);
             tvPrice = itemView.findViewById(R.id.tv_price);
             rvGoodsList = itemView.findViewById(R.id.rv_goods_list);
+            tvReturnPrice = itemView.findViewById(R.id.tv_return_price);
         }
     }
 

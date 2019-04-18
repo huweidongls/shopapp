@@ -151,6 +151,7 @@
             android:layout_height="48dp">
 
             <TextView
+                android:id="@+id/tv_cancel_order"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/bg_ff0004_15dp_bord"
                 android:layout_marginRight="14dp"
@@ -162,6 +163,7 @@
                 android:layout_height="30dp" />
 
             <TextView
+                android:id="@+id/tv_to_pay"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/bg_ff0004_15dp_bord"
                 android:layout_marginRight="14dp"

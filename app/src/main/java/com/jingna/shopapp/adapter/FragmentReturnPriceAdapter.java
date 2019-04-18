@@ -3,6 +3,7 @@ package com.jingna.shopapp.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.OrderDaifukuanBean;
+import com.jingna.shopapp.dialog.DialogCustom;
 import com.jingna.shopapp.util.Const;
+import com.jingna.shopapp.util.ToastUtil;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -39,7 +47,7 @@ public class FragmentReturnPriceAdapter extends RecyclerView.Adapter<FragmentRet
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvSellerTitle.setText(data.get(position).getSellerName());
         List<OrderDaifukuanBean.DataBean.ListBean> list = data.get(position).getList();
         if(list.size() == 1){
@@ -63,6 +71,40 @@ public class FragmentReturnPriceAdapter extends RecyclerView.Adapter<FragmentRet
             }
             holder.tvPrice.setText("¥"+price);
         }
+        holder.tvDeleteOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogCustom dialogCustom = new DialogCustom(context, "是否删除订单", new DialogCustom.OnYesListener() {
+                    @Override
+                    public void onYes() {
+                        ViseHttp.POST("/AppOrder/toDelete")
+                                .addParam("goodsOrderId", data.get(position).getId())
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String str) {
+                                        try {
+                                            Log.e("123123", str);
+                                            JSONObject jsonObject = new JSONObject(str);
+                                            if(jsonObject.optString("status").equals("200")){
+                                                ToastUtil.showShort(context, "删除订单成功");
+                                                data.remove(position);
+                                                notifyDataSetChanged();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    }
+                });
+                dialogCustom.show();
+            }
+        });
     }
 
     @Override
@@ -80,6 +122,7 @@ public class FragmentReturnPriceAdapter extends RecyclerView.Adapter<FragmentRet
         private TextView tvGoodsNum;
         private TextView tvPrice;
         private RecyclerView rvGoodsList;
+        private TextView tvDeleteOrder;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -91,6 +134,7 @@ public class FragmentReturnPriceAdapter extends RecyclerView.Adapter<FragmentRet
             tvGoodsNum = itemView.findViewById(R.id.tv_goods_num);
             tvPrice = itemView.findViewById(R.id.tv_price);
             rvGoodsList = itemView.findViewById(R.id.rv_goods_list);
+            tvDeleteOrder = itemView.findViewById(R.id.tv_delete_order);
         }
     }
 

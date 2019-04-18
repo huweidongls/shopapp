@@ -151,6 +151,7 @@
             android:layout_height="48dp">
 
             <TextView
+                android:id="@+id/tv_delete_order"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/bg_979797_15dp_bord"
                 android:layout_marginRight="14dp"

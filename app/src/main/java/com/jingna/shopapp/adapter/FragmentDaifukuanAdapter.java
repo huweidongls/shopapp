@@ -3,6 +3,7 @@ package com.jingna.shopapp.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.OrderDaifukuanBean;
+import com.jingna.shopapp.dialog.DialogCustom;
 import com.jingna.shopapp.util.Const;
+import com.jingna.shopapp.util.ToastUtil;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -25,9 +33,11 @@ public class FragmentDaifukuanAdapter extends RecyclerView.Adapter<FragmentDaifu
 
     private Context context;
     private List<OrderDaifukuanBean.DataBean> data;
+    private ClickListener listener;
 
-    public FragmentDaifukuanAdapter(List<OrderDaifukuanBean.DataBean> data) {
+    public FragmentDaifukuanAdapter(List<OrderDaifukuanBean.DataBean> data, ClickListener listener) {
         this.data = data;
+        this.listener = listener;
     }
 
     @Override
@@ -39,7 +49,7 @@ public class FragmentDaifukuanAdapter extends RecyclerView.Adapter<FragmentDaifu
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvSellerTitle.setText(data.get(position).getSellerName());
         List<OrderDaifukuanBean.DataBean.ListBean> list = data.get(position).getList();
         if(list.size() == 1){
@@ -63,6 +73,46 @@ public class FragmentDaifukuanAdapter extends RecyclerView.Adapter<FragmentDaifu
             }
             holder.tvPrice.setText("¥"+price);
         }
+        holder.tvCancelOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogCustom dialogCustom = new DialogCustom(context, "是否取消订单", new DialogCustom.OnYesListener() {
+                    @Override
+                    public void onYes() {
+                        ViseHttp.GET("/AppOrder/cancellationOrder")
+                                .addParam("goodsOrderId", data.get(position).getId())
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String str) {
+                                        try {
+                                            Log.e("123123", str);
+                                            JSONObject jsonObject = new JSONObject(str);
+                                            if(jsonObject.optString("status").equals("200")){
+                                                ToastUtil.showShort(context, "取消订单成功");
+                                                data.remove(position);
+                                                notifyDataSetChanged();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    }
+                });
+                dialogCustom.show();
+            }
+        });
+        holder.tvToPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onPay(position);
+            }
+        });
     }
 
     @Override
@@ -80,6 +130,8 @@ public class FragmentDaifukuanAdapter extends RecyclerView.Adapter<FragmentDaifu
         private RelativeLayout rl2;
         private RecyclerView rvGoodsList;
         private TextView tvGoodsNum;
+        private TextView tvCancelOrder;
+        private TextView tvToPay;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -91,7 +143,13 @@ public class FragmentDaifukuanAdapter extends RecyclerView.Adapter<FragmentDaifu
             rl2 = itemView.findViewById(R.id.rl2);
             rvGoodsList = itemView.findViewById(R.id.rv_goods_list);
             tvGoodsNum = itemView.findViewById(R.id.tv_goods_num);
+            tvCancelOrder = itemView.findViewById(R.id.tv_cancel_order);
+            tvToPay = itemView.findViewById(R.id.tv_to_pay);
         }
+    }
+
+    public interface ClickListener{
+        void onPay(int pos);
     }
 
 }

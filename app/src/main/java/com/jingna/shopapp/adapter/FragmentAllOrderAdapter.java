@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,8 +18,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.OrderDaifukuanBean;
+import com.jingna.shopapp.dialog.DialogCustom;
 import com.jingna.shopapp.pages.DetailsOrderActivity;
 import com.jingna.shopapp.util.Const;
+import com.jingna.shopapp.util.ToastUtil;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -30,9 +38,11 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
 
     private Context context;
     private List<OrderDaifukuanBean.DataBean> data;
+    private ClickListener listener;
 
-    public FragmentAllOrderAdapter(List<OrderDaifukuanBean.DataBean> data) {
+    public FragmentAllOrderAdapter(List<OrderDaifukuanBean.DataBean> data, ClickListener listener) {
         this.data = data;
+        this.listener = listener;
     }
 
     @Override
@@ -169,6 +179,86 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
                 context.startActivity(intent);
             }
         });
+        holder.tvCancelOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogCustom dialogCustom = new DialogCustom(context, "是否取消订单", new DialogCustom.OnYesListener() {
+                    @Override
+                    public void onYes() {
+                        ViseHttp.GET("/AppOrder/cancellationOrder")
+                                .addParam("goodsOrderId", data.get(position).getId())
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String str) {
+                                        try {
+                                            Log.e("123123", str);
+                                            JSONObject jsonObject = new JSONObject(str);
+                                            if(jsonObject.optString("status").equals("200")){
+                                                ToastUtil.showShort(context, "取消订单成功");
+                                                data.remove(position);
+                                                notifyDataSetChanged();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    }
+                });
+                dialogCustom.show();
+            }
+        });
+        holder.tvDeleteOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogCustom dialogCustom = new DialogCustom(context, "是否删除订单", new DialogCustom.OnYesListener() {
+                    @Override
+                    public void onYes() {
+                        ViseHttp.POST("/AppOrder/toDelete")
+                                .addParam("goodsOrderId", data.get(position).getId())
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String str) {
+                                        try {
+                                            Log.e("123123", str);
+                                            JSONObject jsonObject = new JSONObject(str);
+                                            if(jsonObject.optString("status").equals("200")){
+                                                ToastUtil.showShort(context, "删除订单成功");
+                                                data.remove(position);
+                                                notifyDataSetChanged();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    }
+                });
+                dialogCustom.show();
+            }
+        });
+        holder.tvToPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onPay(position);
+            }
+        });
+        holder.tvReturnPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onReturnPrice(position);
+            }
+        });
     }
 
     @Override
@@ -214,6 +304,11 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
             tvDeleteOrder = itemView.findViewById(R.id.tv_delete_order);
             ll = itemView.findViewById(R.id.ll);
         }
+    }
+
+    public interface ClickListener{
+        void onPay(int pos);
+        void onReturnPrice(int pos);
     }
 
 }

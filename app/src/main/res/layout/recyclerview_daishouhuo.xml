@@ -191,15 +191,16 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
-        <RelativeLayout
+        <LinearLayout
+            android:gravity="right"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="48dp">
 
             <TextView
+                android:layout_gravity="center_vertical"
                 android:background="@drawable/bg_979797_15dp_bord"
-                android:layout_centerVertical="true"
                 android:layout_marginRight="14dp"
-                android:layout_alignParentRight="true"
                 android:gravity="center"
                 android:textColor="#333333"
                 android:textSize="13sp"
@@ -207,7 +208,19 @@
                 android:layout_width="80dp"
                 android:layout_height="30dp" />
 
-        </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_return_price"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_ff0004_15dp_bord"
+                android:layout_marginRight="14dp"
+                android:gravity="center"
+                android:textColor="#FF0004"
+                android:textSize="13sp"
+                android:text="退款"
+                android:layout_width="80dp"
+                android:layout_height="30dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -379,7 +392,9 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
-        <RelativeLayout
+        <LinearLayout
+            android:gravity="right"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="48dp">
 
@@ -395,19 +410,7 @@
                 android:layout_width="80dp"
                 android:layout_height="30dp" />
 
-            <TextView
-                android:background="@drawable/bg_979797_15dp_bord"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="104dp"
-                android:layout_alignParentRight="true"
-                android:gravity="center"
-                android:textColor="#333333"
-                android:textSize="13sp"
-                android:text="再次购买"
-                android:layout_width="80dp"
-                android:layout_height="30dp" />
-
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -1,18 +1,16 @@
 package com.jingna.shopapp.fragment;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.FragmentYiquxiaoAdapter;
+import com.jingna.shopapp.base.OrderBaseFragment;
 import com.jingna.shopapp.bean.OrderDaifukuanBean;
 import com.jingna.shopapp.util.SpUtils;
 import com.scwang.smartrefresh.header.MaterialHeader;
@@ -27,7 +25,6 @@ import com.vise.xsnow.http.callback.ACallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,31 +34,50 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2019/3/6.
  */
 
-public class FragmentYiquxiao extends Fragment {
+public class FragmentYiquxiao extends OrderBaseFragment {
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
     @BindView(R.id.refresh)
     SmartRefreshLayout smartRefreshLayout;
+    @BindView(R.id.tv_loading)
+    TextView tvLoading;
 
     private FragmentYiquxiaoAdapter adapter;
     private List<OrderDaifukuanBean.DataBean> mList;
 
     private int page = 1;
 
-    @Nullable
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.fragment_yiquxiao, null);
+//
+//        ButterKnife.bind(this, view);
+//        initData();
+//
+//        return view;
+//    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_yiquxiao, null);
+    public View initView() {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_yiquxiao, null);
 
         ButterKnife.bind(this, view);
-        initData();
+//        initData();
 
         return view;
     }
 
-    private void initData() {
+    @Override
+    public void hide() {
+        tvLoading.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void initData() {
+
+        tvLoading.setVisibility(View.VISIBLE);
         smartRefreshLayout.setRefreshHeader(new MaterialHeader(getContext()));
         smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -151,6 +167,7 @@ public class FragmentYiquxiao extends Fragment {
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                                 recyclerView.setLayoutManager(manager);
                                 recyclerView.setAdapter(adapter);
+                                tvLoading.setVisibility(View.GONE);
                                 page = 2;
                             }
                         } catch (JSONException e) {

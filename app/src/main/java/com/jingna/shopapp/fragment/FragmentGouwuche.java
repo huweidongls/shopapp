@@ -77,6 +77,8 @@ public class FragmentGouwuche extends Fragment {
     private Context context;
     private ShoppingCarAdapter shoppingCarAdapter;
 
+    private String deleteId = "";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -265,6 +267,9 @@ public class FragmentGouwuche extends Fragment {
 
             if (isSelect_shop) {
                 hasSelect = true;
+                for (FragmentGouwucheBean.DataBean.ShopGoodsBean good : goods){
+                    deleteId = deleteId + good.getCarId() + ",";
+                }
                 //跳出本次循环，继续下次循环。
                 continue;
             } else {
@@ -278,6 +283,7 @@ public class FragmentGouwuche extends Fragment {
 
                 if (isSelect) {
                     hasSelect = true;
+                    deleteId = deleteId + goodsBean.getCarId() + ",";
                 } else {
                     datasTemp.get(datasTemp.size() - 1).getShopGoods().add(goodsBean);
                 }
@@ -313,6 +319,7 @@ public class FragmentGouwuche extends Fragment {
             @Override
             public void onClick(View v) {
                 roundCornerDialog.dismiss();
+                deleteGoods();
                 datas = datasTemp;
                 initExpandableListViewData(datas);
             }
@@ -324,6 +331,37 @@ public class FragmentGouwuche extends Fragment {
                 roundCornerDialog.dismiss();
             }
         });
+    }
+
+    /**
+     * 执行购物车删除接口
+     */
+    private void deleteGoods() {
+
+        ViseHttp.POST("/ShopCart/toAllDelete")
+                .addParam("strId", deleteId)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            Log.e("123123", data);
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        deleteId = "";
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+                        deleteId = "";
+                        Log.e("123123", errMsg);
+                    }
+                });
+
     }
 
     DialogInterface.OnKeyListener keylistener = new DialogInterface.OnKeyListener() {

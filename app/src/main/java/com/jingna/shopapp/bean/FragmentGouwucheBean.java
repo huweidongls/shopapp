@@ -134,6 +134,15 @@ public class FragmentGouwucheBean {
             private int goodsNum;
             private boolean isSelect;        //商品是否在购物车中被选中
             private String attributesStr;
+            private String carId;
+
+            public String getCarId() {
+                return carId;
+            }
+
+            public void setCarId(String carId) {
+                this.carId = carId;
+            }
 
             public String getAttributesStr() {
                 return attributesStr;

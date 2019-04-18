@@ -249,6 +249,7 @@ public class FragmentGoods extends BaseFragment {
                                 intent.putExtra("skuid", skuid);
                                 intent.putExtra("goodsnum", goodsNum);
                                 startActivity(intent);
+                                popupWindow.dismiss();
                             }else {
                                 ToastUtil.showShort(getContext(), "该商品暂无库存");
                             }

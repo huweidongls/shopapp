@@ -72,6 +72,7 @@ public abstract class OrderBaseFragment extends Fragment {
             return;
         }
         Log.d("TAG", getClass().getName() + "->initData()");
+        hide();
         initData();
 //        isFirst = false;
     }
@@ -85,4 +86,6 @@ public abstract class OrderBaseFragment extends Fragment {
     public abstract View initView();
 
     public abstract void initData();
+
+    public abstract void hide();
 }
