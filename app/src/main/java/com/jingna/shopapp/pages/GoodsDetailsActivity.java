@@ -56,12 +56,14 @@ public class GoodsDetailsActivity extends BaseActivity {
 
     private String id = "";
     private String signJson = "";
+    private int goodsNum = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_details);
 
+        goodsNum = getIntent().getIntExtra("goodsnum", 1);
         signJson = getIntent().getStringExtra("attr");
         id = getIntent().getStringExtra("id");
         StatusBarUtils.setStatusBar(GoodsDetailsActivity.this, getResources().getColor(R.color.statusbar_color));
@@ -74,7 +76,7 @@ public class GoodsDetailsActivity extends BaseActivity {
     private void initData() {
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(FragmentGoods.newInstance(id, signJson));
+        fragmentList.add(FragmentGoods.newInstance(id, signJson, goodsNum));
         fragmentList.add(FragmentGoodsDetails.newInstance(id));
         fragmentList.add(FragmentComment.newInstance(id));
         fragmentList.add(FragmentEvaluation.newInstance(id));

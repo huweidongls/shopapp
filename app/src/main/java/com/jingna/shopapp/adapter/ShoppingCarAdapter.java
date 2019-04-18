@@ -425,6 +425,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
                 Intent intent = new Intent();
                 intent.setClass(context, GoodsDetailsActivity.class);
                 intent.putExtra("id", goodsBean.getId()+"");
+                intent.putExtra("goodsnum", goodsBean.getGoodsNum());
                 if(!TextUtils.isEmpty(goodsBean.getAttributesStr())){
                     intent.putExtra("attr", goodsBean.getAttributesStr());
                 }

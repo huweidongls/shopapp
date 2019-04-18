@@ -79,6 +79,7 @@ public class CommitOrderActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commit_order);
+        goodsNum = getIntent().getIntExtra("goodsnum", 1);
         id = getIntent().getStringExtra("id");
         skuid = getIntent().getStringExtra("skuid");
         api = WXAPIFactory.createWXAPI(this, null);
@@ -91,12 +92,13 @@ public class CommitOrderActivity extends BaseActivity {
 
     private void initData() {
 
+        tvGoodsNum.setText(goodsNum+"");
         if(goodsBean != null){
             Glide.with(context).load(Const.BASE_URL+goodsBean.getData().getShopGoods().getAppPic()).into(ivTitle);
             tvGoodsName.setText(goodsBean.getData().getShopGoods().getGoodsName());
             tvGoodsPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice());
-            tvGoodsAllPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice());
-            tvAllPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice());
+            tvGoodsAllPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
+            tvAllPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
         }
 
         //接口获取当前用户默认收货地址

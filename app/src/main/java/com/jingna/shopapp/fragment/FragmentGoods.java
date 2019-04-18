@@ -98,11 +98,12 @@ public class FragmentGoods extends BaseFragment {
     private TextView tvSure;
     private boolean isToBuy = false;//是否是立即购买
 
-    public static FragmentGoods newInstance(String id, String attr) {
+    public static FragmentGoods newInstance(String id, String attr, int goodsNum) {
         FragmentGoods newFragment = new FragmentGoods();
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
         bundle.putString("attr", attr);
+        bundle.putInt("goodsnum", goodsNum);
         newFragment.setArguments(bundle);
         return newFragment;
     }
@@ -110,6 +111,7 @@ public class FragmentGoods extends BaseFragment {
     private Map<String, String> signMap;
     private String signJson = "";
     private int goodsNum = 1;
+    private int goodsPrice = 1;
 
     @Nullable
     @Override
@@ -120,6 +122,7 @@ public class FragmentGoods extends BaseFragment {
         if (args != null) {
             id = args.getString("id");
             signJson = args.getString("attr");
+            goodsNum = args.getInt("goodsnum", 1);
         }
         signMap = new HashMap<>();
         ButterKnife.bind(this, view);
@@ -154,7 +157,8 @@ public class FragmentGoods extends BaseFragment {
                                 }
                                 //加载商品价格
                                 if(TextUtils.isEmpty(signJson)){
-                                    tvPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice());
+                                    goodsPrice = goodsBean.getData().getShopGoods().getPrice();
+                                    tvPrice.setText("¥"+goodsPrice*goodsNum);
                                 }
                                 //加载商品标题
                                 tvTitle.setText(goodsBean.getData().getShopGoods().getGoodsName());
@@ -205,13 +209,15 @@ public class FragmentGoods extends BaseFragment {
         final TextView tvGoodsNum = selectView.findViewById(R.id.tv_goods_num);
         RelativeLayout rlJiahao = selectView.findViewById(R.id.rl_jiahao);
 
+        tvGoodsNum.setText(goodsNum+"");
+
         rlJianhao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(goodsNum > 1){
                     goodsNum = goodsNum - 1;
                     tvGoodsNum.setText(goodsNum+"");
-                    tvPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
+                    tvPrice.setText("¥"+goodsPrice*goodsNum);
                 }
             }
         });
@@ -221,7 +227,7 @@ public class FragmentGoods extends BaseFragment {
             public void onClick(View v) {
                 goodsNum = goodsNum + 1;
                 tvGoodsNum.setText(goodsNum+"");
-                tvPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
+                tvPrice.setText("¥"+goodsPrice*goodsNum);
             }
         });
 
@@ -241,6 +247,7 @@ public class FragmentGoods extends BaseFragment {
                                 intent.putExtra("bean", goodsBean);
                                 intent.putExtra("id", id);
                                 intent.putExtra("skuid", skuid);
+                                intent.putExtra("goodsnum", goodsNum);
                                 startActivity(intent);
                             }else {
                                 ToastUtil.showShort(getContext(), "该商品暂无库存");
@@ -258,7 +265,7 @@ public class FragmentGoods extends BaseFragment {
                                         .addParam("userid", SpUtils.getUserId(getContext()))
                                         .addParam("goodsid", id)
                                         .addParam("sellerId", goodsBean.getData().getShopGoods().getSellerId()+"")
-                                        .addParam("goodsNum", "1")
+                                        .addParam("goodsNum", goodsNum+"")
                                         .addParam("attributesStr", attr)
                                         .addParam("skuid", skuid)
                                         .request(new ACallback<String>() {
@@ -342,19 +349,22 @@ public class FragmentGoods extends BaseFragment {
                                                                         Log.e("123123", "low"+lowstock+"stock"+stock);
                                                                         if(stock>lowstock){
                                                                             Glide.with(getContext()).load(Const.BASE_URL+resultBean.getData().get(0).getAppPic()).into(ivTitle);
-                                                                            tvPrice.setText("¥"+resultBean.getData().get(0).getPrice());
+                                                                            goodsPrice = resultBean.getData().get(0).getPrice();
+                                                                            tvPrice.setText("¥"+resultBean.getData().get(0).getPrice()*goodsNum);
                                                                             tvPopPrice.setText("¥"+resultBean.getData().get(0).getPrice());
                                                                             skuid = resultBean.getData().get(0).getSkuId();
                                                                             tvPopPrice.setVisibility(View.VISIBLE);
                                                                             tvGoodsType.setVisibility(View.GONE);
                                                                         }else if(stock<=lowstock){
-                                                                            tvPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice());
+                                                                            goodsPrice = goodsBean.getData().getShopGoods().getPrice();
+                                                                            tvPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
                                                                             tvGoodsType.setText("暂无库存");
                                                                             tvPopPrice.setVisibility(View.GONE);
                                                                             tvGoodsType.setVisibility(View.VISIBLE);
                                                                             skuid = "";
                                                                         }
                                                                     }else if(resultBean.getData()==null||resultBean.getData().size()==0){
+                                                                        goodsPrice = goodsBean.getData().getShopGoods().getPrice();
                                                                         tvPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice());
                                                                         tvGoodsType.setText("暂无库存");
                                                                         tvPopPrice.setVisibility(View.GONE);
@@ -375,7 +385,12 @@ public class FragmentGoods extends BaseFragment {
                                         }
                                     }
                                 });
-                                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                                LinearLayoutManager manager = new LinearLayoutManager(getContext()){
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                };
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                                 popRv.setLayoutManager(manager);
                                 popRv.setAdapter(popRvAdapter);
