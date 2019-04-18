@@ -11,9 +11,9 @@ public class MessageCenterBean {
 
     /**
      * status : 200
-     * data : [{"isImgOrText":"1","msgTitle":"你的账户要被冻结","newSendTime":"2019-04-16 11:12:02","typeName":"系统消息","msgAbstract":"你的账户要被冻结了，还不消停的？","msgUrl":"http://www.baidu.com","typeId":1,"toUserId":1,"msgPic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","msgtypePic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","sendTime":"2019-04-16 11:12:02","status":"1"}]
+     * data : [{"isImgOrText":"1","msgTitle":"你的账户要被冻结","typeName":"系统消息","msgAbstract":"你的账户要被冻结了，还不消停的？","pId":1,"msgUrl":"http://www.baidu.com","typeId":1,"toUserId":36,"msgPic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","msgtypePic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","sendTime":"2019-04-18 16:14:55","status":"0"},{"isImgOrText":"1","msgTitle":"你的账户要被冻结","typeName":"系统消息","msgAbstract":"你的账户要被冻结了，还不消停的？","pId":1,"msgUrl":"http://www.baidu.com","typeId":1,"toUserId":32,"msgPic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","msgtypePic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","sendTime":"2019-04-18 16:14:51","status":"0"},{"isImgOrText":"1","msgTitle":"你的账户要被冻结","typeName":"系统消息","msgAbstract":"你的账户要被冻结了，还不消停的？","pId":1,"msgUrl":"http://www.baidu.com","typeId":1,"toUserId":34,"msgPic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","msgtypePic":"/upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg","sendTime":"2019-04-18 16:14:54","status":"0"}]
      * totalPage : 0
-     * totalCount : 1
+     * totalCount : 3
      */
 
     private String status;
@@ -57,23 +57,23 @@ public class MessageCenterBean {
         /**
          * isImgOrText : 1
          * msgTitle : 你的账户要被冻结
-         * newSendTime : 2019-04-16 11:12:02
          * typeName : 系统消息
          * msgAbstract : 你的账户要被冻结了，还不消停的？
+         * pId : 1
          * msgUrl : http://www.baidu.com
          * typeId : 1
-         * toUserId : 1
+         * toUserId : 36
          * msgPic : /upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg
          * msgtypePic : /upload/ec53111b83fb2ccdc2f503bdb4d3af0.jpg
-         * sendTime : 2019-04-16 11:12:02
-         * status : 1
+         * sendTime : 2019-04-18 16:14:55
+         * status : 0
          */
 
         private String isImgOrText;
         private String msgTitle;
-        private String newSendTime;
         private String typeName;
         private String msgAbstract;
+        private int pId;
         private String msgUrl;
         private int typeId;
         private int toUserId;
@@ -98,14 +98,6 @@ public class MessageCenterBean {
             this.msgTitle = msgTitle;
         }
 
-        public String getNewSendTime() {
-            return newSendTime;
-        }
-
-        public void setNewSendTime(String newSendTime) {
-            this.newSendTime = newSendTime;
-        }
-
         public String getTypeName() {
             return typeName;
         }
@@ -120,6 +112,14 @@ public class MessageCenterBean {
 
         public void setMsgAbstract(String msgAbstract) {
             this.msgAbstract = msgAbstract;
+        }
+
+        public int getPId() {
+            return pId;
+        }
+
+        public void setPId(int pId) {
+            this.pId = pId;
         }
 
         public String getMsgUrl() {
