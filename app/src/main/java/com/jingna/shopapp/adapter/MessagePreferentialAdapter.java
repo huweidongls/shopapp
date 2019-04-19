@@ -13,8 +13,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.MessageCenterBean;
+import com.jingna.shopapp.pages.LoadmessageActivity;
+import com.jingna.shopapp.pages.MessageContentActivity;
 import com.jingna.shopapp.pages.MessagePreferentialActivity;
-import com.jingna.shopapp.pages.Message_contentActivity;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.StringUtils;
 
@@ -49,23 +50,24 @@ public class MessagePreferentialAdapter extends RecyclerView.Adapter<MessagePref
         Glide.with(context).load(Const.BASE_URL+data.get(position).getMsgPic()).into(holder.tv_img);//更换图片
         holder.tv_title.setText(data.get(position).getMsgTitle());
         holder.tv_miaoshu.setText(data.get(position).getMsgAbstract());
-        if(data.get(position).getIsImgOrText().equals('1')){
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {//跳转详情
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//跳转详情
+                if(data.get(position).getIsImgOrText().equals("1")){
                     Intent intent = new Intent();
-                    intent.setClass(context, Message_contentActivity.class);
+                    intent.setClass(context, MessageContentActivity.class);
                     intent.putExtra("id", data.get(position).getPId());
+                    intent.putExtra("TypeName", data.get(position).getTypeName());
+                    context.startActivity(intent);
+                }else{
+                    Intent intent = new Intent();
+                    intent.setClass(context, LoadmessageActivity.class);
+                    intent.putExtra("url", data.get(position).getMsgUrl());
                     context.startActivity(intent);
                 }
-            });
-        }else{
-            Intent intent = new Intent();
-            intent.setAction("android.intent.action.VIEW");
-            Uri content_url = Uri.parse(data.get(position).getMsgUrl());//此处填链接
-            intent.setData(content_url);
-            context.startActivity(intent);
-        }
+
+            }
+        });
 
     }
     @Override

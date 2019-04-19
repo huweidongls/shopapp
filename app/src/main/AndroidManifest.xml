@@ -136,7 +136,8 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".pages.ToCommentActivity" />
         <activity android:name=".pages.LookHistoryActivity" />
-        <activity android:name=".pages.Message_contentActivity"></activity>
+        <activity android:name=".pages.MessageContentActivity" />
+        <activity android:name=".pages.LoadmessageActivity"></activity>
     </application>
 
 </manifest>
