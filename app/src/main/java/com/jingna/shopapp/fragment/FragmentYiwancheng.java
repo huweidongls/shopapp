@@ -69,6 +69,13 @@ public class FragmentYiwancheng extends OrderBaseFragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        tvLoading.setVisibility(View.VISIBLE);
+        initData();
+    }
+
+    @Override
     public void hide() {
         tvLoading.setVisibility(View.VISIBLE);
     }

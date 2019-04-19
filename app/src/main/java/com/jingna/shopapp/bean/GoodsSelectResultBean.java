@@ -44,7 +44,7 @@ public class GoodsSelectResultBean {
          * stock : 1
          */
 
-        private int price;
+        private double price;
         private String skuId;
         private String goodsId;
         private String goodsName;
@@ -53,11 +53,11 @@ public class GoodsSelectResultBean {
         private String appPic;
         private String stock;
 
-        public int getPrice() {
+        public double getPrice() {
             return price;
         }
 
-        public void setPrice(int price) {
+        public void setPrice(double price) {
             this.price = price;
         }
 

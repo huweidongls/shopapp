@@ -44,7 +44,7 @@ public class FragmentGoodsSelectPopBean {
          * attrType : 简装
          */
 
-        private int price;
+        private double price;
         private String appPic;
         private String attributeName;
         private String goodsId;
@@ -53,11 +53,11 @@ public class FragmentGoodsSelectPopBean {
         private String attrId;
         private String attrType;
 
-        public int getPrice() {
+        public double getPrice() {
             return price;
         }
 
-        public void setPrice(int price) {
+        public void setPrice(double price) {
             this.price = price;
         }
 

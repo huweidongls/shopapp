@@ -85,7 +85,7 @@ public class FragmentGoodsBean implements Serializable {
             private int sellerId;
             private String goodsName;
             private String appPic;
-            private int price;
+            private double price;
             private String subTitle;
             private String favorableRate;
             private String sellerName;
@@ -117,11 +117,11 @@ public class FragmentGoodsBean implements Serializable {
                 this.appPic = appPic;
             }
 
-            public int getPrice() {
+            public double getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(double price) {
                 this.price = price;
             }
 

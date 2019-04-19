@@ -111,7 +111,7 @@ public class FragmentGoods extends BaseFragment {
     private Map<String, String> signMap;
     private String signJson = "";
     private int goodsNum = 1;
-    private int goodsPrice = 1;
+    private double goodsPrice = 1.00;
 
     @Nullable
     @Override
@@ -248,6 +248,7 @@ public class FragmentGoods extends BaseFragment {
                                 intent.putExtra("id", id);
                                 intent.putExtra("skuid", skuid);
                                 intent.putExtra("goodsnum", goodsNum);
+                                intent.putExtra("goodsprice", goodsPrice);
                                 startActivity(intent);
                                 popupWindow.dismiss();
                             }else {

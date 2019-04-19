@@ -65,7 +65,7 @@ public class FragmentDaishouhuoAdapter extends RecyclerView.Adapter<FragmentDais
             FragmentYiwanchengPicListAdapter listAdapter = new FragmentYiwanchengPicListAdapter(list);
             holder.rvGoodsList.setAdapter(listAdapter);
             holder.tvGoodsNum.setText("共"+list.size()+"件商品 应付款：");
-            int price = 0;
+            double price = 0;
             for (OrderDaifukuanBean.DataBean.ListBean bean : list){
                 price = price + bean.getGoodsPrice();
             }

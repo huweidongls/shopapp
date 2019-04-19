@@ -74,11 +74,13 @@ public class CommitOrderActivity extends BaseActivity {
     private String skuid = "";
     private static final int SDK_PAY_FLAG = 1;
     private String addressId = "";//会员地址id
+    private double goodsPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commit_order);
+        goodsPrice = getIntent().getDoubleExtra("goodsprice", 1.00);
         goodsNum = getIntent().getIntExtra("goodsnum", 1);
         id = getIntent().getStringExtra("id");
         skuid = getIntent().getStringExtra("skuid");
@@ -96,9 +98,9 @@ public class CommitOrderActivity extends BaseActivity {
         if(goodsBean != null){
             Glide.with(context).load(Const.BASE_URL+goodsBean.getData().getShopGoods().getAppPic()).into(ivTitle);
             tvGoodsName.setText(goodsBean.getData().getShopGoods().getGoodsName());
-            tvGoodsPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice());
-            tvGoodsAllPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
-            tvAllPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
+            tvGoodsPrice.setText("¥"+goodsPrice);
+            tvGoodsAllPrice.setText("¥"+goodsPrice*goodsNum);
+            tvAllPrice.setText("¥"+goodsPrice*goodsNum);
         }
 
         //接口获取当前用户默认收货地址
@@ -146,15 +148,15 @@ public class CommitOrderActivity extends BaseActivity {
                 if(goodsNum > 1){
                     goodsNum = goodsNum - 1;
                     tvGoodsNum.setText(goodsNum+"");
-                    tvGoodsAllPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
-                    tvAllPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
+                    tvGoodsAllPrice.setText("¥"+goodsPrice*goodsNum);
+                    tvAllPrice.setText("¥"+goodsPrice*goodsNum);
                 }
                 break;
             case R.id.rl_jiahao:
                 goodsNum = goodsNum + 1;
                 tvGoodsNum.setText(goodsNum+"");
-                tvGoodsAllPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
-                tvAllPrice.setText("¥"+goodsBean.getData().getShopGoods().getPrice()*goodsNum);
+                tvGoodsAllPrice.setText("¥"+goodsPrice*goodsNum);
+                tvAllPrice.setText("¥"+goodsPrice*goodsNum);
                 break;
             case R.id.tv_commit:
                 commitOrder();

@@ -39,6 +39,15 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+    <!--加载中...-->
+    <style name="tv_loading">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/white_ffffff</item>
+        <item name="android:textColor">@color/black_333333</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
 
     <!--圆角的dialog样式-->
     <style name="RoundCornerDialog" parent="@android:style/Theme.Dialog">

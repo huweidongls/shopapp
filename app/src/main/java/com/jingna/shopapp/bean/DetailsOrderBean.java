@@ -82,7 +82,7 @@ public class DetailsOrderBean {
         private String orderStatus;
         private String paymentTime;
         private String createTime;
-        private int orderPrice;
+        private double orderPrice;
         private String isDelete;
         private String refundTime;
         private List<ListBean> list;
@@ -255,11 +255,11 @@ public class DetailsOrderBean {
             this.createTime = createTime;
         }
 
-        public int getOrderPrice() {
+        public double getOrderPrice() {
             return orderPrice;
         }
 
-        public void setOrderPrice(int orderPrice) {
+        public void setOrderPrice(double orderPrice) {
             this.orderPrice = orderPrice;
         }
 
@@ -306,7 +306,7 @@ public class DetailsOrderBean {
             private String goodsName;
             private int goodsNumber;
             private String sukSpecifications;
-            private int goodsPrice;
+            private double goodsPrice;
             private String createTime;
             private String skuId;
             private String goodsId;
@@ -346,11 +346,11 @@ public class DetailsOrderBean {
                 this.sukSpecifications = sukSpecifications;
             }
 
-            public int getGoodsPrice() {
+            public double getGoodsPrice() {
                 return goodsPrice;
             }
 
-            public void setGoodsPrice(int goodsPrice) {
+            public void setGoodsPrice(double goodsPrice) {
                 this.goodsPrice = goodsPrice;
             }
 

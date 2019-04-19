@@ -99,7 +99,7 @@ public class OrderDaifukuanBean {
         private String goodsId;
         private String orderStatus;
         private String createTime;
-        private int orderPrice;
+        private double orderPrice;
         private String isDelete;
         private List<ListBean> list;
 
@@ -263,11 +263,11 @@ public class OrderDaifukuanBean {
             this.createTime = createTime;
         }
 
-        public int getOrderPrice() {
+        public double getOrderPrice() {
             return orderPrice;
         }
 
-        public void setOrderPrice(int orderPrice) {
+        public void setOrderPrice(double orderPrice) {
             this.orderPrice = orderPrice;
         }
 
@@ -306,7 +306,7 @@ public class OrderDaifukuanBean {
             private String goodsName;
             private int goodsNumber;
             private String sukSpecifications;
-            private int goodsPrice;
+            private double goodsPrice;
             private String createTime;
             private String skuId;
             private String goodsId;
@@ -346,11 +346,11 @@ public class OrderDaifukuanBean {
                 this.sukSpecifications = sukSpecifications;
             }
 
-            public int getGoodsPrice() {
+            public double getGoodsPrice() {
                 return goodsPrice;
             }
 
-            public void setGoodsPrice(int goodsPrice) {
+            public void setGoodsPrice(double goodsPrice) {
                 this.goodsPrice = goodsPrice;
             }
 
