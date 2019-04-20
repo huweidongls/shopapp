@@ -15,9 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher"
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
                 android:layout_width="match_parent"
                 android:layout_height="180dp" />
 
@@ -35,6 +34,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/type1"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="8dp"
                         android:src="@mipmap/chaoshi"
@@ -42,6 +42,7 @@
                         android:layout_height="39dp" />
 
                     <TextView
+                        android:id="@+id/type1_name"
                         android:textColor="@color/black_333333"
                         android:textSize="12sp"
                         android:layout_gravity="center_horizontal"
@@ -60,6 +61,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/type2"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="8dp"
                         android:src="@mipmap/lvxing"
@@ -67,6 +69,7 @@
                         android:layout_height="39dp" />
 
                     <TextView
+                        android:id="@+id/type2_name"
                         android:textColor="@color/black_333333"
                         android:textSize="12sp"
                         android:layout_gravity="center_horizontal"
@@ -85,6 +88,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/type3"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="8dp"
                         android:src="@mipmap/fushi"
@@ -92,6 +96,7 @@
                         android:layout_height="39dp" />
 
                     <TextView
+                        android:id="@+id/type3_name"
                         android:textColor="@color/black_333333"
                         android:textSize="12sp"
                         android:layout_gravity="center_horizontal"
@@ -110,6 +115,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/type4"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="8dp"
                         android:src="@mipmap/shengxian"
@@ -117,6 +123,7 @@
                         android:layout_height="39dp" />
 
                     <TextView
+                        android:id="@+id/type4_name"
                         android:textColor="@color/black_333333"
                         android:textSize="12sp"
                         android:layout_gravity="center_horizontal"
@@ -135,6 +142,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/type5"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="8dp"
                         android:src="@mipmap/all"
@@ -142,6 +150,7 @@
                         android:layout_height="39dp" />
 
                     <TextView
+                        android:id="@+id/type5_name"
                         android:textColor="@color/black_333333"
                         android:textSize="12sp"
                         android:layout_gravity="center_horizontal"

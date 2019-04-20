@@ -31,6 +31,12 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.IndexAdapter;
+import com.jingna.shopapp.adapter.ShopGoodsAdapter;
+import com.jingna.shopapp.base.BaseFragment;
+import com.jingna.shopapp.bean.FragmentGoodsBean;
+import com.jingna.shopapp.bean.GetOneBean;
+import com.jingna.shopapp.bean.IndexGoodsBean;
+import com.jingna.shopapp.bean.IndexSlideBean;
 import com.jingna.shopapp.bean.WxPayBean;
 import com.jingna.shopapp.dialog.DialogCustom;
 import com.jingna.shopapp.pages.CommitOrderActivity;
@@ -46,6 +52,7 @@ import com.jingna.shopapp.pages.SMSLoginActivity;
 import com.jingna.shopapp.pages.SearchActivity;
 import com.jingna.shopapp.pages.ShopIndexActivity;
 import com.jingna.shopapp.util.Const;
+import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
 import com.jingna.shopapp.widget.ObservableScrollView;
@@ -56,6 +63,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
+import com.youth.banner.Banner;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,12 +75,13 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.internal.Util;
 
 /**
  * Created by Administrator on 2019/2/15.
  */
 
-public class FragmentIndex extends Fragment {
+public class FragmentIndex extends BaseFragment {
 
     @BindView(R.id.scrollView)
     ObservableScrollView scrollView;
@@ -96,13 +105,40 @@ public class FragmentIndex extends Fragment {
     TextView tvSearchText;
     @BindView(R.id.webview)
     WebView webView;
-
+    @BindView(R.id.banner)
+    Banner banner;
+    /**
+     * 分类绑定
+     */
+    @BindView(R.id.type1)
+    ImageView type1;
+    @BindView(R.id.type1_name)
+    TextView type1_name;
+    @BindView(R.id.type2)
+    ImageView type2;
+    @BindView(R.id.type2_name)
+    TextView type2_name;
+    @BindView(R.id.type3)
+    ImageView type3;
+    @BindView(R.id.type3_name)
+    TextView type3_name;
+    @BindView(R.id.type4)
+    ImageView type4;
+    @BindView(R.id.type4_name)
+    TextView type4_name;
+    @BindView(R.id.type5)
+    ImageView type5;
+    @BindView(R.id.type5_name)
+    TextView type5_name;
+    //分类绑定结束
+    private String memberid= "";
     private IndexAdapter adapter;
-    private List<String> mList;
+    private List<IndexGoodsBean.DataBean> mList;
 
     private WXShare wxShare;
     private IWXAPI api;
 
+    private List<String> imgList;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -114,8 +150,55 @@ public class FragmentIndex extends Fragment {
         initView();
 //        initWebView();
         initListener();
-
+        Homepageinterface();
         return view;
+    }
+
+    /**
+     *
+     * 加载首页幻灯与分类
+     */
+    private void  Homepageinterface(){
+        imgList = new ArrayList<>();
+        ViseHttp.GET("IndexPageApi/findBannerCategory")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                IndexSlideBean  IndexSlideBean = gson.fromJson(data, IndexSlideBean.class);
+                                for(com.jingna.shopapp.bean.IndexSlideBean.DataBean.BannerBean ban : IndexSlideBean.getData().getBanner()){
+                                    imgList.add(Const.BASE_URL+ban.getAppPic());
+                                }
+                                init(banner,imgList);
+                                //开始分配分类第一组
+                                Glide.with(getContext()).load(Const.BASE_URL+IndexSlideBean.getData().getShopCategory().get(0).getAppCategoryPic()).into(type1);
+                                type1_name.setText(IndexSlideBean.getData().getShopCategory().get(0).getCategoryName());
+                                //第二组
+                                Glide.with(getContext()).load(Const.BASE_URL+IndexSlideBean.getData().getShopCategory().get(1).getAppCategoryPic()).into(type2);
+                                type2_name.setText(IndexSlideBean.getData().getShopCategory().get(1).getCategoryName());
+                                //第三组
+                                Glide.with(getContext()).load(Const.BASE_URL+IndexSlideBean.getData().getShopCategory().get(2).getAppCategoryPic()).into(type3);
+                                type3_name.setText(IndexSlideBean.getData().getShopCategory().get(2).getCategoryName());
+                                //第四组
+                                Glide.with(getContext()).load(Const.BASE_URL+IndexSlideBean.getData().getShopCategory().get(3).getAppCategoryPic()).into(type4);
+                                type4_name.setText(IndexSlideBean.getData().getShopCategory().get(3).getCategoryName());
+                                //第五组
+                                Glide.with(getContext()).load(Const.BASE_URL+IndexSlideBean.getData().getShopCategory().get(4).getAppCategoryPic()).into(type5);
+                                type5_name.setText(IndexSlideBean.getData().getShopCategory().get(4).getCategoryName());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
     }
 
     /**
@@ -221,34 +304,46 @@ public class FragmentIndex extends Fragment {
                 }
             }
         });
-
+        /**
+         * 首页推荐商品
+         */
         mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        adapter = new IndexAdapter(mList);
-        GridLayoutManager manager = new GridLayoutManager(getContext(), 2){
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
+        if( !SpUtils.getUserId(getContext()).equals("0")){
+            memberid = SpUtils.getUserId(getContext());
+        }
+        ViseHttp.GET("IndexPageApi/queryRecommandStatusGoods")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                IndexGoodsBean bean = gson.fromJson(data, IndexGoodsBean.class);
+                                mList.clear();
+                                mList.addAll(bean.getData());
+                                adapter = new IndexAdapter(mList);
+                                GridLayoutManager manager = new GridLayoutManager(getContext(), 2){
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                };
+                                recyclerView.setLayoutManager(manager);
+                                recyclerView.setAdapter(adapter);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
 
     }
 

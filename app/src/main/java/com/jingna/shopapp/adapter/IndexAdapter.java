@@ -6,9 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.bean.IndexGoodsBean;
 import com.jingna.shopapp.pages.GoodsDetailsActivity;
+import com.jingna.shopapp.util.Const;
 
 import java.util.List;
 
@@ -19,9 +24,9 @@ import java.util.List;
 public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<IndexGoodsBean.DataBean> data;
 
-    public IndexAdapter(List<String> data) {
+    public IndexAdapter(List<IndexGoodsBean.DataBean> data) {
         this.data = data;
     }
 
@@ -35,6 +40,9 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        Glide.with(context).load(Const.BASE_URL+data.get(position).getAppPic()).into(holder.image);
+        holder.text_goods.setText(data.get(position).getGoodsName());
+        holder.price.setText(data.get(position).getPrice()+"");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,9 +60,14 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-
+        private ImageView image;
+        private TextView text_goods;
+        private TextView price;
         public ViewHolder(View itemView) {
             super(itemView);
+            image = itemView.findViewById(R.id.image);
+            text_goods = itemView.findViewById(R.id.text_goods);
+            price = itemView.findViewById(R.id.price);
         }
     }
 
