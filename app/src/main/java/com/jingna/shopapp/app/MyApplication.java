@@ -19,6 +19,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by Administrator on 2019/2/13.
  */
@@ -43,6 +45,8 @@ public class MyApplication extends Application {
         super.onCreate();
         ViseHttp.init(this);
         ViseHttp.CONFIG().baseUrl(Const.BASE_URL);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         ftptimecount = new FTPTimeCount(60000, 1000);
         smsCodeTimeCount = new SMSCodeTimeCount(60000, 1000);
         forgotTimeCount = new ForgotTimeCount(60000, 1000);

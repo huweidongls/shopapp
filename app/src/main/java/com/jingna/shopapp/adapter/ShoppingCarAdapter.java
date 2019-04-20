@@ -17,9 +17,11 @@ import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.FragmentGouwucheBean;
 import com.jingna.shopapp.bean.ShoppingCarDataBean;
 import com.jingna.shopapp.pages.GoodsDetailsActivity;
+import com.jingna.shopapp.pages.GouwucheCommitOrderActivity;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.ToastUtil;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -222,8 +224,10 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 //创建临时的List，用于存储被选中的商品
+                List<FragmentGouwucheBean.DataBean> seller = new ArrayList<>();
                 List<FragmentGouwucheBean.DataBean.ShopGoodsBean> temp = new ArrayList<>();
                 for (int i = 0; i < data.size(); i++) {
+                    FragmentGouwucheBean.DataBean dataBean = new FragmentGouwucheBean.DataBean();
                     List<FragmentGouwucheBean.DataBean.ShopGoodsBean> goods = data.get(i).getShopGoods();
                     for (int y = 0; y < goods.size(); y++) {
                         FragmentGouwucheBean.DataBean.ShopGoodsBean goodsBean = goods.get(y);
@@ -232,14 +236,25 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
                             temp.add(goodsBean);
                         }
                     }
+                    if(temp.size()>0){
+                        dataBean.setSellerId(data.get(i).getSellerId());
+                        dataBean.setSellerName(data.get(i).getSellerName());
+                        dataBean.setShopGoods(temp);
+                        seller.add(dataBean);
+                        temp = new ArrayList<>();
+                    }
                 }
 
-                if (temp != null && temp.size() > 0) {//如果有被选中的
+                if (seller != null && seller.size() > 0) {//如果有被选中的
                     /**
                      * 实际开发中，如果有被选中的商品，
                      * 则跳转到确认订单页面，完成后续订单流程。
                      */
-                    ToastUtil.showShort(context, "跳转到确认订单页面，完成后续订单流程");
+//                    ToastUtil.showShort(context, "跳转到确认订单页面，完成后续订单流程");
+                    Intent intent = new Intent();
+                    intent.setClass(context, GouwucheCommitOrderActivity.class);
+                    intent.putExtra("seller", (Serializable) seller);
+                    context.startActivity(intent);
                 } else {
                     ToastUtil.showShort(context, "请选择要购买的商品");
                 }

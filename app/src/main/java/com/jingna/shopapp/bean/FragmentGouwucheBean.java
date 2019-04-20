@@ -1,12 +1,13 @@
 package com.jingna.shopapp.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2019/3/20.
  */
 
-public class FragmentGouwucheBean {
+public class FragmentGouwucheBean implements Serializable {
 
     /**
      * status : 200
@@ -32,7 +33,10 @@ public class FragmentGouwucheBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
+        public DataBean() {
+        }
+
         /**
          * goodsid : 4
          * goodsNum : 2
@@ -106,7 +110,7 @@ public class FragmentGouwucheBean {
             this.shopGoods = shopGoods;
         }
 
-        public static class ShopGoodsBean {
+        public static class ShopGoodsBean implements Serializable {
             /**
              * id : 4
              * goodsName : 核桃
@@ -124,7 +128,7 @@ public class FragmentGouwucheBean {
             private int id;
             private String goodsName;
             private String appPic;
-            private int price;
+            private double price;
             private int weight;
             private String sellerName;
             private int skuid;
@@ -184,11 +188,11 @@ public class FragmentGouwucheBean {
                 this.appPic = appPic;
             }
 
-            public int getPrice() {
+            public double getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(double price) {
                 this.price = price;
             }
 
