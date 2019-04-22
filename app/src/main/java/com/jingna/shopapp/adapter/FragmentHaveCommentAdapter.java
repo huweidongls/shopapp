@@ -7,8 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.bean.TobeEvaluatedBean;
+import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.DensityTool;
 
 import java.util.List;
@@ -20,9 +24,9 @@ import java.util.List;
 public class FragmentHaveCommentAdapter extends RecyclerView.Adapter<FragmentHaveCommentAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<TobeEvaluatedBean.DataBean> data;
 
-    public FragmentHaveCommentAdapter(List<String> data) {
+    public FragmentHaveCommentAdapter(List<TobeEvaluatedBean.DataBean> data) {
         this.data = data;
     }
 
@@ -36,10 +40,14 @@ public class FragmentHaveCommentAdapter extends RecyclerView.Adapter<FragmentHav
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        String[] pic = data.get(position).getAppPic().split(",");
+        if(pic.length>0){
+            Glide.with(context).load(Const.BASE_URL+pic[0]).into(holder.images);
+        }
         holder.llXing.removeAllViews();
         int a = DensityTool.dp2px(context, 15);
         ImageView imageView;
-        for (int i = 0; i<4; i++){
+        for (int i = 0; i<data.get(position).getCommentLevel(); i++){
             if(i == 0){
                 imageView = new ImageView(context);
                 imageView.setImageResource(R.mipmap.xingxing_red);
@@ -55,6 +63,8 @@ public class FragmentHaveCommentAdapter extends RecyclerView.Adapter<FragmentHav
                 holder.llXing.addView(imageView, layoutParams);
             }
         }
+        holder.tv_title.setText(data.get(position).getGoodsName());
+        holder.tv_comment.setText(data.get(position).getGoodsComment());
     }
 
     @Override
@@ -63,12 +73,16 @@ public class FragmentHaveCommentAdapter extends RecyclerView.Adapter<FragmentHav
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-
         private LinearLayout llXing;
-
+        private ImageView images;
+        private TextView tv_title;
+        private TextView tv_comment;
         public ViewHolder(View itemView) {
             super(itemView);
             llXing = itemView.findViewById(R.id.ll_xing);
+            images = itemView.findViewById(R.id.images);
+            tv_title = itemView.findViewById(R.id.tv_title);
+            tv_comment = itemView.findViewById(R.id.tv_comment);
         }
     }
 

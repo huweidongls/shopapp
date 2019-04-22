@@ -1,6 +1,7 @@
 package com.jingna.shopapp.pages;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.customview.ScaleTransitionPagerTitleView;
 import com.jingna.shopapp.fragment.FragmentHaveComment;
 import com.jingna.shopapp.fragment.FragmentToComment;
+import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -63,7 +65,11 @@ public class ToCommentActivity extends BaseActivity {
     }
 
     private void initData() {
-
+        if(SpUtils.getUserId(context).equals("0")){
+            Intent intent = new Intent();
+            intent.setClass(context, LoginActivity.class);
+            startActivity(intent);
+        }
         fragmentList = new ArrayList<>();
         fragmentList.add(FragmentToComment.newInstance(id));
         fragmentList.add(FragmentHaveComment.newInstance(id));
