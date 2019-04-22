@@ -401,6 +401,9 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:background="@color/white_ffffff"
+                android:elevation="2dp"
+                android:id="@+id/rl_invoice"
                 android:layout_marginTop="12dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -445,6 +448,8 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:background="@color/white_ffffff"
+                android:elevation="2dp"
                 android:layout_marginBottom="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
@@ -500,7 +505,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
                         android:layout_alignParentRight="true"
-                        android:src="@mipmap/apply_true"
+                        android:src="@mipmap/apply_false"
                         android:layout_width="15dp"
                         android:layout_height="15dp" />
 

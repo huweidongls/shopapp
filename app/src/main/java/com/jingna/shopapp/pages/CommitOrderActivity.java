@@ -137,7 +137,7 @@ public class CommitOrderActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.rl_jianhao, R.id.rl_jiahao, R.id.tv_commit, R.id.ll_address})
+    @OnClick({R.id.rl_back, R.id.rl_jianhao, R.id.rl_jiahao, R.id.tv_commit, R.id.ll_address, R.id.rl_invoice})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -165,6 +165,10 @@ public class CommitOrderActivity extends BaseActivity {
                 intent.setClass(context, AddressActivity.class);
                 intent.putExtra("type", "order");
                 startActivityForResult(intent, 1);
+                break;
+            case R.id.rl_invoice:
+                intent.setClass(context, InvoiceActivity.class);
+                startActivity(intent);
                 break;
         }
     }
