@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +21,8 @@ import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.ShoppingCarAdapter;
 import com.jingna.shopapp.bean.FragmentGouwucheBean;
-import com.jingna.shopapp.bean.ShoppingCarDataBean;
 import com.jingna.shopapp.customview.RoundCornerDialog;
+import com.jingna.shopapp.receiver.Logger;
 import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
@@ -139,7 +138,7 @@ public class FragmentGouwuche extends Fragment {
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
-                        Log.e("123123", data);
+                        Logger.e("123123", data);
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){
@@ -344,7 +343,7 @@ public class FragmentGouwuche extends Fragment {
                     @Override
                     public void onSuccess(String data) {
                         try {
-                            Log.e("123123", data);
+                            Logger.e("123123", data);
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){
 
@@ -358,7 +357,7 @@ public class FragmentGouwuche extends Fragment {
                     @Override
                     public void onFail(int errCode, String errMsg) {
                         deleteId = "";
-                        Log.e("123123", errMsg);
+                        Logger.e("123123", errMsg);
                     }
                 });
 

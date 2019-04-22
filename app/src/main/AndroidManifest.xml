@@ -246,7 +246,7 @@
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <!-- Required SDK 核心功能 -->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
@@ -310,7 +310,8 @@
             android:name="JPUSH_APPKEY"
             android:value="320226324493d13ba6b6ffde" />
 
-        <activity android:name=".pages.GouwucheCommitOrderActivity"></activity>
+        <activity android:name=".pages.GouwucheCommitOrderActivity" />
+        <activity android:name=".pages.InvoiceActivity"></activity>
     </application>
 
 </manifest>

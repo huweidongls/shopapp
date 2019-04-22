@@ -9,24 +9,20 @@ import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.GouwucheCommitOrderAdapter;
 import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.bean.AddressBean;
-import com.jingna.shopapp.bean.FragmentGoodsBean;
+import com.jingna.shopapp.bean.CommitOrderZhifubaoBean;
 import com.jingna.shopapp.bean.FragmentGouwucheBean;
 import com.jingna.shopapp.receiver.Logger;
-import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
@@ -34,7 +30,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,11 +54,10 @@ public class GouwucheCommitOrderActivity extends BaseActivity {
     @BindView(R.id.tv_recieve_address)
     TextView tvRecieveAddress;
 
-    private String id = "";//商品id
-    private String skuid = "";
     private static final int SDK_PAY_FLAG = 1;
     private String addressId = "";//会员地址id
     private double goodsPrice;
+    private String carId = "";
 
     private GouwucheCommitOrderAdapter adapter;
     private List<FragmentGouwucheBean.DataBean> seller = new ArrayList<>();
@@ -89,21 +83,16 @@ public class GouwucheCommitOrderActivity extends BaseActivity {
 //            tvAllPrice.setText("¥"+goodsPrice*goodsNum);
 //        }
 
-        String goodsId = "";
-        List<Map<String, String>> maps = new ArrayList<>();
         for (FragmentGouwucheBean.DataBean dataBean : seller){
-            Map<String, String> map = new LinkedHashMap<>();
-            map.put("sellerId", dataBean.getSellerId()+"");
             for (FragmentGouwucheBean.DataBean.ShopGoodsBean shopGoodsBean : dataBean.getShopGoods()){
-                goodsId = goodsId+shopGoodsBean.getCarId()+",";
+                carId = carId+shopGoodsBean.getCarId()+",";
+                goodsPrice = goodsPrice + shopGoodsBean.getPrice();
             }
-            map.put("skuId", goodsId);
-            maps.add(map);
-            goodsId = "";
         }
-        Gson gson = new Gson();
-        String json = gson.toJson(maps);
-        Logger.e("123123", json);
+        Logger.e("123123", carId);
+
+        tvGoodsAllPrice.setText(goodsPrice+"");
+        tvAllPrice.setText(goodsPrice+"");
 
         adapter = new GouwucheCommitOrderAdapter(seller);
         LinearLayoutManager manager = new LinearLayoutManager(context){
@@ -185,7 +174,30 @@ public class GouwucheCommitOrderActivity extends BaseActivity {
      */
     private void commitOrder() {
 
+        ViseHttp.GET("/AppOrder/settleAccounts")
+                .addParam("memberId", SpUtils.getUserId(context))
+                .addParam("addressId", addressId)
+                .addParam("cartId", carId)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                CommitOrderZhifubaoBean zhifubaoBean = gson.fromJson(data, CommitOrderZhifubaoBean.class);
+                                aliPay(zhifubaoBean.getData().getData());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 
@@ -219,6 +231,7 @@ public class GouwucheCommitOrderActivity extends BaseActivity {
                     Map<String, String> result = (Map<String, String>) msg.obj;
                     if(result.get("resultStatus").equals("9000")){
                         Toast.makeText(context, "支付成功", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                     break;
             }

@@ -167,7 +167,7 @@ public class FragmentDaifukuan extends OrderBaseFragment {
         });
 
         ViseHttp.GET("/AppOrder/queryList")
-                .addParam("pageNum", page + "")
+                .addParam("pageNum", "1")
                 .addParam("pageSize", "10")
                 .addParam("type", "0")
                 .addParam("userId", SpUtils.getUserId(getContext()))

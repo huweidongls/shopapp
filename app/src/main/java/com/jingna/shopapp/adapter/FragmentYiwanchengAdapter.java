@@ -1,9 +1,11 @@
 package com.jingna.shopapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.OrderDaifukuanBean;
+import com.jingna.shopapp.pages.DetailsOrderActivity;
 import com.jingna.shopapp.util.Const;
 
 import java.util.ArrayList;
@@ -40,7 +43,7 @@ public class FragmentYiwanchengAdapter extends RecyclerView.Adapter<FragmentYiwa
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.tvSellerTitle.setText(data.get(position).getSellerName());
         List<OrderDaifukuanBean.DataBean.ListBean> list = data.get(position).getList();
         if(list.size() == 1){
@@ -63,7 +66,25 @@ public class FragmentYiwanchengAdapter extends RecyclerView.Adapter<FragmentYiwa
                 price = price + bean.getGoodsPrice();
             }
             holder.tvPrice.setText("¥"+price);
+            holder.rvGoodsList.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                        holder.itemView.performClick();  //模拟父控件的点击
+                    }
+                    return false;
+                }
+            });
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(context, DetailsOrderActivity.class);
+                intent.putExtra("orderId", data.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

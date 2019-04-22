@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,7 @@ import com.jingna.shopapp.pages.MyOrderActivity;
 import com.jingna.shopapp.pages.PersonInformationActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
 import com.jingna.shopapp.pages.ToCommentActivity;
-import com.jingna.shopapp.pages.TuikuanShouhouActivity;
+import com.jingna.shopapp.receiver.Logger;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
@@ -83,7 +82,7 @@ public class FragmentWode extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.e("123123", userId);
+        Logger.e("123123", userId);
         userId = SpUtils.getUserId(getContext());
         if(userId.equals("0")){
             tvName.setVisibility(View.GONE);
@@ -102,7 +101,7 @@ public class FragmentWode extends Fragment {
                         @Override
                         public void onSuccess(String data) {
                             try {
-                                Log.e("123123", data);
+                                Logger.e("123123", data);
                                 JSONObject jsonObject = new JSONObject(data);
                                 if(jsonObject.optString("status").equals("200")){
                                     Gson gson = new Gson();
