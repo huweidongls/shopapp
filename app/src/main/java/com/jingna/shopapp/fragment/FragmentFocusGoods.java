@@ -14,9 +14,12 @@ import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.FragmentFocusGoodsAdapter;
 import com.jingna.shopapp.adapter.FragmentFocusGoodsTuijianAdapter;
+import com.jingna.shopapp.adapter.FragmentMyTuijianAdapter;
 import com.jingna.shopapp.base.BaseFragment;
 import com.jingna.shopapp.bean.Attention_Goods_listBean;
+import com.jingna.shopapp.bean.IndexGoodsBean;
 import com.jingna.shopapp.bean.ShopGoodsBean;
+import com.jingna.shopapp.receiver.Logger;
 import com.jingna.shopapp.util.SpUtils;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -50,7 +53,8 @@ public class FragmentFocusGoods extends BaseFragment {
     private FragmentFocusGoodsAdapter goodsAdapter;
     private List<Attention_Goods_listBean.DataBean> mList;
     private FragmentFocusGoodsTuijianAdapter tuijianAdapter;
-    private List<String> mTuijianList;
+    private List<IndexGoodsBean.DataBean> mTuijianList;
+    private String memberid="";
 
     @Nullable
     @Override
@@ -99,24 +103,41 @@ public class FragmentFocusGoods extends BaseFragment {
                     }
                 });
         mTuijianList = new ArrayList<>();//店铺关注列表接口
-        mTuijianList.add("");
-        mTuijianList.add("");
-        mTuijianList.add("");
-        mTuijianList.add("");
-        mTuijianList.add("");
-        mTuijianList.add("");
-        mTuijianList.add("");
-        mTuijianList.add("");
-        GridLayoutManager manager1 = new GridLayoutManager(getContext(), 2){
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        rvTuijian.setLayoutManager(manager1);
-        tuijianAdapter = new FragmentFocusGoodsTuijianAdapter(mTuijianList);
-        rvTuijian.setAdapter(tuijianAdapter);
+        if( !SpUtils.getUserId(getContext()).equals("0")){
+            memberid = SpUtils.getUserId(getContext());
+        }
+        ViseHttp.GET("IndexPageApi/queryRecommandStatusGoods")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            Logger.e("12345", data);
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                IndexGoodsBean bean = gson.fromJson(data, IndexGoodsBean.class);
+                                mTuijianList.clear();
+                                mTuijianList.addAll(bean.getData());
+                                GridLayoutManager manager1 = new GridLayoutManager(getContext(), 2){
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                };
+                                rvTuijian.setLayoutManager(manager1);
+                                tuijianAdapter = new FragmentFocusGoodsTuijianAdapter(mTuijianList);
+                                rvTuijian.setAdapter(tuijianAdapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
     }
 
     private SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {

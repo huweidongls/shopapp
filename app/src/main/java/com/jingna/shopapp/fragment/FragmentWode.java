@@ -17,7 +17,9 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.FragmentMyTuijianAdapter;
+import com.jingna.shopapp.adapter.IndexAdapter;
 import com.jingna.shopapp.bean.GetOneBean;
+import com.jingna.shopapp.bean.IndexGoodsBean;
 import com.jingna.shopapp.pages.AddressActivity;
 import com.jingna.shopapp.pages.EditPayActivity;
 import com.jingna.shopapp.pages.EditPhoneNum1Activity;
@@ -63,9 +65,10 @@ public class FragmentWode extends Fragment {
     LinearLayout llLogin;
 
     private FragmentMyTuijianAdapter adapter;
-    private List<String> mList;
+    private List<IndexGoodsBean.DataBean> mList;
 
     private String userId = "";
+    private String memberid="";
 
     @Nullable
     @Override
@@ -125,26 +128,42 @@ public class FragmentWode extends Fragment {
     private void initData() {
 
         mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        adapter = new FragmentMyTuijianAdapter(mList);
-        GridLayoutManager manager = new GridLayoutManager(getContext(), 2){
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
+        if( !SpUtils.getUserId(getContext()).equals("0")){
+            memberid = SpUtils.getUserId(getContext());
+        }
+        ViseHttp.GET("IndexPageApi/queryRecommandStatusGoods")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            Logger.e("12345", data);
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                IndexGoodsBean bean = gson.fromJson(data, IndexGoodsBean.class);
+                                mList.clear();
+                                mList.addAll(bean.getData());
+                                adapter = new FragmentMyTuijianAdapter(mList);
+                                GridLayoutManager manager = new GridLayoutManager(getContext(), 2){
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                };
+                                recyclerView.setLayoutManager(manager);
+                                recyclerView.setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
 
     }
 

@@ -73,6 +73,7 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/addcart"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="14dp"

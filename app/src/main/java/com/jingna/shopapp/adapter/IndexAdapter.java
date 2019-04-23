@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.IndexGoodsBean;
 import com.jingna.shopapp.pages.GoodsDetailsActivity;
+import com.jingna.shopapp.pages.GoodsListActivity;
 import com.jingna.shopapp.util.Const;
 
 import java.util.List;
@@ -52,6 +53,15 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
                 context.startActivity(intent);
             }
         });
+        holder.kxs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(context, GoodsListActivity.class);
+                intent.putExtra("id", data.get(position).getCategoryId()+"");
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -63,11 +73,13 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
         private ImageView image;
         private TextView text_goods;
         private TextView price;
+        private TextView kxs;
         public ViewHolder(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
             text_goods = itemView.findViewById(R.id.text_goods);
             price = itemView.findViewById(R.id.price);
+            kxs = itemView.findViewById(R.id.kxs);
         }
     }
 
