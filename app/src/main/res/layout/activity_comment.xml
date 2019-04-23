@@ -190,8 +190,8 @@
                         android:text="商品质量"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-
                     <RatingBar
+                        style="@style/mRatingBar"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="center_vertical"
                         android:stepSize="1"
@@ -199,7 +199,7 @@
                         android:numStars="5"
                         android:layout_marginRight="20dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="45dp" />
+                        android:layout_height="wrap_content" />
 
                 </RelativeLayout>
 
@@ -216,8 +216,8 @@
                         android:text="快递包装"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-
                     <RatingBar
+                        style="@style/mRatingBar"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="center_vertical"
                         android:stepSize="1"
@@ -243,6 +243,7 @@
                         android:layout_height="wrap_content" />
 
                     <RatingBar
+                        style="@style/mRatingBar"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="center_vertical"
                         android:stepSize="1"
@@ -269,6 +270,7 @@
                         android:layout_height="wrap_content" />
 
                     <RatingBar
+                        style="@style/mRatingBar"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="center_vertical"
                         android:stepSize="1"
