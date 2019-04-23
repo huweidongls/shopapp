@@ -51,6 +51,7 @@ import com.jingna.shopapp.pages.RegisterYzmActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
 import com.jingna.shopapp.pages.SearchActivity;
 import com.jingna.shopapp.pages.ShopIndexActivity;
+import com.jingna.shopapp.receiver.Logger;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
@@ -316,6 +317,7 @@ public class FragmentIndex extends BaseFragment {
                     @Override
                     public void onSuccess(String data) {
                         try {
+                            Logger.e("12345", data);
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){
                                 Gson gson = new Gson();

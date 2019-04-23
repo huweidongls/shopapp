@@ -30,6 +30,7 @@ import com.jingna.shopapp.bean.FragmentGoodsSelectPopBean;
 import com.jingna.shopapp.bean.GoodsSelectResultBean;
 import com.jingna.shopapp.pages.CommitOrderActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
+import com.jingna.shopapp.receiver.Logger;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.ToastUtil;
@@ -141,6 +142,7 @@ public class FragmentGoods extends BaseFragment {
                     @Override
                     public void onSuccess(String data) {
                         try {
+                            Logger.e("123123", data);
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){
                                 Gson gson = new Gson();

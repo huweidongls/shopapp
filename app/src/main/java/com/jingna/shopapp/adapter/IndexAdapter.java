@@ -48,7 +48,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(context, GoodsDetailsActivity.class);
-                intent.putExtra("id", data.get(position).getGoodsId());
+                intent.putExtra("id", data.get(position).getGoodsId()+"");
                 context.startActivity(intent);
             }
         });
