@@ -80,6 +80,8 @@ public class GoodsListActivity extends BaseActivity {
     ImageView ivBottomJiage;
     @BindView(R.id.refresh)
     SmartRefreshLayout smartRefreshLayout;
+    @BindView(R.id.tv_loading)
+    TextView tvLoading;
 
     private GoodsListAdapter adapter;
     private List<GoodsListBean.DataBean> mList;
@@ -190,6 +192,7 @@ public class GoodsListActivity extends BaseActivity {
                                 recyclerView.setLayoutManager(manager);
                                 recyclerView.setAdapter(adapter);
                             }
+                            tvLoading.setVisibility(View.GONE);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -197,7 +200,7 @@ public class GoodsListActivity extends BaseActivity {
 
                     @Override
                     public void onFail(int errCode, String errMsg) {
-
+                        tvLoading.setVisibility(View.GONE);
                     }
                 });
 
@@ -224,6 +227,7 @@ public class GoodsListActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 orderBy = "";
+                tvLoading.setVisibility(View.VISIBLE);
                 tv1.setTextColor(Color.parseColor("#FF0004"));
                 tv2.setTextColor(Color.parseColor("#333333"));
                 tv3.setTextColor(Color.parseColor("#333333"));
@@ -238,7 +242,8 @@ public class GoodsListActivity extends BaseActivity {
         rl2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                orderBy = "goods.create_date desc";
+                orderBy = "goods.create_time desc";
+                tvLoading.setVisibility(View.VISIBLE);
                 tv1.setTextColor(Color.parseColor("#333333"));
                 tv2.setTextColor(Color.parseColor("#FF0004"));
                 tv3.setTextColor(Color.parseColor("#333333"));
@@ -254,6 +259,7 @@ public class GoodsListActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 orderBy = "commentCount desc";
+                tvLoading.setVisibility(View.VISIBLE);
                 tv1.setTextColor(Color.parseColor("#333333"));
                 tv2.setTextColor(Color.parseColor("#333333"));
                 tv3.setTextColor(Color.parseColor("#FF0004"));
@@ -272,7 +278,7 @@ public class GoodsListActivity extends BaseActivity {
             iv1.setVisibility(View.VISIBLE);
             iv2.setVisibility(View.GONE);
             iv3.setVisibility(View.GONE);
-        }else if(orderBy.equals("goods.create_date desc")){
+        }else if(orderBy.equals("goods.create_time desc")){
             tv1.setTextColor(Color.parseColor("#333333"));
             tv2.setTextColor(Color.parseColor("#FF0004"));
             tv3.setTextColor(Color.parseColor("#333333"));
@@ -461,6 +467,7 @@ public class GoodsListActivity extends BaseActivity {
                                 mList.addAll(bean.getData());
                                 adapter.notifyDataSetChanged();
                             }
+                            tvLoading.setVisibility(View.GONE);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -468,7 +475,7 @@ public class GoodsListActivity extends BaseActivity {
 
                     @Override
                     public void onFail(int errCode, String errMsg) {
-
+                        tvLoading.setVisibility(View.GONE);
                     }
                 });
 
@@ -525,6 +532,7 @@ public class GoodsListActivity extends BaseActivity {
                 showPopZonghe();
                 break;
             case R.id.ll_xiaoliang:
+                tvLoading.setVisibility(View.VISIBLE);
                 tvZonghe.setTextColor(Color.parseColor("#333333"));
                 Glide.with(context).load(R.mipmap.bottom_b).into(ivBottomZonghe);
                 tvXiaoliang.setTextColor(Color.parseColor("#FF0004"));
@@ -535,6 +543,7 @@ public class GoodsListActivity extends BaseActivity {
                 onReGet();
                 break;
             case R.id.rl_jiage:
+                tvLoading.setVisibility(View.VISIBLE);
                 if(!orderBy.equals("goods.price asc")){
                     tvZonghe.setTextColor(Color.parseColor("#333333"));
                     Glide.with(context).load(R.mipmap.bottom_b).into(ivBottomZonghe);

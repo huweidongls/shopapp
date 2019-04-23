@@ -415,6 +415,100 @@
                 </LinearLayout>
 
                 <View
+                    android:id="@+id/view_company_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="17dp"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_company_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="16dp"
+                        android:text="公司地址"
+                        android:textColor="@color/black_333333"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:text="*"
+                        android:textColor="#FF0004"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:hint="请填写公司地址"
+                        android:lines="1"
+                        android:textColor="@color/black_333333"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view_company_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="17dp"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_company_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="16dp"
+                        android:text="公司联系电话"
+                        android:textColor="@color/black_333333"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:text="*"
+                        android:textColor="#FF0004"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:hint="请填写公司联系电话"
+                        android:lines="1"
+                        android:textColor="@color/black_333333"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="17dp"

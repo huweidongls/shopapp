@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.jingna.shopapp.R;
@@ -42,6 +43,14 @@ public class InvoiceActivity extends BaseActivity {
     ImageView ivMingxi;
     @BindView(R.id.iv_leibie)
     ImageView ivLeibie;
+    @BindView(R.id.ll_company_address)
+    LinearLayout llCompanyAddress;
+    @BindView(R.id.ll_company_phone)
+    LinearLayout llCompanyPhone;
+    @BindView(R.id.view_company_address)
+    View viewCompanyAddress;
+    @BindView(R.id.view_company_phone)
+    View viewCompanyPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +73,20 @@ public class InvoiceActivity extends BaseActivity {
 
                 break;
             case R.id.rl_putong:
+                llCompanyAddress.setVisibility(View.GONE);
+                llCompanyPhone.setVisibility(View.GONE);
+                viewCompanyAddress.setVisibility(View.GONE);
+                viewCompanyPhone.setVisibility(View.GONE);
                 Glide.with(context).load(R.mipmap.apply_true).into(ivPutong);
                 Glide.with(context).load(R.mipmap.apply_false).into(ivZhuanyong);
                 viewPutong.setBackgroundColor(Color.parseColor("#F71F1F"));
                 viewZhuanyong.setBackgroundColor(getResources().getColor(R.color.line));
                 break;
             case R.id.rl_zhuanyong:
+                llCompanyAddress.setVisibility(View.VISIBLE);
+                llCompanyPhone.setVisibility(View.VISIBLE);
+                viewCompanyAddress.setVisibility(View.VISIBLE);
+                viewCompanyPhone.setVisibility(View.VISIBLE);
                 Glide.with(context).load(R.mipmap.apply_false).into(ivPutong);
                 Glide.with(context).load(R.mipmap.apply_true).into(ivZhuanyong);
                 viewPutong.setBackgroundColor(getResources().getColor(R.color.line));

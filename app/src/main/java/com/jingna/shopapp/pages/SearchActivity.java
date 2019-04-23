@@ -1,6 +1,7 @@
 package com.jingna.shopapp.pages;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -66,6 +67,10 @@ public class SearchActivity extends BaseActivity {
                         mList = newStr.split(",");
                         adapter = new SearchHistoryAdapter(mList);
                         recyclerView.setAdapter(adapter);
+                        Intent intent = new Intent();
+                        intent.setClass(context, SearchGoodsListActivity.class);
+                        intent.putExtra("goodsName", search);
+                        startActivity(intent);
                     }
                 }
                 //记得返回false

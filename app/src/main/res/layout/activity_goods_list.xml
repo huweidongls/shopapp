@@ -223,16 +223,32 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refresh"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <TextView
+            android:id="@+id/tv_loading"
+            android:textSize="15sp"
+            android:background="@color/white_ffffff"
+            android:textColor="@color/black_333333"
+            android:gravity="center"
+            android:text="加载中..."
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
 
 </LinearLayout>
