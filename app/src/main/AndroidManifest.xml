@@ -311,7 +311,8 @@
             android:value="320226324493d13ba6b6ffde" />
 
         <activity android:name=".pages.GouwucheCommitOrderActivity" />
-        <activity android:name=".pages.InvoiceActivity"></activity>
+        <activity android:name=".pages.InvoiceActivity" />
+        <activity android:name=".pages.SearchGoodsListActivity"></activity>
     </application>
 
 </manifest>

@@ -53,6 +53,7 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
+                        android:id="@+id/rl_putong"
                         android:layout_width="0dp"
                         android:layout_height="43dp"
                         android:layout_weight="1">
@@ -64,6 +65,7 @@
                             android:orientation="horizontal">
 
                             <ImageView
+                                android:id="@+id/iv_putong"
                                 android:layout_width="13dp"
                                 android:layout_height="13dp"
                                 android:layout_gravity="center_vertical"
@@ -83,6 +85,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rl_zhuanyong"
                         android:layout_width="0dp"
                         android:layout_height="43dp"
                         android:layout_weight="1">
@@ -94,6 +97,7 @@
                             android:orientation="horizontal">
 
                             <ImageView
+                                android:id="@+id/iv_zhuanyong"
                                 android:layout_width="13dp"
                                 android:layout_height="13dp"
                                 android:layout_gravity="center_vertical"
@@ -120,12 +124,14 @@
                     android:orientation="horizontal">
 
                     <View
+                        android:id="@+id/view_putong"
                         android:layout_width="0dp"
                         android:layout_height="2dp"
                         android:layout_weight="1"
                         android:background="#F71F1F" />
 
                     <View
+                        android:id="@+id/view_zhuanyong"
                         android:layout_width="0dp"
                         android:layout_height="2dp"
                         android:layout_weight="1"
@@ -185,12 +191,14 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/ll_dianzi"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <ImageView
+                                android:id="@+id/iv_dianzi"
                                 android:layout_width="12dp"
                                 android:layout_height="12dp"
                                 android:layout_gravity="center_vertical"
@@ -208,13 +216,15 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/ll_zhizhi"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="44dp"
                             android:orientation="horizontal">
 
                             <ImageView
+                                android:id="@+id/iv_zhizhi"
                                 android:layout_width="12dp"
                                 android:layout_height="12dp"
                                 android:layout_gravity="center_vertical"
@@ -262,12 +272,14 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/ll_danwei"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <ImageView
+                                android:id="@+id/iv_danwei"
                                 android:layout_width="12dp"
                                 android:layout_height="12dp"
                                 android:layout_gravity="center_vertical"
@@ -285,13 +297,15 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/ll_geren"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="44dp"
                             android:orientation="horizontal">
 
                             <ImageView
+                                android:id="@+id/iv_geren"
                                 android:layout_width="12dp"
                                 android:layout_height="12dp"
                                 android:layout_gravity="center_vertical"
@@ -427,12 +441,14 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/ll_mingxi"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <ImageView
+                                android:id="@+id/iv_mingxi"
                                 android:layout_width="12dp"
                                 android:layout_height="12dp"
                                 android:layout_gravity="center_vertical"
@@ -450,13 +466,15 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/ll_leibie"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="44dp"
                             android:orientation="horizontal">
 
                             <ImageView
+                                android:id="@+id/iv_leibie"
                                 android:layout_width="12dp"
                                 android:layout_height="12dp"
                                 android:layout_gravity="center_vertical"
@@ -654,6 +672,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_sure"
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/bg_ff4d16_20dp"
                 android:textColor="@color/white_ffffff"
