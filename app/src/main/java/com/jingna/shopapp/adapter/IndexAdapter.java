@@ -39,7 +39,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         Glide.with(context).load(Const.BASE_URL+data.get(position).getAppPic()).into(holder.image);
         holder.text_goods.setText(data.get(position).getGoodsName());
         holder.price.setText(data.get(position).getPrice()+"");
@@ -48,7 +48,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(context, GoodsDetailsActivity.class);
-                intent.putExtra("id", "4");
+                intent.putExtra("id", data.get(position).getGoodsId());
                 context.startActivity(intent);
             }
         });
