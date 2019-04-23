@@ -53,11 +53,15 @@ public class GouwucheCommitOrderActivity extends BaseActivity {
     TextView tvRecievePhone;
     @BindView(R.id.tv_recieve_address)
     TextView tvRecieveAddress;
+    @BindView(R.id.tv_invoice)
+    TextView tvInvoice;
 
     private static final int SDK_PAY_FLAG = 1;
     private String addressId = "";//会员地址id
     private double goodsPrice;
     private String carId = "";
+    private Map<String, String> map;//发票map
+    private int invoiceId = 0;//是否开发票，0不开，1开
 
     private GouwucheCommitOrderAdapter adapter;
     private List<FragmentGouwucheBean.DataBean> seller = new ArrayList<>();
@@ -156,7 +160,8 @@ public class GouwucheCommitOrderActivity extends BaseActivity {
                 break;
             case R.id.rl_invoice:
                 intent.setClass(context, InvoiceActivity.class);
-                startActivity(intent);
+                intent.putExtra("price", goodsPrice);
+                startActivityForResult(intent, 100);
                 break;
         }
     }
@@ -170,6 +175,10 @@ public class GouwucheCommitOrderActivity extends BaseActivity {
             tvRecievePhone.setText(bean.getConsigneeTel());
             tvRecieveAddress.setText(bean.getLocation()+bean.getAdress());
             addressId = bean.getId()+"";
+        }else if(resultCode == 101){
+            invoiceId = 1;
+            tvInvoice.setText("开发票");
+            map = (Map<String, String>) data.getSerializableExtra("map");
         }
     }
 
@@ -178,30 +187,60 @@ public class GouwucheCommitOrderActivity extends BaseActivity {
      */
     private void commitOrder() {
 
-        ViseHttp.GET("/AppOrder/settleAccounts")
-                .addParam("memberId", SpUtils.getUserId(context))
-                .addParam("addressId", addressId)
-                .addParam("cartId", carId)
-                .request(new ACallback<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.optString("status").equals("200")){
-                                Gson gson = new Gson();
-                                CommitOrderZhifubaoBean zhifubaoBean = gson.fromJson(data, CommitOrderZhifubaoBean.class);
-                                aliPay(zhifubaoBean.getData().getData());
+        if(invoiceId == 0){
+            ViseHttp.GET("/AppOrder/settleAccounts")
+                    .addParam("memberId", SpUtils.getUserId(context))
+                    .addParam("addressId", addressId)
+                    .addParam("cartId", carId)
+                    .addParam("invoiceId", "0")
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if(jsonObject.optString("status").equals("200")){
+                                    Gson gson = new Gson();
+                                    CommitOrderZhifubaoBean zhifubaoBean = gson.fromJson(data, CommitOrderZhifubaoBean.class);
+                                    aliPay(zhifubaoBean.getData().getData());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
 
-                    @Override
-                    public void onFail(int errCode, String errMsg) {
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
 
-                    }
-                });
+                        }
+                    });
+        }else if(invoiceId == 1){
+            ViseHttp.GET("/AppOrder/settleAccounts")
+                    .addParam("memberId", SpUtils.getUserId(context))
+                    .addParam("addressId", addressId)
+                    .addParam("cartId", carId)
+                    .addParam("invoiceId", "1")
+                    .addParams(map)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if(jsonObject.optString("status").equals("200")){
+                                    Gson gson = new Gson();
+                                    CommitOrderZhifubaoBean zhifubaoBean = gson.fromJson(data, CommitOrderZhifubaoBean.class);
+                                    aliPay(zhifubaoBean.getData().getData());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+        }
 
     }
 

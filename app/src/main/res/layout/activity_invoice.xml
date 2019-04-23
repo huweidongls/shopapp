@@ -356,6 +356,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/et_invoicetitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -400,6 +401,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/et_invoicecode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -415,6 +417,7 @@
                 </LinearLayout>
 
                 <View
+                    android:visibility="gone"
                     android:id="@+id/view_company_address"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -447,6 +450,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/et_company_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -462,6 +466,7 @@
                 </LinearLayout>
 
                 <View
+                    android:visibility="gone"
                     android:id="@+id/view_company_phone"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -494,6 +499,8 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/et_company_phone"
+                        android:inputType="phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -609,6 +616,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -661,6 +669,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/et_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -705,6 +714,8 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/et_phonenum"
+                        android:inputType="phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -749,6 +760,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/et_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
