@@ -48,7 +48,7 @@ public class FragmentGoodsSelectPopBean {
         private String appPic;
         private String attributeName;
         private String goodsId;
-        private String inputList;
+        private String value;
         private String goodsSn;
         private String attrId;
         private String attrType;
@@ -86,11 +86,11 @@ public class FragmentGoodsSelectPopBean {
         }
 
         public String getInputList() {
-            return inputList;
+            return value;
         }
 
         public void setInputList(String inputList) {
-            this.inputList = inputList;
+            this.value = inputList;
         }
 
         public String getGoodsSn() {
