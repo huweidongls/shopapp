@@ -45,6 +45,7 @@
                 android:layout_height="wrap_content" />
 
             <ImageView
+                android:id="@+id/addcart"
                 android:layout_marginBottom="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_alignParentRight="true"

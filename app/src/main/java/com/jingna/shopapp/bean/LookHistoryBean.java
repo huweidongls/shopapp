@@ -69,7 +69,7 @@ public class LookHistoryBean {
 
             private String goodsName;
             private String appPic;
-            private int price;
+            private double price;
             private int goodsId;
             private String createTime;
             private String browseId;
@@ -90,11 +90,11 @@ public class LookHistoryBean {
                 this.appPic = appPic;
             }
 
-            public int getPrice() {
+            public double getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(double price) {
                 this.price = price;
             }
 

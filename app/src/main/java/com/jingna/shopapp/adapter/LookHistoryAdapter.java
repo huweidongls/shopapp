@@ -1,6 +1,7 @@
 package com.jingna.shopapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.bean.LookHistoryBean;
+import com.jingna.shopapp.pages.GoodsDetailsActivity;
 
 import java.util.List;
 
