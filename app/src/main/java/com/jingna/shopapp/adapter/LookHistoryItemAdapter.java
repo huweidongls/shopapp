@@ -64,7 +64,7 @@ public class LookHistoryItemAdapter extends RecyclerView.Adapter<LookHistoryItem
                 context.startActivity(intent);
             }
         });
-        /*holder.addcart.setOnClickListener(new View.OnClickListener() {
+        holder.addcart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(SpUtils.getUserId(context).equals("0")){
@@ -97,7 +97,7 @@ public class LookHistoryItemAdapter extends RecyclerView.Adapter<LookHistoryItem
                             });
                 }
             }
-        });*/
+        });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
