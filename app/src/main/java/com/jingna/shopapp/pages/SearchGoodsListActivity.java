@@ -98,6 +98,13 @@ public class SearchGoodsListActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        goodsName = intent.getStringExtra("goodsName");
+        initData();
+    }
+
     private void initData() {
 
         tvSearchText.setText(goodsName);

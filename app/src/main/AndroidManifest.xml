@@ -126,7 +126,8 @@
         <activity android:name=".pages.MessageActivity" />
         <activity android:name=".pages.MessagePreferentialActivity" />
         <activity android:name=".pages.MessageServiceActivity" />
-        <activity android:name=".pages.SearchActivity" />
+        <activity android:name=".pages.SearchActivity"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
@@ -312,7 +313,8 @@
 
         <activity android:name=".pages.GouwucheCommitOrderActivity" />
         <activity android:name=".pages.InvoiceActivity" />
-        <activity android:name=".pages.SearchGoodsListActivity"></activity>
+        <activity android:name=".pages.SearchGoodsListActivity"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

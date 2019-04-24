@@ -48,7 +48,7 @@ public class GoodsSelectResultBean {
         private String skuId;
         private String goodsId;
         private String goodsName;
-        private String goodsSn;
+        private String skuCode;
         private String lowStock;
         private String appPic;
         private String stock;
@@ -85,12 +85,12 @@ public class GoodsSelectResultBean {
             this.goodsName = goodsName;
         }
 
-        public String getGoodsSn() {
-            return goodsSn;
+        public String getSkuCode() {
+            return skuCode;
         }
 
-        public void setGoodsSn(String goodsSn) {
-            this.goodsSn = goodsSn;
+        public void setSkuCode(String skuCode) {
+            this.skuCode = skuCode;
         }
 
         public String getLowStock() {
