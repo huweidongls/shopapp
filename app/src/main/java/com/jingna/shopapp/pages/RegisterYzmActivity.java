@@ -2,7 +2,6 @@ package com.jingna.shopapp.pages;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.app.MyApplication;
 import com.jingna.shopapp.base.BaseActivity;
+import com.jingna.shopapp.receiver.Logger;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
 import com.vise.xsnow.http.ViseHttp;
@@ -131,6 +131,8 @@ public class RegisterYzmActivity extends BaseActivity {
                                     intent.putExtra("number", phoneNumber);
                                     startActivity(intent);
                                     finish();
+                                }else {
+                                    ToastUtil.showShort(context, "短信验证码错误");
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -139,7 +141,7 @@ public class RegisterYzmActivity extends BaseActivity {
 
                         @Override
                         public void onFail(int errCode, String errMsg) {
-                            Log.e("123123", errMsg);
+                            Logger.e("123123", errMsg);
                         }
                     });
         }

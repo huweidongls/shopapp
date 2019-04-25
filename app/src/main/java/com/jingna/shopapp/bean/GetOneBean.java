@@ -54,6 +54,33 @@ public class GetOneBean {
         private int status;
         private String phoneNum;
         private String newTime;
+        private int goodsNum;
+        private int sellerNum;
+        private int browseRecord;
+
+        public int getBrowseRecord() {
+            return browseRecord;
+        }
+
+        public void setBrowseRecord(int browseRecord) {
+            this.browseRecord = browseRecord;
+        }
+
+        public int getSellerNum() {
+            return sellerNum;
+        }
+
+        public void setSellerNum(int sellerNum) {
+            this.sellerNum = sellerNum;
+        }
+
+        public int getGoodsNum() {
+            return goodsNum;
+        }
+
+        public void setGoodsNum(int goodsNum) {
+            this.goodsNum = goodsNum;
+        }
 
         public int getId() {
             return id;

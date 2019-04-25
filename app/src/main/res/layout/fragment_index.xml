@@ -21,7 +21,8 @@
                 android:layout_height="180dp" />
 
             <LinearLayout
-                android:background="#FFFFFF"
+                android:layout_marginTop="-6dp"
+                android:background="@drawable/bg_ffffff_top_4dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="80dp">

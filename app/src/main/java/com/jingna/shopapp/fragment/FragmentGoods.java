@@ -30,6 +30,7 @@ import com.jingna.shopapp.bean.FragmentGoodsSelectPopBean;
 import com.jingna.shopapp.bean.GoodsSelectResultBean;
 import com.jingna.shopapp.pages.CommitOrderActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
+import com.jingna.shopapp.pages.ShopIndexActivity;
 import com.jingna.shopapp.receiver.Logger;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.SpUtils;
@@ -76,6 +77,8 @@ public class FragmentGoods extends BaseFragment {
     TextView tvShopFollowNum;
     @BindView(R.id.tv_has_select)
     TextView tvHasSelect;
+    @BindView(R.id.iv_follow)
+    ImageView ivFollow;
 
     private FragmentGoodsDetailsCommentListAdapter adapter;
     private List<FragmentGoodsBean.DataBean.CommentListBean> mList;
@@ -167,7 +170,11 @@ public class FragmentGoods extends BaseFragment {
                                 //加载评论数量
                                 tvCommentNum.setText("评价("+goodsBean.getData().getCommentTotalNum()+"条)");
                                 //加载好评率
-                                tvFavorablerate.setText(goodsBean.getData().getShopGoods().getFavorableRate()+"%");
+                                if(TextUtils.isEmpty(goodsBean.getData().getShopGoods().getFavorableRate())){
+                                    tvFavorablerate.setText("0%");
+                                }else {
+                                    tvFavorablerate.setText(goodsBean.getData().getShopGoods().getFavorableRate()+"%");
+                                }
                                 //加载评论列表
                                 mList = goodsBean.getData().getCommentList();
                                 adapter = new FragmentGoodsDetailsCommentListAdapter(mList);
@@ -443,7 +450,7 @@ public class FragmentGoods extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.rl_select, R.id.tv_buy, R.id.tv_insert_car, R.id.iv_follow})
+    @OnClick({R.id.rl_select, R.id.tv_buy, R.id.tv_insert_car, R.id.iv_follow, R.id.rl_to_shop})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -468,10 +475,16 @@ public class FragmentGoods extends BaseFragment {
                     intent.setClass(getContext(), SMSLoginActivity.class);
                     startActivity(intent);
                 }else if(goodsBean.getData().getShopGoods().getMemberStatus().equals("1")){
-                    ToastUtil.showShort(getContext(), "该商品已关注");
+                    followGoods("0");
                 }else {
-                    followGoods();
+                    followGoods("1");
                 }
+                break;
+            case R.id.rl_to_shop:
+                //进入店铺
+                intent.setClass(getContext(), ShopIndexActivity.class);
+                intent.putExtra("sellerId", goodsBean.getData().getShopGoods().getSellerId()+"");
+                startActivity(intent);
                 break;
         }
     }
@@ -479,20 +492,27 @@ public class FragmentGoods extends BaseFragment {
     /**
      * 关注商品
      */
-    private void followGoods() {
+    private void followGoods(final String type) {
 
         ViseHttp.POST("/AppGoodsShop/isFollow")
                 .addParam("goodsId", id)
                 .addParam("memberId", SpUtils.getUserId(getContext()))
-                .addParam("type", "1")
+                .addParam("type", type)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){
-                                ToastUtil.showShort(getContext(), "关注成功");
-                                goodsBean.getData().getShopGoods().setMemberStatus("1");
+                                if(type.equals("1")){
+                                    ToastUtil.showShort(getContext(), "关注成功");
+                                    goodsBean.getData().getShopGoods().setMemberStatus("1");
+                                    Glide.with(getContext()).load(R.mipmap.yiguanzhu).into(ivFollow);
+                                }else if(type.equals("0")){
+                                    ToastUtil.showShort(getContext(), "取消关注成功");
+                                    goodsBean.getData().getShopGoods().setMemberStatus("0");
+                                    Glide.with(getContext()).load(R.mipmap.guanzhu).into(ivFollow);
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

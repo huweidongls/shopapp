@@ -407,6 +407,7 @@
                         android:layout_height="match_parent">
 
                         <RelativeLayout
+                            android:id="@+id/rl_to_shop"
                             android:background="@drawable/bg_dadada_17dp_bord"
                             android:layout_centerInParent="true"
                             android:layout_width="130dp"

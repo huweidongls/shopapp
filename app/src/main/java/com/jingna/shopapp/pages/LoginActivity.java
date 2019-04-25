@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.bean.LoginBean;
+import com.jingna.shopapp.receiver.Logger;
 import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
@@ -85,7 +86,7 @@ public class LoginActivity extends BaseActivity {
                     .request(new ACallback<String>() {
                         @Override
                         public void onSuccess(String data) {
-                            Log.e("123123", data);
+                            Logger.e("123123", data);
                             try {
                                 JSONObject jsonObject = new JSONObject(data);
                                 if(jsonObject.optString("status").equals("200")){

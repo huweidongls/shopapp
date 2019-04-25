@@ -84,7 +84,7 @@ public class ShopIndexActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sellerId = "4";//getIntent().getStringExtra("sellerId");
+        sellerId = getIntent().getStringExtra("sellerId");
         setContentView(R.layout.activity_shop_index);
         index = getIntent().getIntExtra("index", 0);
         StatusBarUtils.setStatusBar(ShopIndexActivity.this, Color.parseColor("#ffffff"));

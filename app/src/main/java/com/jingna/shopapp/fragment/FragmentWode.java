@@ -63,6 +63,12 @@ public class FragmentWode extends Fragment {
     LinearLayout llNum;
     @BindView(R.id.ll_login)
     LinearLayout llLogin;
+    @BindView(R.id.tv_goods_num)
+    TextView tvGoodsNum;
+    @BindView(R.id.tv_shop_num)
+    TextView tvShopNum;
+    @BindView(R.id.tv_browse_num)
+    TextView tvBrowseNum;
 
     private FragmentMyTuijianAdapter adapter;
     private List<IndexGoodsBean.DataBean> mList;
@@ -111,6 +117,9 @@ public class FragmentWode extends Fragment {
                                     GetOneBean bean = gson.fromJson(data, GetOneBean.class);
                                     Glide.with(getContext()).load(Const.BASE_URL+bean.getData().getHeadPhoto()).into(ivAvatar);
                                     tvName.setText(bean.getData().getMemName());
+                                    tvGoodsNum.setText(bean.getData().getGoodsNum()+"");
+                                    tvShopNum.setText(bean.getData().getSellerNum()+"");
+                                    tvBrowseNum.setText(bean.getData().getBrowseRecord()+"");
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

@@ -60,7 +60,11 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.View
         holder.tvTitle.setText(data.get(position).getGoodsName());
         holder.tvPrice.setText("¥"+data.get(position).getPrice());
         holder.tvShopName.setText(data.get(position).getSellerName()+" >");
-        holder.tvComment.setText(data.get(position).getCommentCount()+"条评价  "+data.get(position).getFavorableRate()+"%好评");
+        if(TextUtils.isEmpty(data.get(position).getFavorableRate())){
+            holder.tvComment.setText(data.get(position).getCommentCount()+"条评价  "+"0%好评");
+        }else {
+            holder.tvComment.setText(data.get(position).getCommentCount()+"条评价  "+data.get(position).getFavorableRate()+"%好评");
+        }
         //加载副标题
         LinearLayoutManager manager = new LinearLayoutManager(context);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);

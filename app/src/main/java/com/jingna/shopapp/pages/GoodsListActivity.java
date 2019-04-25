@@ -29,6 +29,7 @@ import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.bean.ChoiceMenuBean;
 import com.jingna.shopapp.bean.ChoiceMenuSignBean;
 import com.jingna.shopapp.bean.GoodsListBean;
+import com.jingna.shopapp.receiver.Logger;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
 import com.scwang.smartrefresh.header.MaterialHeader;
@@ -179,7 +180,7 @@ public class GoodsListActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String data) {
                         try {
-                            Log.e("123123", data);
+                            Logger.e("123123", data);
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){
                                 Gson gson = new Gson();
