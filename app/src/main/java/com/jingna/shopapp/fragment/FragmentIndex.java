@@ -140,11 +140,11 @@ public class FragmentIndex extends BaseFragment {
     private IWXAPI api;
 
     private List<String> imgList;
-    private int l1=0;
-    private int l2=0;
-    private int l3=0;
-    private int l4=0;
-    private int l5=0;
+    private String l1="";
+    private String l2="";
+    private String l3="";
+    private String l4="";
+    private String l5="";
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -182,23 +182,23 @@ public class FragmentIndex extends BaseFragment {
                                 //开始分配分类第一组
                                 Glide.with(getContext()).load(Const.BASE_URL+IndexSlideBean.getData().getShopCategory().get(0).getAppCategoryPic()).into(type1);
                                 type1_name.setText(IndexSlideBean.getData().getShopCategory().get(0).getCategoryName());
-                                l1 = IndexSlideBean.getData().getShopCategory().get(0).getId();
+                                l1 = IndexSlideBean.getData().getShopCategory().get(0).getId()+"";
                                 //第二组
                                 Glide.with(getContext()).load(Const.BASE_URL+IndexSlideBean.getData().getShopCategory().get(1).getAppCategoryPic()).into(type2);
                                 type2_name.setText(IndexSlideBean.getData().getShopCategory().get(1).getCategoryName());
-                                l2 = IndexSlideBean.getData().getShopCategory().get(1).getId();
+                                l2 = IndexSlideBean.getData().getShopCategory().get(1).getId()+"";
                                 //第三组
                                 Glide.with(getContext()).load(Const.BASE_URL+IndexSlideBean.getData().getShopCategory().get(2).getAppCategoryPic()).into(type3);
                                 type3_name.setText(IndexSlideBean.getData().getShopCategory().get(2).getCategoryName());
-                                l3 = IndexSlideBean.getData().getShopCategory().get(2).getId();
+                                l3 = IndexSlideBean.getData().getShopCategory().get(2).getId()+"";
                                 //第四组
                                 Glide.with(getContext()).load(Const.BASE_URL+IndexSlideBean.getData().getShopCategory().get(3).getAppCategoryPic()).into(type4);
                                 type4_name.setText(IndexSlideBean.getData().getShopCategory().get(3).getCategoryName());
-                                l4 = IndexSlideBean.getData().getShopCategory().get(3).getId();
+                                l4 = IndexSlideBean.getData().getShopCategory().get(3).getId()+"";
                                 //第五组
                                 Glide.with(getContext()).load(Const.BASE_URL+IndexSlideBean.getData().getShopCategory().get(4).getAppCategoryPic()).into(type5);
                                 type5_name.setText(IndexSlideBean.getData().getShopCategory().get(4).getCategoryName());
-                                l5 = IndexSlideBean.getData().getShopCategory().get(4).getId();
+                                l5 = IndexSlideBean.getData().getShopCategory().get(4).getId()+"";
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -377,22 +377,27 @@ public class FragmentIndex extends BaseFragment {
         switch (view.getId()){
             case R.id.ll1:
                 intent.setClass(getContext(), GoodsListActivity.class);
+                intent.putExtra("id",l1);
                 startActivity(intent);
                 break;
             case R.id.ll2:
                 intent.setClass(getContext(), GoodsListActivity.class);
+                intent.putExtra("id",l2);
                 startActivity(intent);
                 break;
             case R.id.ll3:
                 intent.setClass(getContext(), GoodsListActivity.class);
+                intent.putExtra("id",l3);
                 startActivity(intent);
                 break;
             case R.id.ll4:
                 intent.setClass(getContext(), GoodsListActivity.class);
+                intent.putExtra("id",l4);
                 startActivity(intent);
                 break;
             case R.id.ll5:
                 intent.setClass(getContext(), GoodsListActivity.class);
+                intent.putExtra("id",l5);
                 startActivity(intent);
                 break;
             case R.id.ll_search:
