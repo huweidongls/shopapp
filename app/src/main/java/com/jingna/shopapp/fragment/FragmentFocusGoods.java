@@ -54,7 +54,7 @@ public class FragmentFocusGoods extends BaseFragment {
     private List<Attention_Goods_listBean.DataBean> mList;
     private FragmentFocusGoodsTuijianAdapter tuijianAdapter;
     private List<IndexGoodsBean.DataBean> mTuijianList;
-    private String memberid="";
+    private String memberid="0";
 
     @Nullable
     @Override
@@ -107,6 +107,7 @@ public class FragmentFocusGoods extends BaseFragment {
             memberid = SpUtils.getUserId(getContext());
         }
         ViseHttp.GET("IndexPageApi/queryRecommandStatusGoods")
+                .addParam("memberId", memberid)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {

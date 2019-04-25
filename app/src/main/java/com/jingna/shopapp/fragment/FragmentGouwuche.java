@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +21,16 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.adapter.FragmentMyTuijianAdapter;
 import com.jingna.shopapp.adapter.ShoppingCarAdapter;
 import com.jingna.shopapp.bean.FragmentGouwucheBean;
+import com.jingna.shopapp.bean.IndexGoodsBean;
 import com.jingna.shopapp.customview.RoundCornerDialog;
 import com.jingna.shopapp.receiver.Logger;
 import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
 import com.jingna.shopapp.util.ToastUtil;
+import com.jingna.shopapp.widget.ExpandableListViewForScrollView;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
@@ -50,7 +55,7 @@ public class FragmentGouwuche extends Fragment {
     @BindView(R.id.tv_titlebar_right)
     TextView tvTitlebarRight;
     @BindView(R.id.elv_shopping_car)
-    ExpandableListView elvShoppingCar;
+    ExpandableListViewForScrollView elvShoppingCar;
     @BindView(R.id.iv_select_all)
     ImageView ivSelectAll;
     @BindView(R.id.ll_select_all)
@@ -71,12 +76,19 @@ public class FragmentGouwuche extends Fragment {
     RelativeLayout rlNoContant;
     @BindView(R.id.rl_top)
     RelativeLayout rlTop;
+    @BindView(R.id.rv_tuijian)
+    RecyclerView rvTuijian;
 
     private List<FragmentGouwucheBean.DataBean> datas;
     private Context context;
     private ShoppingCarAdapter shoppingCarAdapter;
 
     private String deleteId = "";
+
+    private FragmentMyTuijianAdapter adapter;
+    private List<IndexGoodsBean.DataBean> mList;
+
+    private String memberid = "0";
 
     @Nullable
     @Override
@@ -87,7 +99,53 @@ public class FragmentGouwuche extends Fragment {
         context = getContext();
         initExpandableListView();
         initData();
+        initTuijian();
         return view;
+    }
+
+    /**
+     * 加载推荐列表
+     */
+    private void initTuijian() {
+
+        mList = new ArrayList<>();
+        if( !SpUtils.getUserId(getContext()).equals("0")){
+            memberid = SpUtils.getUserId(getContext());
+        }
+        ViseHttp.GET("IndexPageApi/queryRecommandStatusGoods")
+                .addParam("memberId", memberid)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            Logger.e("12345", data);
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                IndexGoodsBean bean = gson.fromJson(data, IndexGoodsBean.class);
+                                mList.clear();
+                                mList.addAll(bean.getData());
+                                adapter = new FragmentMyTuijianAdapter(mList);
+                                GridLayoutManager manager = new GridLayoutManager(getContext(), 2){
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                };
+                                rvTuijian.setLayoutManager(manager);
+                                rvTuijian.setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
     }
 
     @Override

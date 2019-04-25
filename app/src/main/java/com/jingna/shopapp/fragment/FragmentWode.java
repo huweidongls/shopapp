@@ -68,7 +68,7 @@ public class FragmentWode extends Fragment {
     private List<IndexGoodsBean.DataBean> mList;
 
     private String userId = "";
-    private String memberid="";
+    private String memberid="0";
 
     @Nullable
     @Override
@@ -132,6 +132,7 @@ public class FragmentWode extends Fragment {
             memberid = SpUtils.getUserId(getContext());
         }
         ViseHttp.GET("IndexPageApi/queryRecommandStatusGoods")
+                .addParam("memberId", memberid)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -163,7 +164,6 @@ public class FragmentWode extends Fragment {
 
                     }
                 });
-
 
     }
 
