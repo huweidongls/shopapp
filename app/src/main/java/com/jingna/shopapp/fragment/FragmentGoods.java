@@ -316,7 +316,7 @@ public class FragmentGoods extends BaseFragment {
                     @Override
                     public void onSuccess(String data) {
                         try {
-                            Log.e("123123", data);
+                            Logger.e("123123", data);
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){
                                 final Gson gson = new Gson();

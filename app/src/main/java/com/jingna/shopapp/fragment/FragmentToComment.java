@@ -60,7 +60,6 @@ public class FragmentToComment extends BaseFragment {
         ButterKnife.bind(this, view);
         mList = new ArrayList<>();
         Bundle args = getArguments();
-        initData();
         if (args != null) {
             id = args.getString("id");
         }
@@ -68,8 +67,8 @@ public class FragmentToComment extends BaseFragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onStart() {
+        super.onStart();
         initData();
     }
 

@@ -140,9 +140,9 @@ public class CommentActivity extends BaseActivity {
                         .setViewImage(true) //是否点击放大图片查看,，默认为true
                         .start(this, REQUEST_CODE); // 打开相册
                 break;
-                case R.id.tj_pj:
-                    SubmitEvaluation();
-                    break;
+            case R.id.tj_pj:
+                SubmitEvaluation();
+                break;
         }
     }
 
@@ -226,7 +226,7 @@ public class CommentActivity extends BaseActivity {
                 ViseHttp.UPLOAD("AppComment/toUpdate")
                         .addParam("userId", SpUtils.getUserId(context))
                         .addParam("goodsComment",commentContent)
-                        .addParam("commentLevel","4")
+                        .addParam("commentLevel","1")
                         .addParam("goodsId",goodsId)
                         .addParam("orderId",orderId)
                         .addFiles(value)
