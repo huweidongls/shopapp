@@ -78,6 +78,8 @@ public class FragmentGouwuche extends Fragment {
     RelativeLayout rlTop;
     @BindView(R.id.rv_tuijian)
     RecyclerView rvTuijian;
+    @BindView(R.id.tv_tuijian)
+    TextView tvTuijian;
 
     private List<FragmentGouwucheBean.DataBean> datas;
     private Context context;
@@ -298,11 +300,15 @@ public class FragmentGouwuche extends Fragment {
             rlTotalPrice.setVisibility(View.VISIBLE);
             btnOrder.setVisibility(View.VISIBLE);
             btnDelete.setVisibility(View.GONE);
+            tvTuijian.setVisibility(View.VISIBLE);
+            rvTuijian.setVisibility(View.VISIBLE);
         } else {
             tvTitlebarRight.setVisibility(View.GONE);
             rlNoContant.setVisibility(View.VISIBLE);
             elvShoppingCar.setVisibility(View.GONE);
             rl.setVisibility(View.GONE);
+            tvTuijian.setVisibility(View.GONE);
+            rvTuijian.setVisibility(View.GONE);
         }
     }
 

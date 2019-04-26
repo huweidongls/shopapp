@@ -4,14 +4,19 @@
     android:layout_height="wrap_content"
     android:background="@color/white_ffffff">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <ScrollView
+            android:id="@+id/sc"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="400dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <RelativeLayout
                     android:layout_gravity="right"
@@ -80,95 +85,104 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp" />
 
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <RelativeLayout
+            android:layout_below="@+id/sc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/rl_num"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_marginLeft="20dp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black_333333"
+                    android:textSize="15sp"
+                    android:text="数量"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
                     <RelativeLayout
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_below="@+id/rv"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp">
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/rl_jianhao"
+                        android:layout_marginRight="5dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp">
 
-                        <TextView
-                            android:layout_marginLeft="20dp"
-                            android:layout_centerVertical="true"
-                            android:textColor="@color/black_333333"
-                            android:textSize="15sp"
-                            android:text="数量"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <LinearLayout
-                            android:layout_marginRight="20dp"
-                            android:orientation="horizontal"
-                            android:layout_alignParentRight="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent">
-
-                            <RelativeLayout
-                                android:layout_gravity="center_vertical"
-                                android:id="@+id/rl_jianhao"
-                                android:layout_marginRight="5dp"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp">
-
-                                <ImageView
-                                    android:layout_centerInParent="true"
-                                    android:src="@mipmap/jianhao"
-                                    android:layout_width="10dp"
-                                    android:layout_height="2dp" />
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_gravity="center_vertical"
-                                android:background="#F6F6F6"
-                                android:layout_width="45dp"
-                                android:layout_height="25dp">
-
-                                <TextView
-                                    android:id="@+id/tv_goods_num"
-                                    android:layout_centerInParent="true"
-                                    android:textColor="@color/black_333333"
-                                    android:textSize="12sp"
-                                    android:text="1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_gravity="center_vertical"
-                                android:id="@+id/rl_jiahao"
-                                android:layout_marginLeft="5dp"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp">
-
-                                <ImageView
-                                    android:layout_centerInParent="true"
-                                    android:src="@mipmap/jiahao"
-                                    android:layout_width="10dp"
-                                    android:layout_height="10dp" />
-
-                            </RelativeLayout>
-
-                        </LinearLayout>
+                        <ImageView
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/jianhao"
+                            android:layout_width="10dp"
+                            android:layout_height="2dp" />
 
                     </RelativeLayout>
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_gravity="center_vertical"
+                        android:background="#F6F6F6"
+                        android:layout_width="45dp"
+                        android:layout_height="25dp">
 
-                <TextView
-                    android:id="@+id/tv_sure"
-                    android:layout_alignParentBottom="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:background="#FF2F07"
-                    android:gravity="center"
-                    android:text="确定"
-                    android:textColor="@color/white_ffffff"
-                    android:textSize="15sp" />
+                        <TextView
+                            android:id="@+id/tv_goods_num"
+                            android:layout_centerInParent="true"
+                            android:textColor="@color/black_333333"
+                            android:textSize="12sp"
+                            android:text="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
 
-        </LinearLayout>
+                    </RelativeLayout>
 
-    </ScrollView>
+                    <RelativeLayout
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/rl_jiahao"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp">
+
+                        <ImageView
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/jiahao"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_below="@+id/rl_num"
+                android:id="@+id/tv_sure"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:background="#FF2F07"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="@color/white_ffffff"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

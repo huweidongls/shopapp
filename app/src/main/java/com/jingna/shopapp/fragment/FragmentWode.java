@@ -69,6 +69,16 @@ public class FragmentWode extends Fragment {
     TextView tvShopNum;
     @BindView(R.id.tv_browse_num)
     TextView tvBrowseNum;
+    @BindView(R.id.tv_daifukuan_num)
+    TextView tvDaifukuanNum;
+    @BindView(R.id.tv_daishouhuo_num)
+    TextView tvDaishouhuoNum;
+    @BindView(R.id.tv_daipingjia_num)
+    TextView tvDaipingjiaNum;
+    @BindView(R.id.tv_tuikuan_num)
+    TextView tvTuikuanNum;
+    @BindView(R.id.tv_all_order)
+    TextView tvAllOrder;
 
     private FragmentMyTuijianAdapter adapter;
     private List<IndexGoodsBean.DataBean> mList;
@@ -131,6 +141,7 @@ public class FragmentWode extends Fragment {
 
                         }
                     });
+
         }
     }
 
@@ -229,13 +240,13 @@ public class FragmentWode extends Fragment {
                 }
                 break;
             case R.id.rl5:
-                if(userId.equals("0")){
-                    intent.setClass(getContext(), SMSLoginActivity.class);
-                    startActivity(intent);
-                }else {
-                    SpUtils.clear(getContext());
-                    onStart();
-                }
+//                if(userId.equals("0")){
+//                    intent.setClass(getContext(), SMSLoginActivity.class);
+//                    startActivity(intent);
+//                }else {
+//                    SpUtils.clear(getContext());
+//                    onStart();
+//                }
                 break;
             case R.id.iv_avatar:
                 if(userId.equals("0")){

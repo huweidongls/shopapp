@@ -73,6 +73,10 @@ public class GoodsDetailsActivity extends BaseActivity {
 
     }
 
+    public void toCommentFragment(){
+        mViewPager.setCurrentItem(2);
+    }
+
     private void initData() {
 
         fragmentList = new ArrayList<>();

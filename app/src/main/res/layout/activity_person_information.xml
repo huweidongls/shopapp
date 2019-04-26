@@ -177,4 +177,18 @@
 
     </LinearLayout>
 
+    <Button
+        android:background="@drawable/bg_ff4d16_20dp"
+        android:id="@+id/btn_out"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/white_ffffff"
+        android:textSize="16sp"
+        android:text="退出登录"
+        android:layout_marginLeft="47dp"
+        android:layout_marginRight="47dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
 </RelativeLayout>

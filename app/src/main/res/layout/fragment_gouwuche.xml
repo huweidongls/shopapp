@@ -74,6 +74,7 @@
                     android:visibility="gone" />
 
                 <TextView
+                    android:id="@+id/tv_tuijian"
                     android:textStyle="bold"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"

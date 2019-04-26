@@ -1,18 +1,13 @@
 package com.jingna.shopapp.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,33 +19,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.alipay.sdk.app.PayTask;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.IndexAdapter;
-import com.jingna.shopapp.adapter.ShopGoodsAdapter;
 import com.jingna.shopapp.base.BaseFragment;
-import com.jingna.shopapp.bean.FragmentGoodsBean;
-import com.jingna.shopapp.bean.GetOneBean;
 import com.jingna.shopapp.bean.IndexGoodsBean;
 import com.jingna.shopapp.bean.IndexSlideBean;
 import com.jingna.shopapp.bean.WxPayBean;
-import com.jingna.shopapp.dialog.DialogCustom;
-import com.jingna.shopapp.pages.CommitOrderActivity;
 import com.jingna.shopapp.pages.GoodsListActivity;
-import com.jingna.shopapp.pages.LoginActivity;
 import com.jingna.shopapp.pages.MessageActivity;
-import com.jingna.shopapp.pages.MessagePreferentialActivity;
-import com.jingna.shopapp.pages.MessageServiceActivity;
-import com.jingna.shopapp.pages.OrderTrackingActivity;
-import com.jingna.shopapp.pages.RegisterActivity;
-import com.jingna.shopapp.pages.RegisterYzmActivity;
-import com.jingna.shopapp.pages.SMSLoginActivity;
 import com.jingna.shopapp.pages.SearchActivity;
-import com.jingna.shopapp.pages.ShopIndexActivity;
 import com.jingna.shopapp.receiver.Logger;
 import com.jingna.shopapp.util.Const;
 import com.jingna.shopapp.util.SpUtils;
@@ -71,12 +51,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.internal.Util;
 
 /**
  * Created by Administrator on 2019/2/15.
@@ -379,6 +357,32 @@ public class FragmentIndex extends BaseFragment {
                 intent.setClass(getContext(), GoodsListActivity.class);
                 intent.putExtra("id",l1);
                 startActivity(intent);
+//                ViseHttp.POST("/pay/wxpay")
+//                        .request(new ACallback<String>() {
+//                            @Override
+//                            public void onSuccess(String data) {
+//                                Log.e("123123", data);
+//                                Gson gson = new Gson();
+//                                WxPayBean payBean = gson.fromJson(data, WxPayBean.class);
+//                                wxPay(payBean);
+//                            }
+//
+//                            @Override
+//                            public void onFail(int errCode, String errMsg) {
+//
+//                            }
+//                        });
+
+//                //微信分享
+//                DialogCustom dialogCustom = new DialogCustom(getActivity(), "“商城”想要打开“微信”", new DialogCustom.OnYesListener() {
+//                    @Override
+//                    public void onYes() {
+//                        wxShare.shareUrl("http://www.baidu.com", "1", "2",
+//                                "/upload/13a825c68f296a31200e3503cc660e8.jpg");
+//                        Log.e("123123", "分享");
+//                    }
+//                });
+//                dialogCustom.show();
                 break;
             case R.id.ll2:
                 intent.setClass(getContext(), GoodsListActivity.class);
@@ -401,11 +405,11 @@ public class FragmentIndex extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.ll_search:
-                intent.setClass(getContext(), GoodsListActivity.class);
+                intent.setClass(getContext(), SearchActivity.class);
                 startActivity(intent);
                 break;
             case R.id.rl_message:
-                intent.setClass(getContext(), GoodsListActivity.class);
+                intent.setClass(getContext(), MessageActivity.class);
                 startActivity(intent);
                 break;
         }

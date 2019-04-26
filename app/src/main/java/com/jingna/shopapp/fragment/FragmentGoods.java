@@ -29,6 +29,7 @@ import com.jingna.shopapp.bean.FragmentGoodsBean;
 import com.jingna.shopapp.bean.FragmentGoodsSelectPopBean;
 import com.jingna.shopapp.bean.GoodsSelectResultBean;
 import com.jingna.shopapp.pages.CommitOrderActivity;
+import com.jingna.shopapp.pages.GoodsDetailsActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
 import com.jingna.shopapp.pages.ShopIndexActivity;
 import com.jingna.shopapp.receiver.Logger;
@@ -450,7 +451,8 @@ public class FragmentGoods extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.rl_select, R.id.tv_buy, R.id.tv_insert_car, R.id.iv_follow, R.id.rl_to_shop})
+    @OnClick({R.id.rl_select, R.id.tv_buy, R.id.tv_insert_car, R.id.iv_follow, R.id.rl_to_shop, R.id.tv_all_comment
+    , R.id.ll_shop})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -481,6 +483,17 @@ public class FragmentGoods extends BaseFragment {
                 }
                 break;
             case R.id.rl_to_shop:
+                //进入店铺
+                intent.setClass(getContext(), ShopIndexActivity.class);
+                intent.putExtra("sellerId", goodsBean.getData().getShopGoods().getSellerId()+"");
+                startActivity(intent);
+                break;
+            case R.id.tv_all_comment:
+                //跳转全部评价
+                GoodsDetailsActivity activity = (GoodsDetailsActivity) getActivity();
+                activity.toCommentFragment();
+                break;
+            case R.id.ll_shop:
                 //进入店铺
                 intent.setClass(getContext(), ShopIndexActivity.class);
                 intent.putExtra("sellerId", goodsBean.getData().getShopGoods().getSellerId()+"");

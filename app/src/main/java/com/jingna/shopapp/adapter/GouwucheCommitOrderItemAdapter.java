@@ -2,6 +2,7 @@ package com.jingna.shopapp.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,11 @@ public class GouwucheCommitOrderItemAdapter extends RecyclerView.Adapter<Gouwuch
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Glide.with(context).load(Const.BASE_URL+data.get(position).getAppPic()).into(holder.ivTitle);
+        String pic = data.get(position).getAppPic();
+        if(!TextUtils.isEmpty(pic)){
+            String[] pics = pic.split(",");
+            Glide.with(context).load(Const.BASE_URL+pics[0]).into(holder.ivTitle);
+        }
         holder.tvGoodsName.setText(data.get(position).getGoodsName());
         holder.tvGoodsNum.setText("数量: "+data.get(position).getGoodsNum());
         holder.tvGoodsPrice.setText("¥"+data.get(position).getPrice());

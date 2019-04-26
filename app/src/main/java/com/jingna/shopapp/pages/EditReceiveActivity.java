@@ -50,6 +50,8 @@ public class EditReceiveActivity extends BaseActivity {
     EditText etAddress;
     @BindView(R.id.iv_set)
     ImageView ivSet;
+    @BindView(R.id.et_zip_code)
+    EditText etZipCode;
 
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
@@ -91,6 +93,7 @@ public class EditReceiveActivity extends BaseActivity {
                                 etPhoneNum.setText(bean.getData().getConsigneeTel());
                                 tvCity.setText(bean.getData().getLocation());
                                 etAddress.setText(bean.getData().getAdress());
+                                etZipCode.setText(bean.getData().getZipCode());
                                 if(bean.getData().getAcquiescentAdress().equals("0")){
                                     acquiescentAdress = "0";
                                     Glide.with(context).load(R.mipmap.address_off).into(ivSet);
@@ -161,7 +164,9 @@ public class EditReceiveActivity extends BaseActivity {
         String phoneNum = etPhoneNum.getText().toString();
         String city = tvCity.getText().toString();
         String address = etAddress.getText().toString();
-        if(TextUtils.isEmpty(name)||TextUtils.isEmpty(phoneNum)||TextUtils.isEmpty(city)||TextUtils.isEmpty(address)){
+        String zipCode = etZipCode.getText().toString();
+        if(TextUtils.isEmpty(name)||TextUtils.isEmpty(phoneNum)||TextUtils.isEmpty(city)||TextUtils.isEmpty(address)
+                ||TextUtils.isEmpty(zipCode)){
             ToastUtil.showShort(context, "请完善收货信息");
         }else if(!StringUtils.isPhoneNumberValid(phoneNum)){
             ToastUtil.showShort(context, "请输入正确的手机号码");
@@ -174,6 +179,7 @@ public class EditReceiveActivity extends BaseActivity {
                     .addParam("location", city)
                     .addParam("adress", address)
                     .addParam("acquiescentAdress", acquiescentAdress)
+                    .addParam("zipCode", zipCode)
                     .request(new ACallback<String>() {
                         @Override
                         public void onSuccess(String data) {

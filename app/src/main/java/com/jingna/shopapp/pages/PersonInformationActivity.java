@@ -108,7 +108,7 @@ public class PersonInformationActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.rl_avatar, R.id.rl_birthday, R.id.rl_sex, R.id.rl_nickname})
+    @OnClick({R.id.rl_back, R.id.rl_avatar, R.id.rl_birthday, R.id.rl_sex, R.id.rl_nickname, R.id.btn_out})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.rl_back:
@@ -148,6 +148,10 @@ public class PersonInformationActivity extends BaseActivity {
                     }
                 });
                 nicknameDialog.show();
+                break;
+            case R.id.btn_out:
+                SpUtils.clear(context);
+                finish();
                 break;
         }
     }

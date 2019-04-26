@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -100,7 +101,11 @@ public class CommitOrderActivity extends BaseActivity {
 
         tvGoodsNum.setText(goodsNum+"");
         if(goodsBean != null){
-            Glide.with(context).load(Const.BASE_URL+goodsBean.getData().getShopGoods().getAppPic()).into(ivTitle);
+            String pic = goodsBean.getData().getShopGoods().getAppPic();
+            if(!TextUtils.isEmpty(pic)){
+                String[] pics = pic.split(",");
+                Glide.with(context).load(Const.BASE_URL+pics[0]).into(ivTitle);
+            }
             tvGoodsName.setText(goodsBean.getData().getShopGoods().getGoodsName());
             tvGoodsPrice.setText("¥"+goodsPrice);
             tvGoodsAllPrice.setText("¥"+goodsPrice*goodsNum);
