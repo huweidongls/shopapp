@@ -191,10 +191,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <RatingBar
+                        android:id="@+id/spzl"
                         style="@style/mRatingBar"
                         android:layout_alignParentRight="true"
-                        android:layout_gravity="center_vertical"
                         android:stepSize="1"
+                        android:layout_centerVertical="true"
                         android:rating="0"
                         android:numStars="5"
                         android:layout_marginRight="20dp"
@@ -217,15 +218,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <RatingBar
+                        android:id="@+id/kfbz"
                         style="@style/mRatingBar"
                         android:layout_alignParentRight="true"
-                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true"
                         android:stepSize="1"
                         android:rating="0"
                         android:numStars="5"
                         android:layout_marginRight="20dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="45dp" />
+                        android:layout_height="wrap_content" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -243,15 +245,16 @@
                         android:layout_height="wrap_content" />
 
                     <RatingBar
+                        android:id="@+id/shsd"
                         style="@style/mRatingBar"
                         android:layout_alignParentRight="true"
-                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true"
                         android:stepSize="1"
                         android:rating="0"
                         android:numStars="5"
                         android:layout_marginRight="20dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="45dp" />
+                        android:layout_height="wrap_content" />
 
                 </RelativeLayout>
 
@@ -259,7 +262,6 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="45dp">
-
                     <TextView
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
@@ -270,15 +272,16 @@
                         android:layout_height="wrap_content" />
 
                     <RatingBar
+                        android:id="@+id/psy"
                         style="@style/mRatingBar"
                         android:layout_alignParentRight="true"
-                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true"
                         android:stepSize="1"
                         android:rating="0"
                         android:numStars="5"
                         android:layout_marginRight="20dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="45dp" />
+                        android:layout_height="wrap_content" />
 
                 </RelativeLayout>
 

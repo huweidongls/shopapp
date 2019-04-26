@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -68,6 +69,15 @@ public class CommentActivity extends BaseActivity {
     TextView tv_title;
     @BindView(R.id.content_evaluation)
     EditText etCommentContent;
+    @BindView(R.id.spzl)
+    RatingBar spzl;
+    @BindView(R.id.kfbz)
+    RatingBar kfbz;
+    @BindView(R.id.shsd)
+    RatingBar shsd;
+    @BindView(R.id.psy)
+    RatingBar psy;
+    private int count_jibie=0;
     private CommentAddPicAdapter adapter;
     private List<String> mList;
     private String orderId="";//订单ID
@@ -90,8 +100,10 @@ public class CommentActivity extends BaseActivity {
         ButterKnife.bind(CommentActivity.this);
         initData();
     }
-
     private void initData() {
+
+
+
         Glide.with(context).load(Const.BASE_URL+goodspic).into(pic);
         tv_title.setText(goodsName);
         mList = new ArrayList<>();
@@ -124,7 +136,6 @@ public class CommentActivity extends BaseActivity {
         });
 
     }
-
     @OnClick({R.id.rl_back, R.id.ll_add_pic,R.id.tj_pj})
     public void onClick(View view){
         switch (view.getId()){
@@ -141,7 +152,28 @@ public class CommentActivity extends BaseActivity {
                         .start(this, REQUEST_CODE); // 打开相册
                 break;
             case R.id.tj_pj:
-                SubmitEvaluation();
+                String commentContent = etCommentContent.getText().toString();//获取评论内容
+                if(!TextUtils.isEmpty(commentContent)){
+                    if(mList.size()==0){
+                        ToastUtil.showShort(context,"请务必选择一张图片!");
+                    }else{
+                        int x1 = (int) spzl.getRating();//商品质量
+                        int x2 = (int) kfbz.getRating();//快递包装
+                        int x3 = (int) shsd.getRating();//送货速度
+                        int x4 = (int) psy.getRating();//获取配送员星级
+                        if(x1==0 || x2==0 || x3==0 || x4==0){
+                            ToastUtil.showShort(context,"请选择评价级别!");
+                        }else{
+                            count_jibie = (x1+x2+x3+x4)/4;
+                            SubmitEvaluation();//数据检验完毕进行提交
+                        }
+                    }
+
+                }else{
+                    ToastUtil.showShort(context,"请填写评价内容!");
+                }
+
+
                 break;
         }
     }
@@ -226,7 +258,7 @@ public class CommentActivity extends BaseActivity {
                 ViseHttp.UPLOAD("AppComment/toUpdate")
                         .addParam("userId", SpUtils.getUserId(context))
                         .addParam("goodsComment",commentContent)
-                        .addParam("commentLevel","1")
+                        .addParam("commentLevel",count_jibie+"")
                         .addParam("goodsId",goodsId)
                         .addParam("orderId",orderId)
                         .addFiles(value)
