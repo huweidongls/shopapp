@@ -52,7 +52,6 @@ public class FragmentFocusGoodsAdapter extends RecyclerView.Adapter<FragmentFocu
         if(pic.length>0){
             Glide.with(context).load(Const.BASE_URL+pic[0]).into(holder.g_pic);
         }
-        //Glide.with(context).load(Const.BASE_URL+data.get(position).getAppPic()).into(holder.g_pic);
         holder.tv_title.setText(data.get(position).getGoodsName());
         holder.tv_price.setText("¥"+data.get(position).getPrice());
         holder.itemView.setOnClickListener(new View.OnClickListener() {

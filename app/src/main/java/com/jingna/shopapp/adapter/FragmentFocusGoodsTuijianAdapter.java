@@ -48,7 +48,11 @@ public class FragmentFocusGoodsTuijianAdapter extends RecyclerView.Adapter<Fragm
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Glide.with(context).load(Const.BASE_URL+data.get(position).getAppPic()).into(holder.images);
+        String[] pic = data.get(position).getAppPic().split(",");
+        if(pic.length>0){
+            Glide.with(context).load(Const.BASE_URL+pic[0]).into(holder.images);
+        }
+        //Glide.with(context).load(Const.BASE_URL+data.get(position).getAppPic()).into(holder.images);
         holder.goodsNmae.setText(data.get(position).getGoodsName());
         holder.price.setText(data.get(position).getPrice()+"");
         holder.itemView.setOnClickListener(new View.OnClickListener() {

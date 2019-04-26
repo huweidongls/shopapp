@@ -50,7 +50,11 @@ public class FragmentMyTuijianAdapter extends RecyclerView.Adapter<FragmentMyTui
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.price.setText(data.get(position).getPrice()+"");
         holder.goodsNmae.setText(data.get(position).getGoodsName());
-        Glide.with(context).load(Const.BASE_URL+data.get(position).getAppPic()).into(holder.images);
+        String[] pic = data.get(position).getAppPic().split(",");
+        if(pic.length>0){
+            Glide.with(context).load(Const.BASE_URL+pic[0]).into(holder.images);
+        }
+       // Glide.with(context).load(Const.BASE_URL+data.get(position).getAppPic()).into(holder.images);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -41,7 +41,11 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Glide.with(context).load(Const.BASE_URL+data.get(position).getAppPic()).into(holder.image);
+        String[] pic = data.get(position).getAppPic().split(",");
+        if(pic.length>0){
+            Glide.with(context).load(Const.BASE_URL+pic[0]).into(holder.image);
+        }
+       // Glide.with(context).load(Const.BASE_URL+data.get(position).getAppPic()).into(holder.image);
         holder.text_goods.setText(data.get(position).getGoodsName());
         holder.price.setText(data.get(position).getPrice()+"");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
