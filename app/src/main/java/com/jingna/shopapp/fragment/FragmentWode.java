@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.FragmentMyTuijianAdapter;
 import com.jingna.shopapp.adapter.IndexAdapter;
+import com.jingna.shopapp.bean.FindOrderStatusNumBean;
 import com.jingna.shopapp.bean.GetOneBean;
 import com.jingna.shopapp.bean.IndexGoodsBean;
 import com.jingna.shopapp.pages.AddressActivity;
@@ -130,6 +131,58 @@ public class FragmentWode extends Fragment {
                                     tvGoodsNum.setText(bean.getData().getGoodsNum()+"");
                                     tvShopNum.setText(bean.getData().getSellerNum()+"");
                                     tvBrowseNum.setText(bean.getData().getBrowseRecord()+"");
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+
+            ViseHttp.GET("/MemUser/findOrderStatusNum")
+                    .addParam("memberId", userId)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if(jsonObject.optString("status").equals("200")){
+                                    Gson gson = new Gson();
+                                    FindOrderStatusNumBean numBean = gson.fromJson(data, FindOrderStatusNumBean.class);
+                                    if(numBean.getData().getUnpaidNum() == 0){
+                                        tvDaifukuanNum.setVisibility(View.GONE);
+                                    }else {
+                                        tvDaifukuanNum.setVisibility(View.VISIBLE);
+                                        tvDaifukuanNum.setText(numBean.getData().getUnpaidNum()+"");
+                                    }
+                                    if(numBean.getData().getShippedNum() == 0){
+                                        tvDaishouhuoNum.setVisibility(View.GONE);
+                                    }else {
+                                        tvDaishouhuoNum.setVisibility(View.VISIBLE);
+                                        tvDaishouhuoNum.setText(numBean.getData().getShippedNum()+"");
+                                    }
+                                    if(numBean.getData().getNotEvaluatedNum() == 0){
+                                        tvDaipingjiaNum.setVisibility(View.GONE);
+                                    }else {
+                                        tvDaipingjiaNum.setVisibility(View.VISIBLE);
+                                        tvDaipingjiaNum.setText(numBean.getData().getNotEvaluatedNum()+"");
+                                    }
+                                    if(numBean.getData().getCancelledNum() == 0){
+                                        tvTuikuanNum.setVisibility(View.GONE);
+                                    }else {
+                                        tvTuikuanNum.setVisibility(View.VISIBLE);
+                                        tvTuikuanNum.setText(numBean.getData().getCancelledNum()+"");
+                                    }
+                                    if(numBean.getData().getAccomplishedNum() == 0){
+                                        tvAllOrder.setVisibility(View.GONE);
+                                    }else {
+                                        tvAllOrder.setVisibility(View.VISIBLE);
+                                        tvAllOrder.setText(numBean.getData().getAccomplishedNum()+"");
+                                    }
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
