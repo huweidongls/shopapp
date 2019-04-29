@@ -69,7 +69,7 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.View
         LinearLayoutManager manager = new LinearLayoutManager(context);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.rvSign.setLayoutManager(manager);
-        String sign = data.get(position).getSubTitle();
+        String sign = data.get(position).getKeywords();
         if(!TextUtils.isEmpty(sign)){
             String[] list = sign.split(",");
             GoodsListRvSignAdapter signAdapter = new GoodsListRvSignAdapter(list);

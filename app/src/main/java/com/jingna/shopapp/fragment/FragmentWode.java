@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import q.rorbin.badgeview.QBadgeView;
 
 /**
  * Created by Administrator on 2019/2/15.
@@ -126,8 +128,8 @@ public class FragmentWode extends Fragment {
                                 if(jsonObject.optString("status").equals("200")){
                                     Gson gson = new Gson();
                                     GetOneBean bean = gson.fromJson(data, GetOneBean.class);
-                                    Glide.with(getContext()).load(Const.BASE_URL+bean.getData().getHeadPhoto()).into(ivAvatar);
-                                    tvName.setText(bean.getData().getMemName());
+                                    Glide.with(getContext()).load(Const.BASE_URL+bean.getData().getMemberUserInfo().getHeadPhoto()).into(ivAvatar);
+                                    tvName.setText(bean.getData().getMemberUserInfo().getMemName());
                                     tvGoodsNum.setText(bean.getData().getGoodsNum()+"");
                                     tvShopNum.setText(bean.getData().getSellerNum()+"");
                                     tvBrowseNum.setText(bean.getData().getBrowseRecord()+"");
@@ -153,36 +155,36 @@ public class FragmentWode extends Fragment {
                                 if(jsonObject.optString("status").equals("200")){
                                     Gson gson = new Gson();
                                     FindOrderStatusNumBean numBean = gson.fromJson(data, FindOrderStatusNumBean.class);
-                                    if(numBean.getData().getUnpaidNum() == 0){
-                                        tvDaifukuanNum.setVisibility(View.GONE);
-                                    }else {
-                                        tvDaifukuanNum.setVisibility(View.VISIBLE);
-                                        tvDaifukuanNum.setText(numBean.getData().getUnpaidNum()+"");
-                                    }
-                                    if(numBean.getData().getShippedNum() == 0){
-                                        tvDaishouhuoNum.setVisibility(View.GONE);
-                                    }else {
-                                        tvDaishouhuoNum.setVisibility(View.VISIBLE);
-                                        tvDaishouhuoNum.setText(numBean.getData().getShippedNum()+"");
-                                    }
-                                    if(numBean.getData().getNotEvaluatedNum() == 0){
-                                        tvDaipingjiaNum.setVisibility(View.GONE);
-                                    }else {
-                                        tvDaipingjiaNum.setVisibility(View.VISIBLE);
-                                        tvDaipingjiaNum.setText(numBean.getData().getNotEvaluatedNum()+"");
-                                    }
-                                    if(numBean.getData().getCancelledNum() == 0){
-                                        tvTuikuanNum.setVisibility(View.GONE);
-                                    }else {
-                                        tvTuikuanNum.setVisibility(View.VISIBLE);
-                                        tvTuikuanNum.setText(numBean.getData().getCancelledNum()+"");
-                                    }
-                                    if(numBean.getData().getAccomplishedNum() == 0){
-                                        tvAllOrder.setVisibility(View.GONE);
-                                    }else {
-                                        tvAllOrder.setVisibility(View.VISIBLE);
-                                        tvAllOrder.setText(numBean.getData().getAccomplishedNum()+"");
-                                    }
+                                    new QBadgeView(getContext())
+                                            .bindTarget(tvDaifukuanNum)
+                                            .setShowShadow(false)
+                                            .setBadgeGravity(Gravity.START|Gravity.BOTTOM)
+                                            .setBadgeTextSize(10, true)
+                                            .setBadgeNumber(numBean.getData().getUnpaidNum());
+                                    new QBadgeView(getContext())
+                                            .bindTarget(tvDaishouhuoNum)
+                                            .setShowShadow(false)
+                                            .setBadgeGravity(Gravity.START|Gravity.BOTTOM)
+                                            .setBadgeTextSize(10, true)
+                                            .setBadgeNumber(numBean.getData().getShippedNum());
+                                    new QBadgeView(getContext())
+                                            .bindTarget(tvDaipingjiaNum)
+                                            .setShowShadow(false)
+                                            .setBadgeGravity(Gravity.START|Gravity.BOTTOM)
+                                            .setBadgeTextSize(10, true)
+                                            .setBadgeNumber(numBean.getData().getNotEvaluatedNum());
+                                    new QBadgeView(getContext())
+                                            .bindTarget(tvTuikuanNum)
+                                            .setShowShadow(false)
+                                            .setBadgeGravity(Gravity.START|Gravity.BOTTOM)
+                                            .setBadgeTextSize(10, true)
+                                            .setBadgeNumber(numBean.getData().getCancelledNum());
+                                    new QBadgeView(getContext())
+                                            .bindTarget(tvAllOrder)
+                                            .setShowShadow(false)
+                                            .setBadgeGravity(Gravity.START|Gravity.BOTTOM)
+                                            .setBadgeTextSize(10, true)
+                                            .setBadgeNumber(numBean.getData().getAccomplishedNum());
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

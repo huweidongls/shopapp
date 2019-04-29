@@ -198,19 +198,16 @@
                     </LinearLayout>
 
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/tv_daifukuan_num"
                         android:layout_marginBottom="-8dp"
                         android:layout_marginLeft="-8dp"
-                        android:background="@drawable/bg_ff0004_8dp"
                         android:gravity="center"
                         android:textSize="11sp"
                         android:layout_above="@+id/ll_daifukuan"
                         android:layout_toRightOf="@+id/ll_daifukuan"
                         android:textColor="#ffffff"
-                        android:text="10"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp" />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                 </RelativeLayout>
 
@@ -245,19 +242,16 @@
                     </LinearLayout>
 
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/tv_daishouhuo_num"
                         android:layout_marginBottom="-8dp"
                         android:layout_marginLeft="-8dp"
-                        android:background="@drawable/bg_ff0004_8dp"
                         android:gravity="center"
                         android:textSize="11sp"
                         android:layout_above="@+id/ll_daishouhuo"
                         android:layout_toRightOf="@+id/ll_daishouhuo"
                         android:textColor="#ffffff"
-                        android:text="10"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp" />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                 </RelativeLayout>
 
@@ -292,19 +286,16 @@
                     </LinearLayout>
 
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/tv_daipingjia_num"
                         android:layout_marginBottom="-8dp"
                         android:layout_marginLeft="-8dp"
-                        android:background="@drawable/bg_ff0004_8dp"
                         android:gravity="center"
                         android:textSize="11sp"
                         android:layout_above="@+id/ll_comment"
                         android:layout_toRightOf="@+id/ll_comment"
                         android:textColor="#ffffff"
-                        android:text="10"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp" />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                 </RelativeLayout>
 
@@ -339,19 +330,16 @@
                     </LinearLayout>
 
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/tv_tuikuan_num"
                         android:layout_marginBottom="-8dp"
                         android:layout_marginLeft="-8dp"
-                        android:background="@drawable/bg_ff0004_8dp"
                         android:gravity="center"
                         android:textSize="11sp"
                         android:layout_above="@+id/ll_tuikuan"
                         android:layout_toRightOf="@+id/ll_tuikuan"
                         android:textColor="#ffffff"
-                        android:text="10"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp" />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                 </RelativeLayout>
 
@@ -386,19 +374,16 @@
                     </LinearLayout>
 
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/tv_all_order"
                         android:layout_marginBottom="-8dp"
                         android:layout_marginLeft="-8dp"
-                        android:background="@drawable/bg_ff0004_8dp"
                         android:gravity="center"
                         android:textSize="11sp"
                         android:layout_above="@+id/ll_my_order"
                         android:layout_toRightOf="@+id/ll_my_order"
                         android:textColor="#ffffff"
-                        android:text="10"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp" />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                 </RelativeLayout>
 

@@ -66,4 +66,6 @@ dependencies {
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     implementation files('libs/alipaySdk-20180601.jar')
     implementation 'top.zibin:Luban:1.1.8'
+    compile 'q.rorbin:badgeview:1.1.2'
+    compile project(':library')
 }

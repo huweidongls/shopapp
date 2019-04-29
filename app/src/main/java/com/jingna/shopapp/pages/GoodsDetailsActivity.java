@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.GoodsDetailsViewpagerAdapter;
@@ -47,6 +49,12 @@ public class GoodsDetailsActivity extends BaseActivity {
     MagicIndicator magicIndicator;
     @BindView(R.id.vp)
     ViewPager mViewPager;
+    @BindView(R.id.rl_back)
+    RelativeLayout rlBack;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.rl_top)
+    RelativeLayout rlTop;
 
     private FragmentManager mFragmentManager;
     private GoodsDetailsViewpagerAdapter mViewPagerFragmentAdapter;
@@ -66,7 +74,7 @@ public class GoodsDetailsActivity extends BaseActivity {
         goodsNum = getIntent().getIntExtra("goodsnum", 1);
         signJson = getIntent().getStringExtra("attr");
         id = getIntent().getStringExtra("id");
-        StatusBarUtils.setStatusBar(GoodsDetailsActivity.this, getResources().getColor(R.color.statusbar_color));
+        StatusBarUtils.setStatusBarTransparent(GoodsDetailsActivity.this);
         ButterKnife.bind(GoodsDetailsActivity.this);
         mFragmentManager = getSupportFragmentManager();
         initData();
@@ -75,6 +83,22 @@ public class GoodsDetailsActivity extends BaseActivity {
 
     public void toCommentFragment(){
         mViewPager.setCurrentItem(2);
+    }
+
+    public RelativeLayout getRlBack(){
+        return rlBack;
+    }
+
+    public ImageView getIvBack(){
+        return ivBack;
+    }
+
+    public MagicIndicator getMagic(){
+        return magicIndicator;
+    }
+
+    public RelativeLayout getRlTop(){
+        return rlTop;
     }
 
     private void initData() {

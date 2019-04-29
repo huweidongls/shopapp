@@ -86,14 +86,14 @@ public class PersonInformationActivity extends BaseActivity {
                             if(jsonObject.optString("status").equals("200")){
                                 Gson gson = new Gson();
                                 GetOneBean bean = gson.fromJson(data, GetOneBean.class);
-                                Glide.with(context).load(Const.BASE_URL+bean.getData().getHeadPhoto()).into(ivAvatar);
-                                tvNickname.setText(bean.getData().getMemName());
-                                if(bean.getData().getGender().equals("0")){
+                                Glide.with(context).load(Const.BASE_URL+bean.getData().getMemberUserInfo().getHeadPhoto()).into(ivAvatar);
+                                tvNickname.setText(bean.getData().getMemberUserInfo().getMemName());
+                                if(bean.getData().getMemberUserInfo().getGender().equals("0")){
                                     tvSex.setText("男");
                                 }else {
                                     tvSex.setText("女");
                                 }
-                                tvBirthday.setText(bean.getData().getMemBirthday());
+                                tvBirthday.setText(bean.getData().getMemberUserInfo().getMemBirthday());
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

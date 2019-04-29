@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,17 +29,23 @@ import com.jingna.shopapp.base.BaseFragment;
 import com.jingna.shopapp.bean.FragmentGoodsBean;
 import com.jingna.shopapp.bean.FragmentGoodsSelectPopBean;
 import com.jingna.shopapp.bean.GoodsSelectResultBean;
+import com.jingna.shopapp.bean.RichTextBean;
 import com.jingna.shopapp.pages.CommitOrderActivity;
 import com.jingna.shopapp.pages.GoodsDetailsActivity;
 import com.jingna.shopapp.pages.SMSLoginActivity;
 import com.jingna.shopapp.pages.ShopIndexActivity;
 import com.jingna.shopapp.receiver.Logger;
 import com.jingna.shopapp.util.Const;
+import com.jingna.shopapp.util.HtmlFromUtils;
 import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.ToastUtil;
+import com.jingna.shopapp.widget.ISlideCallback;
+import com.jingna.shopapp.widget.ObservableScrollView;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.youth.banner.Banner;
+
+import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,13 +58,16 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bleu.widget.slidedetails.SlideDetailsLayout;
 
 /**
  * Created by Administrator on 2019/2/20.
  */
 
-public class FragmentGoods extends BaseFragment {
+public class FragmentGoods extends BaseFragment implements ISlideCallback {
 
+    @BindView(R.id.scrollView)
+    ObservableScrollView scrollView;
     @BindView(R.id.rv_comment)
     RecyclerView recyclerView;
     @BindView(R.id.banner)
@@ -80,6 +90,22 @@ public class FragmentGoods extends BaseFragment {
     TextView tvHasSelect;
     @BindView(R.id.iv_follow)
     ImageView ivFollow;
+    @BindView(R.id.slidedetails)
+    SlideDetailsLayout mSlideDetailsLayout;
+    @BindView(R.id.tv1)
+    TextView tv1;
+    @BindView(R.id.tv2)
+    TextView tv2;
+    @BindView(R.id.tv3)
+    TextView tv3;
+    @BindView(R.id.ll1)
+    LinearLayout ll1;
+    @BindView(R.id.rl2)
+    RelativeLayout rl2;
+    @BindView(R.id.rl3)
+    RelativeLayout rl3;
+    @BindView(R.id.tv_rl2)
+    TextView tvRl2;
 
     private FragmentGoodsDetailsCommentListAdapter adapter;
     private List<FragmentGoodsBean.DataBean.CommentListBean> mList;
@@ -131,10 +157,82 @@ public class FragmentGoods extends BaseFragment {
         }
         signMap = new HashMap<>();
         ButterKnife.bind(this, view);
+        initView();
         initData();
+        initDetails();
         initSelect();
 
         return view;
+    }
+
+    private void initView() {
+
+        GoodsDetailsActivity goodsDetailsActivity = (GoodsDetailsActivity) getActivity();
+        final RelativeLayout rlBack = goodsDetailsActivity.getRlBack();
+        final ImageView ivBack = goodsDetailsActivity.getIvBack();
+        final MagicIndicator magicIndicator = goodsDetailsActivity.getMagic();
+        final RelativeLayout rlTop = goodsDetailsActivity.getRlTop();
+
+        scrollView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
+            @Override
+            public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
+                if (y <= 0) {
+                    rlTop.setBackgroundColor(Color.argb((int) 0, 255, 255, 255));//AGB由相关工具获得，或者美工提供
+//                    StatusBarUtils.setStatusBarTransparent(getActivity());
+                    rlBack.setBackgroundResource(R.drawable.bg_42000000_round);
+                    Glide.with(getContext()).load(R.mipmap.backff).into(ivBack);
+                } else if (y > 0 && y <= 888) {
+                    float scale = (float) y / 888;
+                    float alpha = (255 * scale);
+                    // 只是layout背景透明
+                    rlTop.setBackgroundColor(Color.argb((int) alpha, 255, 255, 255));
+//                    StatusBarUtils.setStatusBar(getActivity(), Color.argb((int) alpha, 255, 255, 255));
+                } else {
+                    rlTop.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
+//                    StatusBarUtils.setStatusBar(getActivity(), Color.argb((int) 255, 255, 255, 255));
+                    rlBack.setBackgroundResource(R.drawable.bg_ffffff_round);
+                    Glide.with(getContext()).load(R.mipmap.back_b).into(ivBack);
+                }
+            }
+        });
+
+    }
+
+    private void initDetails() {
+
+        ViseHttp.GET("/AppGoodsShop/richText")
+                .addParam("goodsId", id)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                RichTextBean textBean = gson.fromJson(data, RichTextBean.class);
+                                HtmlFromUtils.setTextFromHtml(getActivity(), tvRl2, textBean.getData().getDetailMobileHtml());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
+    }
+
+    @Override
+    public void openDetails(boolean smooth) {
+        mSlideDetailsLayout.smoothOpen(smooth);
+    }
+
+    @Override
+    public void closeDetails(boolean smooth) {
+        mSlideDetailsLayout.smoothClose(smooth);
     }
 
     private void initData() {
@@ -452,7 +550,7 @@ public class FragmentGoods extends BaseFragment {
     }
 
     @OnClick({R.id.rl_select, R.id.tv_buy, R.id.tv_insert_car, R.id.iv_follow, R.id.rl_to_shop, R.id.tv_all_comment
-    , R.id.ll_shop})
+    , R.id.ll_shop, R.id.tv1, R.id.tv2, R.id.tv3})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -498,6 +596,30 @@ public class FragmentGoods extends BaseFragment {
                 intent.setClass(getContext(), ShopIndexActivity.class);
                 intent.putExtra("sellerId", goodsBean.getData().getShopGoods().getSellerId()+"");
                 startActivity(intent);
+                break;
+            case R.id.tv1:
+                tv1.setTextColor(Color.parseColor("#FF0004"));
+                tv2.setTextColor(Color.parseColor("#686868"));
+                tv3.setTextColor(Color.parseColor("#686868"));
+                ll1.setVisibility(View.VISIBLE);
+                rl2.setVisibility(View.GONE);
+                rl3.setVisibility(View.GONE);
+                break;
+            case R.id.tv2:
+                tv1.setTextColor(Color.parseColor("#686868"));
+                tv2.setTextColor(Color.parseColor("#FF0004"));
+                tv3.setTextColor(Color.parseColor("#686868"));
+                ll1.setVisibility(View.GONE);
+                rl2.setVisibility(View.VISIBLE);
+                rl3.setVisibility(View.GONE);
+                break;
+            case R.id.tv3:
+                tv1.setTextColor(Color.parseColor("#686868"));
+                tv2.setTextColor(Color.parseColor("#686868"));
+                tv3.setTextColor(Color.parseColor("#FF0004"));
+                ll1.setVisibility(View.GONE);
+                rl2.setVisibility(View.GONE);
+                rl3.setVisibility(View.VISIBLE);
                 break;
         }
     }

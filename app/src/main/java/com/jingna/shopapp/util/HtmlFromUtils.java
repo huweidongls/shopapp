@@ -136,7 +136,7 @@ public class HtmlFromUtils {
                 ImageSpan[] images = output.getSpans(len - 1, len, ImageSpan.class);
                 String imgURL = images[0].getSource();
                 // 使图片可点击并监听点击事件
-                output.setSpan(new URLTagHandler.ClickableImage(mContext, imgURL), len - 1, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                output.setSpan(new URLTagHandler.ClickableImage(mContext, imgURL), len - 1, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
 

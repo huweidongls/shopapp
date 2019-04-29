@@ -8,7 +8,7 @@ public class GetOneBean {
 
     /**
      * status : 200
-     * data : {"id":30,"gender":"0","memBirthday":"2019-02-08","memName":"哈哈哈","headPhoto":"/upload/9b32751e38da4654823e4b39712fead1.png","username":"18686817319","password":"e10adc3949ba59abbe56e057f20f883e","status":0,"phoneNum":"18686817319","newTime":"2019-02-27T08:21:43.000+0000"}
+     * data : {"goodsNum":1,"sellerNum":1,"browseRecord":4,"memberUserInfo":{"id":30,"gender":"0","memBirthday":"2019-02-08","memName":"嘻嘻","headPhoto":"/upload/9cede2d9bea8444d90177dc111983eca.png","username":"18686817319","password":"25f9e794323b453885f5181f1b624d0b","memBalance":"123","memIntegral":"10000","phoneNum":"18686817319","newTime":"2019年03月04日"}}
      */
 
     private String status;
@@ -32,38 +32,23 @@ public class GetOneBean {
 
     public static class DataBean {
         /**
-         * id : 30
-         * gender : 0
-         * memBirthday : 2019-02-08
-         * memName : 哈哈哈
-         * headPhoto : /upload/9b32751e38da4654823e4b39712fead1.png
-         * username : 18686817319
-         * password : e10adc3949ba59abbe56e057f20f883e
-         * status : 0
-         * phoneNum : 18686817319
-         * newTime : 2019-02-27T08:21:43.000+0000
+         * goodsNum : 1
+         * sellerNum : 1
+         * browseRecord : 4
+         * memberUserInfo : {"id":30,"gender":"0","memBirthday":"2019-02-08","memName":"嘻嘻","headPhoto":"/upload/9cede2d9bea8444d90177dc111983eca.png","username":"18686817319","password":"25f9e794323b453885f5181f1b624d0b","memBalance":"123","memIntegral":"10000","phoneNum":"18686817319","newTime":"2019年03月04日"}
          */
 
-        private int id;
-        private String gender;
-        private String memBirthday;
-        private String memName;
-        private String headPhoto;
-        private String username;
-        private String password;
-        private int status;
-        private String phoneNum;
-        private String newTime;
         private int goodsNum;
         private int sellerNum;
         private int browseRecord;
+        private MemberUserInfoBean memberUserInfo;
 
-        public int getBrowseRecord() {
-            return browseRecord;
+        public int getGoodsNum() {
+            return goodsNum;
         }
 
-        public void setBrowseRecord(int browseRecord) {
-            this.browseRecord = browseRecord;
+        public void setGoodsNum(int goodsNum) {
+            this.goodsNum = goodsNum;
         }
 
         public int getSellerNum() {
@@ -74,92 +59,136 @@ public class GetOneBean {
             this.sellerNum = sellerNum;
         }
 
-        public int getGoodsNum() {
-            return goodsNum;
+        public int getBrowseRecord() {
+            return browseRecord;
         }
 
-        public void setGoodsNum(int goodsNum) {
-            this.goodsNum = goodsNum;
+        public void setBrowseRecord(int browseRecord) {
+            this.browseRecord = browseRecord;
         }
 
-        public int getId() {
-            return id;
+        public MemberUserInfoBean getMemberUserInfo() {
+            return memberUserInfo;
         }
 
-        public void setId(int id) {
-            this.id = id;
+        public void setMemberUserInfo(MemberUserInfoBean memberUserInfo) {
+            this.memberUserInfo = memberUserInfo;
         }
 
-        public String getGender() {
-            return gender;
-        }
+        public static class MemberUserInfoBean {
+            /**
+             * id : 30
+             * gender : 0
+             * memBirthday : 2019-02-08
+             * memName : 嘻嘻
+             * headPhoto : /upload/9cede2d9bea8444d90177dc111983eca.png
+             * username : 18686817319
+             * password : 25f9e794323b453885f5181f1b624d0b
+             * memBalance : 123
+             * memIntegral : 10000
+             * phoneNum : 18686817319
+             * newTime : 2019年03月04日
+             */
 
-        public void setGender(String gender) {
-            this.gender = gender;
-        }
+            private int id;
+            private String gender;
+            private String memBirthday;
+            private String memName;
+            private String headPhoto;
+            private String username;
+            private String password;
+            private String memBalance;
+            private String memIntegral;
+            private String phoneNum;
+            private String newTime;
 
-        public String getMemBirthday() {
-            return memBirthday;
-        }
+            public int getId() {
+                return id;
+            }
 
-        public void setMemBirthday(String memBirthday) {
-            this.memBirthday = memBirthday;
-        }
+            public void setId(int id) {
+                this.id = id;
+            }
 
-        public String getMemName() {
-            return memName;
-        }
+            public String getGender() {
+                return gender;
+            }
 
-        public void setMemName(String memName) {
-            this.memName = memName;
-        }
+            public void setGender(String gender) {
+                this.gender = gender;
+            }
 
-        public String getHeadPhoto() {
-            return headPhoto;
-        }
+            public String getMemBirthday() {
+                return memBirthday;
+            }
 
-        public void setHeadPhoto(String headPhoto) {
-            this.headPhoto = headPhoto;
-        }
+            public void setMemBirthday(String memBirthday) {
+                this.memBirthday = memBirthday;
+            }
 
-        public String getUsername() {
-            return username;
-        }
+            public String getMemName() {
+                return memName;
+            }
 
-        public void setUsername(String username) {
-            this.username = username;
-        }
+            public void setMemName(String memName) {
+                this.memName = memName;
+            }
 
-        public String getPassword() {
-            return password;
-        }
+            public String getHeadPhoto() {
+                return headPhoto;
+            }
 
-        public void setPassword(String password) {
-            this.password = password;
-        }
+            public void setHeadPhoto(String headPhoto) {
+                this.headPhoto = headPhoto;
+            }
 
-        public int getStatus() {
-            return status;
-        }
+            public String getUsername() {
+                return username;
+            }
 
-        public void setStatus(int status) {
-            this.status = status;
-        }
+            public void setUsername(String username) {
+                this.username = username;
+            }
 
-        public String getPhoneNum() {
-            return phoneNum;
-        }
+            public String getPassword() {
+                return password;
+            }
 
-        public void setPhoneNum(String phoneNum) {
-            this.phoneNum = phoneNum;
-        }
+            public void setPassword(String password) {
+                this.password = password;
+            }
 
-        public String getNewTime() {
-            return newTime;
-        }
+            public String getMemBalance() {
+                return memBalance;
+            }
 
-        public void setNewTime(String newTime) {
-            this.newTime = newTime;
+            public void setMemBalance(String memBalance) {
+                this.memBalance = memBalance;
+            }
+
+            public String getMemIntegral() {
+                return memIntegral;
+            }
+
+            public void setMemIntegral(String memIntegral) {
+                this.memIntegral = memIntegral;
+            }
+
+            public String getPhoneNum() {
+                return phoneNum;
+            }
+
+            public void setPhoneNum(String phoneNum) {
+                this.phoneNum = phoneNum;
+            }
+
+            public String getNewTime() {
+                return newTime;
+            }
+
+            public void setNewTime(String newTime) {
+                this.newTime = newTime;
+            }
         }
     }
 }

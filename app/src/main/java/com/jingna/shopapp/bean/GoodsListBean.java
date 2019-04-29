@@ -74,6 +74,15 @@ public class GoodsListBean {
         private String favorableRate;
         private String commentCount;
         private String sellerName;
+        private String keywords;
+
+        public String getKeywords() {
+            return keywords;
+        }
+
+        public void setKeywords(String keywords) {
+            this.keywords = keywords;
+        }
 
         public int getSellerId() {
             return sellerId;
