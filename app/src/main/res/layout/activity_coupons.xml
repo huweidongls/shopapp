@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F9F9FB"
+    tools:context="com.jingna.shopapp.pages.CouponsActivity">
+
+    <RelativeLayout
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/iv_top_back" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="优惠券"
+            style="@style/tv_top_title" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:background="@color/white_ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_not_use"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:textColor="@color/black_333333"
+                android:textSize="15sp"
+                android:text="未使用(2)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:id="@+id/view_not_use"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:background="#FF0004"
+                android:layout_width="67dp"
+                android:layout_height="3dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_use_record"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black_333333"
+                android:textSize="15sp"
+                android:text="使用记录(2)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:id="@+id/view_use_record"
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:background="#FF0004"
+                android:layout_width="67dp"
+                android:layout_height="3dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_expired"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black_333333"
+                android:textSize="15sp"
+                android:text="已过期(2)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:id="@+id/view_expired"
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:background="#FF0004"
+                android:layout_width="67dp"
+                android:layout_height="3dp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

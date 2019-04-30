@@ -23,6 +23,7 @@ import com.jingna.shopapp.bean.FindOrderStatusNumBean;
 import com.jingna.shopapp.bean.GetOneBean;
 import com.jingna.shopapp.bean.IndexGoodsBean;
 import com.jingna.shopapp.pages.AddressActivity;
+import com.jingna.shopapp.pages.CouponsActivity;
 import com.jingna.shopapp.pages.EditPayActivity;
 import com.jingna.shopapp.pages.EditPhoneNum1Activity;
 import com.jingna.shopapp.pages.EditPwdActivity;
@@ -302,6 +303,13 @@ public class FragmentWode extends Fragment {
 //                    SpUtils.clear(getContext());
 //                    onStart();
 //                }
+                if(userId.equals("0")){
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), CouponsActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.iv_avatar:
                 if(userId.equals("0")){

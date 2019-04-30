@@ -157,7 +157,7 @@ public class FragmentGoods extends BaseFragment implements ISlideCallback {
         }
         signMap = new HashMap<>();
         ButterKnife.bind(this, view);
-        initView();
+//        initView();
         initData();
         initDetails();
         initSelect();
