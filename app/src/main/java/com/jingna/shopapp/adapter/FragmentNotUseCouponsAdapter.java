@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.bean.AppCouponBean;
 
 import java.util.List;
 
@@ -17,9 +19,9 @@ import java.util.List;
 public class FragmentNotUseCouponsAdapter extends RecyclerView.Adapter<FragmentNotUseCouponsAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<AppCouponBean.DataBean> data;
 
-    public FragmentNotUseCouponsAdapter(List<String> data) {
+    public FragmentNotUseCouponsAdapter(List<AppCouponBean.DataBean> data) {
         this.data = data;
     }
 
@@ -33,7 +35,18 @@ public class FragmentNotUseCouponsAdapter extends RecyclerView.Adapter<FragmentN
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.tvPrice.setText(data.get(position).getSumDiscount());
+        holder.tvMaxPrice.setText("满"+data.get(position).getMaxMoney()+"元可用");
+        holder.tvName.setText(data.get(position).getCouponName());
+        holder.tvTime.setText(data.get(position).getValidTime()+"-"+data.get(position).getOverDueTime());
+        String usageMode = data.get(position).getUsageMode();
+        if(usageMode.equals("0")){
+            holder.tvType.setText("全场通用");
+        }else if(usageMode.equals("1")){
+            holder.tvType.setText("指定分类");
+        }else if(usageMode.equals("2")){
+            holder.tvType.setText("指定商品");
+        }
     }
 
     @Override
@@ -43,8 +56,19 @@ public class FragmentNotUseCouponsAdapter extends RecyclerView.Adapter<FragmentN
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
+        private TextView tvPrice;
+        private TextView tvMaxPrice;
+        private TextView tvName;
+        private TextView tvTime;
+        private TextView tvType;
+
         public ViewHolder(View itemView) {
             super(itemView);
+            tvPrice = itemView.findViewById(R.id.tv_price);
+            tvMaxPrice = itemView.findViewById(R.id.tv_max_price);
+            tvName = itemView.findViewById(R.id.tv_name);
+            tvTime = itemView.findViewById(R.id.tv_time);
+            tvType = itemView.findViewById(R.id.tv_type);
         }
     }
 

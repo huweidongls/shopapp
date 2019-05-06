@@ -8,11 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.FragmentNotUseCouponsAdapter;
 import com.jingna.shopapp.base.BaseFragment;
+import com.jingna.shopapp.bean.AppCouponBean;
+import com.jingna.shopapp.util.SpUtils;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,7 +35,7 @@ public class FragmentNotUseCoupons extends BaseFragment {
     RecyclerView recyclerView;
 
     private FragmentNotUseCouponsAdapter adapter;
-    private List<String> mList;
+    private List<AppCouponBean.DataBean> mList;
 
     @Nullable
     @Override
@@ -43,15 +50,34 @@ public class FragmentNotUseCoupons extends BaseFragment {
 
     private void initData() {
 
-        mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        adapter = new FragmentNotUseCouponsAdapter(mList);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
+        ViseHttp.GET("/AppCoupon/queryList")
+                .addParam("memberId", SpUtils.getUserId(getContext()))
+                .addParam("type", "0")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                AppCouponBean couponBean = gson.fromJson(data, AppCouponBean.class);
+                                mList = couponBean.getData();
+                                adapter = new FragmentNotUseCouponsAdapter(mList);
+                                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                                recyclerView.setLayoutManager(manager);
+                                recyclerView.setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 

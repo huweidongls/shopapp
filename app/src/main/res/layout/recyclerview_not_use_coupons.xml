@@ -37,6 +37,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:id="@+id/tv_price"
                         android:textSize="43sp"
                         android:text="20"
                         android:textColor="#FF0004"
@@ -46,6 +47,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_max_price"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:layout_below="@+id/ll_price"
@@ -66,6 +68,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_type"
                     android:gravity="center"
                     android:background="@drawable/bg_ff0004_8dp_pad_7dp"
                     android:textColor="@color/white_ffffff"
@@ -75,6 +78,7 @@
                     android:layout_height="16dp" />
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:ellipsize="end"
                     android:lines="2"
                     android:textColor="@color/black_333333"
@@ -87,6 +91,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_time"
                 android:layout_marginLeft="122dp"
                 android:layout_marginTop="52dp"
                 android:textColor="@color/black_333333"
