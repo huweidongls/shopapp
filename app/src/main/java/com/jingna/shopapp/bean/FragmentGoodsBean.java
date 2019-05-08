@@ -92,6 +92,15 @@ public class FragmentGoodsBean implements Serializable {
             private String followSellerNum;
             private String appSellerLogo;
             private String memberStatus;
+            private int categoryId;
+
+            public int getCategoryId() {
+                return categoryId;
+            }
+
+            public void setCategoryId(int categoryId) {
+                this.categoryId = categoryId;
+            }
 
             public int getSellerId() {
                 return sellerId;

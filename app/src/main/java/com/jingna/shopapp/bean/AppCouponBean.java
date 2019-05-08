@@ -56,6 +56,15 @@ public class AppCouponBean {
         private String overDueTime;
         private String usageMode;
         private String goodsId;
+        private String categoryId;
+
+        public String getCategoryId() {
+            return categoryId;
+        }
+
+        public void setCategoryId(String categoryId) {
+            this.categoryId = categoryId;
+        }
 
         public String getCouponId() {
             return couponId;

@@ -9,13 +9,21 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jingna.shopapp.R;
 import com.jingna.shopapp.adapter.GoodsDetailsViewpagerAdapter;
 import com.jingna.shopapp.base.BaseActivity;
+import com.jingna.shopapp.bean.AppCouponNumBean;
 import com.jingna.shopapp.fragment.FragmentExpiredCoupons;
 import com.jingna.shopapp.fragment.FragmentNotUseCoupons;
 import com.jingna.shopapp.fragment.FragmentUseRecordCoupons;
+import com.jingna.shopapp.util.SpUtils;
 import com.jingna.shopapp.util.StatusBarUtils;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +68,31 @@ public class CouponsActivity extends BaseActivity {
     }
 
     private void initData() {
+
+        ViseHttp.GET("/AppCoupon/getNum")
+                .addParam("memberId", SpUtils.getUserId(context))
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                AppCouponNumBean numBean = gson.fromJson(data, AppCouponNumBean.class);
+                                tvNotUse.setText("未使用("+numBean.getData().getAlreadyNum()+")");
+                                tvUseRecord.setText("使用记录("+numBean.getData().getIsAlreadyNum()+")");
+                                tvExpired.setText("已过期("+numBean.getData().getIsOverdueNum()+")");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
         fragmentList = new ArrayList<>();
         fragmentList.add(new FragmentNotUseCoupons());

@@ -35,8 +35,19 @@ public class FragmentNotUseCouponsAdapter extends RecyclerView.Adapter<FragmentN
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tvPrice.setText(data.get(position).getSumDiscount());
-        holder.tvMaxPrice.setText("满"+data.get(position).getMaxMoney()+"元可用");
+        if(data.get(position).getType().equals("0")){
+            holder.tvRmb.setVisibility(View.VISIBLE);
+            holder.tvPrice.setVisibility(View.VISIBLE);
+            holder.tvDiscount.setVisibility(View.GONE);
+            holder.tvPrice.setText(data.get(position).getSumDiscount());
+            holder.tvMaxPrice.setText("满"+data.get(position).getMaxMoney()+"元可用");
+        }else if(data.get(position).getType().equals("1")){
+            holder.tvRmb.setVisibility(View.GONE);
+            holder.tvPrice.setVisibility(View.GONE);
+            holder.tvDiscount.setVisibility(View.VISIBLE);
+            holder.tvDiscount.setText(Double.valueOf(data.get(position).getParameter())*10+"折");
+            holder.tvMaxPrice.setText("最高抵"+data.get(position).getSumDiscount()+"元");
+        }
         holder.tvName.setText(data.get(position).getCouponName());
         holder.tvTime.setText(data.get(position).getValidTime()+"-"+data.get(position).getOverDueTime());
         String usageMode = data.get(position).getUsageMode();
@@ -61,6 +72,8 @@ public class FragmentNotUseCouponsAdapter extends RecyclerView.Adapter<FragmentN
         private TextView tvName;
         private TextView tvTime;
         private TextView tvType;
+        private TextView tvRmb;
+        private TextView tvDiscount;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -69,6 +82,8 @@ public class FragmentNotUseCouponsAdapter extends RecyclerView.Adapter<FragmentN
             tvName = itemView.findViewById(R.id.tv_name);
             tvTime = itemView.findViewById(R.id.tv_time);
             tvType = itemView.findViewById(R.id.tv_type);
+            tvRmb = itemView.findViewById(R.id.tv_rmb);
+            tvDiscount = itemView.findViewById(R.id.tv_discount);
         }
     }
 

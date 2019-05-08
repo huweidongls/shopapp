@@ -16,25 +16,27 @@ import java.util.List;
  * Created by Administrator on 2019/4/30.
  */
 
-public class FragmentUseRecordCouponsAdapter extends RecyclerView.Adapter<FragmentUseRecordCouponsAdapter.ViewHolder> {
+public class CommitOrderCouponsAdapter extends RecyclerView.Adapter<CommitOrderCouponsAdapter.ViewHolder> {
 
     private Context context;
     private List<AppCouponBean.DataBean> data;
+    private ClickListener listener;
 
-    public FragmentUseRecordCouponsAdapter(List<AppCouponBean.DataBean> data) {
+    public CommitOrderCouponsAdapter(List<AppCouponBean.DataBean> data, ClickListener listener) {
         this.data = data;
+        this.listener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_use_record_coupons, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_not_use_coupons, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         if(data.get(position).getType().equals("0")){
             holder.tvRmb.setVisibility(View.VISIBLE);
             holder.tvPrice.setVisibility(View.VISIBLE);
@@ -58,6 +60,12 @@ public class FragmentUseRecordCouponsAdapter extends RecyclerView.Adapter<Fragme
         }else if(usageMode.equals("2")){
             holder.tvType.setText("指定商品");
         }
+        holder.tvUse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onUse(position);
+            }
+        });
     }
 
     @Override
@@ -74,6 +82,7 @@ public class FragmentUseRecordCouponsAdapter extends RecyclerView.Adapter<Fragme
         private TextView tvType;
         private TextView tvRmb;
         private TextView tvDiscount;
+        private TextView tvUse;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -84,7 +93,12 @@ public class FragmentUseRecordCouponsAdapter extends RecyclerView.Adapter<Fragme
             tvType = itemView.findViewById(R.id.tv_type);
             tvRmb = itemView.findViewById(R.id.tv_rmb);
             tvDiscount = itemView.findViewById(R.id.tv_discount);
+            tvUse = itemView.findViewById(R.id.tv_use);
         }
+    }
+
+    public interface ClickListener{
+        void onUse(int pos);
     }
 
 }

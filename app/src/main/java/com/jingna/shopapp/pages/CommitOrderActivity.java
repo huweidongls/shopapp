@@ -4,13 +4,20 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,8 +25,10 @@ import com.alipay.sdk.app.PayTask;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jingna.shopapp.R;
+import com.jingna.shopapp.adapter.CommitOrderCouponsAdapter;
 import com.jingna.shopapp.base.BaseActivity;
 import com.jingna.shopapp.bean.AddressBean;
+import com.jingna.shopapp.bean.AppCouponBean;
 import com.jingna.shopapp.bean.CommitOrderZhifubaoBean;
 import com.jingna.shopapp.bean.FragmentGoodsBean;
 import com.jingna.shopapp.util.Const;
@@ -33,6 +42,7 @@ import com.vise.xsnow.http.callback.ACallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -66,6 +76,8 @@ public class CommitOrderActivity extends BaseActivity {
     TextView tvRecieveAddress;
     @BindView(R.id.tv_invoice)
     TextView tvInvoice;
+    @BindView(R.id.tv_coupons)
+    TextView tvCoupons;
 
     private int goodsNum = 1;
 
@@ -80,6 +92,12 @@ public class CommitOrderActivity extends BaseActivity {
     private double goodsPrice;
     private Map<String, String> map;//发票map
     private int invoiceId = 0;//是否开发票，0不开，1开
+    private String couponId = "";//优惠券id
+
+    private PopupWindow popupWindow;
+    private CommitOrderCouponsAdapter adapter;
+    private List<AppCouponBean.DataBean> mList;
+    private String categoryId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +119,7 @@ public class CommitOrderActivity extends BaseActivity {
 
         tvGoodsNum.setText(goodsNum+"");
         if(goodsBean != null){
+            categoryId = goodsBean.getData().getShopGoods().getCategoryId()+"";
             String pic = goodsBean.getData().getShopGoods().getAppPic();
             if(!TextUtils.isEmpty(pic)){
                 String[] pics = pic.split(",");
@@ -146,7 +165,7 @@ public class CommitOrderActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.rl_jianhao, R.id.rl_jiahao, R.id.tv_commit, R.id.ll_address, R.id.rl_invoice})
+    @OnClick({R.id.rl_back, R.id.rl_jianhao, R.id.rl_jiahao, R.id.tv_commit, R.id.ll_address, R.id.rl_invoice, R.id.rl_coupons})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -180,7 +199,116 @@ public class CommitOrderActivity extends BaseActivity {
                 intent.putExtra("price", goodsPrice*goodsNum);
                 startActivityForResult(intent, 100);
                 break;
+            case R.id.rl_coupons:
+                //优惠券
+                showCouponsPop();
+                break;
         }
+    }
+
+    /**
+     * 显示优惠券pop
+     */
+    private void showCouponsPop() {
+
+        View view = LayoutInflater.from(context).inflate(R.layout.popupwindow_commitorder_coupons, null);
+        final RecyclerView recyclerView = view.findViewById(R.id.rv);
+        mList = new ArrayList<>();
+
+        ViseHttp.GET("/AppCoupon/queryList")
+                .addParam("memberId", SpUtils.getUserId(context))
+                .addParam("type", "0")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                AppCouponBean couponBean = gson.fromJson(data, AppCouponBean.class);
+                                List<AppCouponBean.DataBean> list = couponBean.getData();
+                                for (AppCouponBean.DataBean bean : list){
+                                    if(bean.getUsageMode().equals("0")){
+                                        mList.add(bean);
+                                    }else if(bean.getUsageMode().equals("1")&&bean.getCategoryId().equals(categoryId)){
+                                        mList.add(bean);
+                                    }else if(bean.getUsageMode().equals("2")&&bean.getGoodsId().equals(id)){
+                                        mList.add(bean);
+                                    }
+                                }
+                                adapter = new CommitOrderCouponsAdapter(mList, new CommitOrderCouponsAdapter.ClickListener() {
+                                    @Override
+                                    public void onUse(int pos) {
+                                        tvCoupons.setText("已使用优惠券");
+                                        couponId = mList.get(pos).getCouponId();
+                                        ViseHttp.GET("/AppCoupon/returnPrice")
+                                                .addParam("couponId", couponId)
+                                                .addParam("price", goodsPrice*goodsNum+"")
+                                                .addParam("memberId", SpUtils.getUserId(context))
+                                                .request(new ACallback<String>() {
+                                                    @Override
+                                                    public void onSuccess(String data) {
+                                                        try {
+                                                            JSONObject jsonObject1 = new JSONObject(data);
+                                                            if(jsonObject1.optString("status").equals("200")){
+                                                                double price = jsonObject1.optDouble("data");
+                                                                tvGoodsAllPrice.setText("¥"+price);
+                                                                tvAllPrice.setText("¥"+price);
+                                                            }
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFail(int errCode, String errMsg) {
+
+                                                    }
+                                                });
+                                        popupWindow.dismiss();
+                                    }
+                                });
+                                LinearLayoutManager manager = new LinearLayoutManager(context);
+                                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                                recyclerView.setLayoutManager(manager);
+                                recyclerView.setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
+        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setTouchable(true);
+        popupWindow.setFocusable(true);
+        // 设置点击窗口外边窗口消失
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+//        popupWindow.showAsDropDown(rlPro);
+        // 设置popWindow的显示和消失动画
+        popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style_bottom);
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.alpha = 0.5f;
+        getWindow().setAttributes(params);
+        popupWindow.update();
+
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+            // 在dismiss中恢复透明度
+            public void onDismiss() {
+                WindowManager.LayoutParams params = getWindow().getAttributes();
+                params.alpha = 1f;
+                getWindow().setAttributes(params);
+            }
+        });
+
     }
 
     @Override
@@ -213,6 +341,7 @@ public class CommitOrderActivity extends BaseActivity {
                     .addParam("skuid", skuid)
                     .addParam("num", goodsNum+"")
                     .addParam("invoiceId", "0")
+                    .addParam("couponId", couponId)
                     .request(new ACallback<String>() {
                         @Override
                         public void onSuccess(String data) {
@@ -243,6 +372,7 @@ public class CommitOrderActivity extends BaseActivity {
                     .addParam("skuid", skuid)
                     .addParam("num", goodsNum+"")
                     .addParam("invoiceId", "1")
+                    .addParam("couponId", couponId)
                     .addParams(map)
                     .request(new ACallback<String>() {
                         @Override

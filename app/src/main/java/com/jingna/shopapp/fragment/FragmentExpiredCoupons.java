@@ -53,7 +53,7 @@ public class FragmentExpiredCoupons extends BaseFragment {
 
         ViseHttp.GET("/AppCoupon/queryList")
                 .addParam("memberId", SpUtils.getUserId(getContext()))
-                .addParam("type", "0")
+                .addParam("type", "2")
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
