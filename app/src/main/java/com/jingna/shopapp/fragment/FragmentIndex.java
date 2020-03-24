@@ -306,7 +306,7 @@ public class FragmentIndex extends BaseFragment {
                     @Override
                     public void onSuccess(String data) {
                         try {
-                            Logger.e("12345", data);
+                            Logger.e("12121212", data);
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("status").equals("200")){
                                 Gson gson = new Gson();
